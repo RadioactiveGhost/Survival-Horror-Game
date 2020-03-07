@@ -9,12 +9,18 @@ public class Player : MonoBehaviour
     TerrainGenerator terrainScript;
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool grounded, jumping;
-    void Start()
+
+    private void Awake()
     {
         grounded = true;
-
         myheight = transform.localScale.y * gameObject.GetComponent<CapsuleCollider>().height;
+
         terrainScript = terrain.GetComponent<TerrainGenerator>();
+    }
+
+    void Start()
+    {
+
     }
 
     public void SetPlayerInitialPos()
