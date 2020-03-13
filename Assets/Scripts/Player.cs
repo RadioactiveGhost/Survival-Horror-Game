@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject terrain;
-    public float jumpForce, velocity;
+    public float jumpForce, TimeSecondsCrossMap;
+    float velocity;
     TerrainGenerator terrainScript;
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool grounded, jumping;
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        velocity = (terrainScript.mapSizeX * terrainScript.sizeXtile) / TimeSecondsCrossMap;
     }
 
     public void SetPlayerInitialPos()

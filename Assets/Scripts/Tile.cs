@@ -19,6 +19,9 @@ public class Tile : MonoBehaviour
 
     //Biome biome;
 
+    //TEST
+    public Vector2[] uvs;
+
     public void Initialize(HeightColor[] HeightColors, int sizeXtile, int sizeZtile, Vector3 mainPos, float noiseFrequency, float noiseAmplitude, float maxHeight, float minHeight)
     {
         mesh = new Mesh();
@@ -30,6 +33,7 @@ public class Tile : MonoBehaviour
         vertexes = new Vector3[(sizeXtile + 1) * (sizeZtile + 1)];
         triangles = new int[sizeXtile * sizeZtile * 6];
         colors = new Color[(sizeXtile + 1) * (sizeZtile + 1)];
+        uvs = new Vector2[(sizeXtile + 1) * (sizeZtile + 1)];
         this.noiseAmplitude = noiseAmplitude;
         this.noiseFrequency = noiseFrequency;
         this.maxHeight = maxHeight;
@@ -39,11 +43,19 @@ public class Tile : MonoBehaviour
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
 
         CreateShape(sizeZtile, sizeXtile);
-        texture = CreateTexture();
+        ApplyTexture(CreateTextureFromCurrentColors());
+        //Vertextest();
+    }
+
+    public void ApplyTexture(Texture2D texture)
+    {
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_NORMALMAP");
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_METALLICGLOSSMAP");
+        //texture.filterMode = FilterMode.Point;
+        texture.filterMode = FilterMode.Bilinear;
+        texture.wrapMode = TextureWrapMode.Clamp;
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = texture;
-        //Vertextest();
+        this.texture = texture;
     }
 
     public void Initialize(Material mat) //ONLY USE TO REDO TILE FROM PREMADE ONE
@@ -63,8 +75,8 @@ public class Tile : MonoBehaviour
     {
         mesh.Clear();
         mesh.vertices = vertexes;
+        mesh.uv = uvs;
         mesh.triangles = triangles;
-        //mesh.colors = colors;
         mesh.RecalculateNormals();
         gameObject.GetComponent<MeshCollider>().sharedMesh = null;
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
@@ -72,6 +84,8 @@ public class Tile : MonoBehaviour
 
     public void CreateShape(int sizeZtile, int sizeXtile)
     {
+        //creating vertexes
+
         float seed = Random.Range(0f, 1f);
         for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
         {
@@ -100,6 +114,8 @@ public class Tile : MonoBehaviour
                 }
 
                 vertexes[i] = new Vector3(x, y, z) + mainPos;
+
+                uvs[i] = new Vector2((float)x / (float)sizeXtile, (float)z / (float)sizeZtile);
 
                 i++;
             }
@@ -138,12 +154,6 @@ public class Tile : MonoBehaviour
                     if (y >= HeightColors[k].height)
                     {
                         colors[i] = HeightColors[k].color;
-                        Debug.Log(HeightColors[k].color);
-                    }
-                    else
-                    {
-                        colors[i] = Color.white;
-                        Debug.LogError("Invalid height values for biome colors");
                     }
                 }
                 i++;
@@ -151,7 +161,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public Texture2D CreateTexture()
+    public Texture2D CreateTextureFromCurrentColors()
     {
         Texture2D tex = new Texture2D(sizeXtile, sizeZtile);
         for (int i = 0; i < sizeZtile; i++)
@@ -232,10 +242,10 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void TextureTest(Texture2D texture)
+    public void TextureTest()
     {
-        //gameObject.GetComponent<MeshRenderer>().material.mainTexture = texture;
-        Sprite s = Sprite.Create(this.texture, new Rect(0, 0, this.texture.width, this.texture.height), Vector2.zero);
-        GameObject.FindGameObjectWithTag("Test").GetComponent<Image>().sprite = s;
+        //Sprite s = Sprite.Create(this.texture, new Rect(0, 0, this.texture.width, this.texture.height), Vector2.zero);
+        //GameObject.FindGameObjectWithTag("Test").GetComponent<Image>().sprite = s;
+        GameObject.FindGameObjectWithTag("Test").GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
     }
 }

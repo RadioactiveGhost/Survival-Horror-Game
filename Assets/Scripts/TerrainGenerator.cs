@@ -10,7 +10,7 @@ public class TerrainGenerator : MonoBehaviour
     public Texture2D texture;
 
     public int sizeXtile, sizeZtile, mapSizeX, mapSizeY;
-    public float noiseFrequency, noiseAmplitude;
+    //public float noiseFrequency, noiseAmplitude;
     bool first;
 
     void Awake()
@@ -68,18 +68,24 @@ public class TerrainGenerator : MonoBehaviour
                     plane.name = (i * mapSizeY + j).ToString() + " " + b.biome.ToString();
                     Tile t = plane.AddComponent<Tile>();
                     t.Initialize(b.color, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile), b.Freq, b.Amp, b.MaxY, b.MinY);
-                    //t.TextureTest(texture);
                     map.Add(plane);
 
                     Connect(j, i, t);
+
+                    //Testing Purposes
+                    //t.TextureTest();
                 }
+            }
+            foreach(GameObject g in map)
+            {
+                g.GetComponent<Tile>().UpdateMesh();
             }
             first = false;
         }
         else //Just update map, ignores editor
         {
             int j = 0, i = 0;
-            foreach(GameObject g in map)
+            foreach (GameObject g in map)
             {
                 if (i == mapSizeY)
                 {
@@ -118,7 +124,7 @@ public class TerrainGenerator : MonoBehaviour
                         Vector3 current = t.vertexes[sizeXtile * k + k];
                         Vector3 left = lastVerts.vertexes[k * sizeXtile + k + sizeXtile];
 
-                        Vector3 currentBottom = bottom.vertexes[bottom.vertexes.Length - 1 - sizeXtile]; //seems fine
+                        Vector3 currentBottom = bottom.vertexes[bottom.vertexes.Length - 1 - sizeXtile];
                         Vector3 leftBottom = bottomLeft.vertexes[bottomLeft.vertexes.Length - 1];
 
                         Vector3 result = mediaHeightOne(current, left, currentBottom, leftBottom);
@@ -127,11 +133,6 @@ public class TerrainGenerator : MonoBehaviour
                         lastVerts.vertexes[k * sizeXtile + k + sizeXtile] = result;
                         bottom.vertexes[bottomLeft.vertexes.Length - 1 - sizeXtile] = result;
                         bottomLeft.vertexes[bottom.vertexes.Length - 1] = result;
-
-                        t.UpdateMesh();
-                        lastVerts.UpdateMesh();
-                        bottomLeft.UpdateMesh();
-                        bottom.UpdateMesh();
                     }
 
                     continue;//skip loop (doesn't do code below)
@@ -142,9 +143,6 @@ public class TerrainGenerator : MonoBehaviour
 
                 t.vertexes[sizeXtile * k + k] = height;
                 lastVerts.vertexes[k * sizeXtile + k + sizeXtile] = height;
-
-                t.UpdateMesh();
-                map[i * mapSizeY + j - 1].GetComponent<Tile>().UpdateMesh();
 
                 //TestPoint(t.vertexes[sizeXtile * k + k]);
             }
@@ -166,9 +164,6 @@ public class TerrainGenerator : MonoBehaviour
 
                 t.vertexes[l] = height;
                 map[(i - 1) * mapSizeY + j].GetComponent<Tile>().vertexes[(sizeXtile + 1) * (sizeZtile) + l] = height;
-
-                t.UpdateMesh();
-                map[(i - 1) * mapSizeY + j].GetComponent<Tile>().UpdateMesh();
             }
         }
     }
