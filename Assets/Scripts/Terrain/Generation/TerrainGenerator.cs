@@ -13,6 +13,8 @@ public class TerrainGenerator : MonoBehaviour
     //public float noiseFrequency, noiseAmplitude;
     bool first;
 
+    Spawns spawnManager;
+
     void Awake()
     {
         first = true;
@@ -27,8 +29,13 @@ public class TerrainGenerator : MonoBehaviour
 
     private void Start()
     {
+        spawnManager = new Spawns();
         GenMap();
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos();
+        foreach(GameObject g in map)
+        {
+            spawnManager.Populate(g.GetComponent<Tile>());
+        }
     }
 
     private void Update()
@@ -67,7 +74,7 @@ public class TerrainGenerator : MonoBehaviour
                     GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
                     plane.name = (i * mapSizeY + j).ToString() + " " + b.biome.ToString();
                     Tile t = plane.AddComponent<Tile>();
-                    t.Initialize(b.color, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile), b.Freq, b.Amp, b.MaxY, b.MinY);
+                    t.Initialize(b, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile));
                     map.Add(plane);
 
                     Connect(j, i, t);

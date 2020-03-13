@@ -7,25 +7,32 @@ public class Tile : MonoBehaviour
 {
     Mesh mesh;
 
+    [HideInInspector]
     public Vector3[] vertexes;
     int[] triangles;
     Color[] colors;
     float maxY, minY;
     float noiseFrequency, noiseAmplitude, maxHeight, minHeight;
+    [HideInInspector]
     public Vector3 mainPos;
-    int sizeXtile, sizeZtile;
+    [HideInInspector]
+    public int sizeXtile, sizeZtile;
     HeightColor[] HeightColors;
     Texture2D texture;
+    public List<Spawn> spawns;
 
-    //Biome biome;
+    public BiomeStats biome;
 
     //TEST
     public Vector2[] uvs;
 
-    public void Initialize(HeightColor[] HeightColors, int sizeXtile, int sizeZtile, Vector3 mainPos, float noiseFrequency, float noiseAmplitude, float maxHeight, float minHeight)
+    public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, Vector3 mainPos)
     {
+        spawns = new List<Spawn>();
+
+        this.biome = biome;
         mesh = new Mesh();
-        this.HeightColors = HeightColors;
+        HeightColors = biome.color;
         this.mainPos = mainPos;
         this.sizeXtile = sizeXtile;
         this.sizeZtile = sizeZtile;
@@ -34,10 +41,10 @@ public class Tile : MonoBehaviour
         triangles = new int[sizeXtile * sizeZtile * 6];
         colors = new Color[(sizeXtile + 1) * (sizeZtile + 1)];
         uvs = new Vector2[(sizeXtile + 1) * (sizeZtile + 1)];
-        this.noiseAmplitude = noiseAmplitude;
-        this.noiseFrequency = noiseFrequency;
-        this.maxHeight = maxHeight;
-        this.minHeight = minHeight;
+        noiseAmplitude = biome.Amp;
+        noiseFrequency = biome.Freq;
+        maxHeight = biome.MaxY;
+        minHeight = biome.MinY;
 
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
