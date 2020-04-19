@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TerrainGenerator : MonoBehaviour
 {
+    public NavMeshSurface surface;
+
     List<GameObject> map;
 
     Material mat;
@@ -31,11 +34,15 @@ public class TerrainGenerator : MonoBehaviour
     {
         spawnManager = new Spawns();
         GenMap();
+        surface.BuildNavMesh();
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos();
         foreach(GameObject g in map)
         {
             spawnManager.Populate(g.GetComponent<Tile>());
+           
         }
+        
+        
     }
 
     private void Update()
