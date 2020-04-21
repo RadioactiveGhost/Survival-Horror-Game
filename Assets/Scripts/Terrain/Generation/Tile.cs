@@ -50,7 +50,6 @@ public class Tile : MonoBehaviour
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
 
         CreateShape(sizeZtile, sizeXtile);
-        ApplyTexture(CreateTextureFromCurrentColors());
         //Vertextest();
     }
 
@@ -105,7 +104,6 @@ public class Tile : MonoBehaviour
                 {
                     if (y > maxHeight)
                     {
-                        //Debug.Log("Passed maximum height at " + new Vector2(x, z) + ", resizing");
                         y = maxHeight;
                     }
                     maxY = y;
@@ -115,14 +113,14 @@ public class Tile : MonoBehaviour
                     if (y < minHeight)
                     {
                         y = minHeight;
-                        //Debug.Log("Passed minimum height at " + new Vector2(x, z) + ", resizing");
                     }
                     minY = y;
                 }
 
                 vertexes[i] = new Vector3(x, y, z) + mainPos;
 
-                uvs[i] = new Vector2((float)x / (float)sizeXtile, (float)z / (float)sizeZtile);
+                //CONFIRM
+                uvs[i] = new Vector2((float)x / (float)sizeXtile, 1 - (float)z / (float)sizeZtile);
 
                 i++;
             }
@@ -148,8 +146,24 @@ public class Tile : MonoBehaviour
             }
             vert++;
         }
+    }
 
-        //creating colors
+    public void ChangeUVs(int xT, int yT)
+    {
+        for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
+        {
+            for (int x = 0; x <= sizeXtile; x++)
+            {
+                uvs[i] = new Vector2(Mathf.Abs(xT - ((float)x / (float)sizeXtile)), Mathf.Abs(yT - ((float)z / (float)sizeZtile)));
+                i++;
+            }
+        }
+        ApplyTexture((Texture2D)gameObject.GetComponent<MeshRenderer>().material.mainTexture);
+        mesh.uv = uvs;
+    }
+
+    public void CreateColors()
+    {
         for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
         {
             for (int x = 0; x <= sizeXtile; x++)
@@ -166,6 +180,7 @@ public class Tile : MonoBehaviour
                 i++;
             }
         }
+        ApplyTexture(CreateTextureFromCurrentColors());
     }
 
     public Texture2D CreateTextureFromCurrentColors()
@@ -194,9 +209,9 @@ public class Tile : MonoBehaviour
         float xDiff = positionXZ.x - bottomLeft.x;
         float yDiff = positionXZ.y - bottomLeft.y;
 
-        float bottomY = FindPointHeight(bottomLeft) * (1 - xDiff) + FindPointHeight(bottomRight) * xDiff;//confirmed
-        float topY = FindPointHeight(topLeft) * (1 - xDiff) + FindPointHeight(topRight) * xDiff;//same logic as above
-        float trueY = bottomY * (1 - yDiff) + topY * yDiff;//confirmed
+        float bottomY = FindPointHeight(bottomLeft) * (1 - xDiff) + FindPointHeight(bottomRight) * xDiff;
+        float topY = FindPointHeight(topLeft) * (1 - xDiff) + FindPointHeight(topRight) * xDiff;
+        float trueY = bottomY * (1 - yDiff) + topY * yDiff;
 
         return trueY;
     }

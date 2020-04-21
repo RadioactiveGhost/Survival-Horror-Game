@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TerrainGenerator : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class TerrainGenerator : MonoBehaviour
     bool first;
 
     Spawns spawnManager;
+
+    public int uvX, uvY;
+
+    private float elapsedTime, startTime;
 
     void Awake()
     {
@@ -29,29 +34,44 @@ public class TerrainGenerator : MonoBehaviour
 
     private void Start()
     {
-        spawnManager = new Spawns();
+        startTime = Time.time;
+
+        //generate map
         GenMap();
+
+        //set player on middle of map
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos();
-        foreach(GameObject g in map)
+
+        //spawn resources
+        spawnManager = new Spawns();
+        foreach (GameObject g in map)
         {
             spawnManager.Populate(g.GetComponent<Tile>());
         }
+
+        //Debugging not working bcs time only starts on update...
+        elapsedTime = Time.time - startTime;
+        //Debug.Log("Time spent generating: " + elapsedTime);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GenMap();
+            //GenMap();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            changeUVs();
         }
     }
 
-    void test()
+    void changeUVs()
     {
-        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        Tile t = plane.AddComponent<Tile>();
-        Debug.Log(t);
-        //t.Initialize(mat, sizeXtile, sizeZtile, Vector3.zero, noiseFrequency, noiseAmplitude);
+        foreach(GameObject g in map)
+        {
+            g.GetComponent<Tile>().ChangeUVs(uvX, uvY);
+        }
     }
 
     void GenMap()
@@ -68,7 +88,7 @@ public class TerrainGenerator : MonoBehaviour
                 for (int j = 0; j < mapSizeX; j++) //X
                 {
                     //Choose Biome pure random, CHANGE
-                    BiomeStats b = Biomes.biomes[Random.Range(0, Biomes.biomes.Count)]; //max exclusive
+                    BiomeStats b = Biomes.biomes[UnityEngine.Random.Range(0, Biomes.biomes.Count)]; //max exclusive
 
                     //Create tile
                     GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -78,6 +98,8 @@ public class TerrainGenerator : MonoBehaviour
                     map.Add(plane);
 
                     Connect(j, i, t);
+
+                    t.CreateColors();
 
                     //Testing Purposes
                     //t.TextureTest();
@@ -190,7 +212,7 @@ public class TerrainGenerator : MonoBehaviour
     public Material GetRandomMat()
     {
         Material rndColor = new Material(Shader.Find("Standard"));
-        rndColor.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
+        rndColor.color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), 1f);
         return rndColor;
     }
 

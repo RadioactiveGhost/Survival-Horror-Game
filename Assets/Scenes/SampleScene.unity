@@ -440,10 +440,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
-  sizeXtile: 10
-  sizeZtile: 10
-  mapSizeX: 10
-  mapSizeY: 10
+  sizeXtile: 50
+  sizeZtile: 50
+  mapSizeX: 3
+  mapSizeY: 3
+  uvX: 0
+  uvY: 1
 --- !u!4 &296817725
 Transform:
   m_ObjectHideFlags: 0
@@ -506,7 +508,7 @@ MonoBehaviour:
       height: 0
     - name: Ice
       color: {r: 1, g: 1, b: 1, a: 0}
-      height: 3
+      height: 4
 --- !u!1 &917266582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1125,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336833314}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 959500f5828272a4094aef5123cf9c1c, type: 3}
   m_Name: 

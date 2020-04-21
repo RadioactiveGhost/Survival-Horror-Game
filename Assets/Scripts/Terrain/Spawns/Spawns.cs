@@ -127,20 +127,23 @@ public class Spawns
 
     void PutThingsInPlace(Tile t)
     {
-        Debug.Log(t.spawns.Count);
         foreach (Spawn s in t.spawns)
         {
             if (s.thing != Things.None)
             {
-                Debug.Log("Has spawns");
-                GameObject g = new GameObject();
+                GameObject g;
                 if (s.thing == Things.Tree)
                 {
                     g = GameObject.Instantiate((GameObject)Resources.Load<GameObject>("Tree"));
                 }
-                if (s.thing == Things.Rock)
+                else if (s.thing == Things.Rock)
                 {
                     g = GameObject.Instantiate((GameObject)Resources.Load<GameObject>("Rock"));
+                }
+                else //something went wrong
+                {
+                    Debug.LogError("Tried to instantiate " + s.thing.ToString() + " wich corresponds to no specified enum");
+                    continue;
                 }
                 g.transform.position = s.location;
                 g.tag = "Thing";
