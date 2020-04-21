@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class TerrainGenerator : MonoBehaviour
 {
+    public NavMeshSurface surface;
+
     List<GameObject> map;
 
     Material mat;
@@ -40,6 +43,7 @@ public class TerrainGenerator : MonoBehaviour
         GenMap();
 
         //set player on middle of map
+        surface.BuildNavMesh();
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos();
 
         //spawn resources
