@@ -31,14 +31,13 @@ public class MobBeaviour : MonoBehaviour
         agent = this.GetComponent<NavMeshAgent>();
         transform = this.GetComponent<Transform>();
         agent.speed = speed;
-        
+
         waitTime = Random.Range(minWaitTime, maxWaitTime);
     }
 
     void Update()
     {
-        
-      
+
         rngRest = Random.Range(0f, 10f);
 
         Debug.Log(rngRest);
@@ -127,8 +126,13 @@ public class MobBeaviour : MonoBehaviour
                 //attack!  ???
             }
             FaceTarget();
+            agent.speed = speed * 2f;
         }
-        else isChasing = false;
+        else
+        {
+            isChasing = false;
+            agent.speed = speed;
+        }
        
     }
 
