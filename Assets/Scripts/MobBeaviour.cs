@@ -9,89 +9,140 @@ using UnityEngine.AI;
 public class MobBeaviour : MonoBehaviour
 {
     public Vector3 targetPos;
-    public bool isMoving = false;
+    public bool isMoving = false; //public for debugging purposes
+    public bool isChasing = false; //public for debugging purposes
+    public bool isAgressive = false;
     public float maxRange;
     public float minRange;
     public float minWaitTime;
     public float maxWaitTime;
-   
-
-    public float speed = 1.5f;
+    public float lookradius;
+    private Transform target;
+    public float speed;
     private NavMeshAgent agent;
-    private float range;
     private float waitTime;
     private Vector3 center;
     private Transform transform;
+    private float rngRest;
+
     void Start()
     {
+        target = PlayerManager.instance.player.transform;
         agent = this.GetComponent<NavMeshAgent>();
         transform = this.GetComponent<Transform>();
         agent.speed = speed;
-        range = Random.Range(minRange, maxRange);
+        
         waitTime = Random.Range(minWaitTime, maxWaitTime);
     }
 
     void Update()
     {
-        if (isMoving == false)
+        
+      
+        rngRest = Random.Range(0f, 10f);
+
+        Debug.Log(rngRest);
+        if (isAgressive) Chase(); //if mob stat- agressive
+
+        if (isMoving == false && isChasing == false ) //wander
         {
-            //FindNewTargetPos();
-            StartCoroutine(Move());
             center = transform.position;
+            StartCoroutine(Move());
+            //Move2();
         }
+        //else if(isResting == true && isChasing == false && isMoving == false)
+        //{ 
+        //    //StopCoroutine(Move());
+        //    Rest();
+        //    Debug.Log("resting");
+        //}
+       
+        
     }
 
-    //private void FindNewTargetPos()
+    //void Rest()
     //{
-    //    Vector3 pos = transform.position;
-    //    targetPos = new Vector3();
-    //    targetPos.x = Random.Range(pos.x - maxRange, pos.x + maxRange);
-    //    targetPos.y = pos.y;
-    //    targetPos.z = Random.Range(pos.z - maxRange, pos.z + maxRange);
-
-    //    transform.LookAt(targetPos);
-    //    StartCoroutine(Move());
+    //    for(float t = 0.0f; t < 200f; t += Time.deltaTime)
+    //    {
+    //        agent.isStopped = true;
+    //    }
+    //    agent.isStopped = false;
+    //    isResting = false;
     //}
+
+    //void Move2()
+    //{
+       
+    //    isMoving = true;
+    //    agent.destination = center + (Random.insideUnitSphere * range);
+    //    for (float t = 0.0f; t < 10f; t += Time.deltaTime * 5)
+    //    {
+           
+    //        if (agent.pathPending || agent.remainingDistance > 0.1f)
+    //            break;
+
+    //    }
+    //    if (rngRest < 5)
+    //    {
+    //        isResting = true;
+    //    }
+    //    isMoving = false;
+    //}
+
 
     IEnumerator Move()
     {
+        agent.destination = center + (Random.insideUnitSphere * (Random.Range(minRange, maxRange)));
         isMoving = true;
-
-        //for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * speed)
-        //{
-
-        //    transform.position = Vector3.MoveTowards(transform.position, targetPos, t);
-        //    yield return null;
-        //}
-
-
-
-        //for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * speed)
-        //{
-
-        //    agent.SetDestination(targetPos);
-        //    yield return null;
-        //}
-
-
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * 5)
+        for (float t = 0.0f; t < 10f; t += Time.deltaTime )
         {
-                agent.destination = center + (Random.insideUnitSphere * range) ;
-     
-
-                if (agent.pathPending || agent.remainingDistance > 0.1f)
-                {        
-                    yield return null;
-                }
-
+            if (agent.pathPending || agent.remainingDistance > 0.1f)
+            {
+                yield return null;
+            }
+            
         }
-        yield return new WaitForSeconds(waitTime);
+        Debug.Log("fim do yield");
+       
+        if (rngRest < 5)
+        {
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        }
         isMoving = false;
-        yield return null;
 
-
-
-
+        //StopCoroutine(Move());
+       
 
     }
+    void Chase()
+    {
+        float distance = Vector3.Distance(target.position, transform.position);
+
+        if (distance <= lookradius)
+        {
+            isChasing = true;
+            agent.SetDestination(target.position);
+            if (distance <= agent.stoppingDistance)
+            {
+                //attack!  ???
+            }
+            FaceTarget();
+        }
+        else isChasing = false;
+       
+    }
+
+    private void OnDrawGizmosSelected() //debugging
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookradius);
+    }
+
+    void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
 }
