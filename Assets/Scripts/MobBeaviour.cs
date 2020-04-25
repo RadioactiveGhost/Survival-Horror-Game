@@ -11,7 +11,7 @@ public class MobBeaviour : MonoBehaviour
     public Vector3 targetPos;
     public bool isMoving = false; //public for debugging purposes
     public bool isChasing = false; //public for debugging purposes
-    public bool isAgressive = false;
+    //public bool isAgressive = false;
     public float maxRange;
     public float minRange;
     public float minWaitTime;
@@ -24,6 +24,13 @@ public class MobBeaviour : MonoBehaviour
     private Vector3 center;
     private Transform transform;
     private float rngRest;
+    public enum Animal { bear, wolf, boar, deer, bunny, player};
+    public Animal thisanimal;
+    public List<Transform> targets;
+
+    public bool WolfPack; //wolf
+
+    public bool isMother; // boar
 
     void Start()
     {
@@ -31,7 +38,7 @@ public class MobBeaviour : MonoBehaviour
         agent = this.GetComponent<NavMeshAgent>();
         transform = this.GetComponent<Transform>();
         agent.speed = speed;
-
+        
         waitTime = Random.Range(minWaitTime, maxWaitTime);
     }
 
@@ -41,7 +48,8 @@ public class MobBeaviour : MonoBehaviour
         rngRest = Random.Range(0f, 10f);
 
         Debug.Log(rngRest);
-        if (isAgressive) Chase(); //if mob stat- agressive
+        //Specificbehaviours();
+        Chase(); 
 
         if (isMoving == false && isChasing == false ) //wander
         {
@@ -115,6 +123,7 @@ public class MobBeaviour : MonoBehaviour
     }
     void Chase()
     {
+        StopCoroutine(Move());
         float distance = Vector3.Distance(target.position, transform.position);
 
         if (distance <= lookradius)
@@ -123,7 +132,7 @@ public class MobBeaviour : MonoBehaviour
             agent.SetDestination(target.position);
             if (distance <= agent.stoppingDistance)
             {
-                //attack!  ???
+                //attack!  ??? todo: atacar random inimigo q esta na area do lookradius e ta na lista de targets - also criar a lista primeiro..
             }
             FaceTarget();
             agent.speed = speed * 2f;
@@ -149,4 +158,65 @@ public class MobBeaviour : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    //void Specificbehaviours()
+    //{
+    //    if (thisanimal == Animal.bear)
+    //    {
+    //        this.isAgressive = true;
+    //    }
+    //    else if (thisanimal == Animal.wolf)
+    //    {
+    //        this.isAgressive = true;
+    //    }
+    //    else if (thisanimal == Animal.deer)
+    //    {
+    //        this.isAgressive = false;
+    //    }
+    //    else if (thisanimal == Animal.boar)
+    //    {
+    //        this.isAgressive = false; ;
+    //    }
+    //    else if (thisanimal == Animal.bunny)
+    //    {
+    //        this.isAgressive = false;
+    //    }
+    //}
+
+    bool IsPrey(Animal targetAnimal)
+    {
+        if (thisanimal == Animal.bear)  // URSO
+        {
+            if (targetAnimal == Animal.wolf || targetAnimal == Animal.deer || targetAnimal == Animal.boar || targetAnimal == Animal.bunny || targetAnimal == Animal.player)
+                return true;
+            else return false;
+        }
+        else if (thisanimal == Animal.wolf) // LOBO
+        {
+            if (targetAnimal == Animal.boar || targetAnimal == Animal.bunny)
+                return true;
+            else if (targetAnimal == Animal.player || targetAnimal == Animal.bear || targetAnimal == Animal.deer)
+            {
+                if (WolfPack)
+                    return true;
+            }
+            else return false;
+        }
+        else if (thisanimal == Animal.deer) // VIADO
+        {
+            return false;
+        }
+        else if (thisanimal == Animal.boar) // POSSSO N VALER NADA AGORA MAS JAVALI
+        {
+            if (targetAnimal == Animal.player || targetAnimal == Animal.wolf && isMother)
+            {
+                return true;
+            }
+            else return false;
+        }
+        else if (thisanimal == Animal.bunny) // COELHO
+        {
+            return false;
+        }
+        return false;
+    }
 }
