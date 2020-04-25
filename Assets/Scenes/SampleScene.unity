@@ -598,6 +598,7 @@ GameObject:
   - component: {fileID: 938332337}
   - component: {fileID: 938332336}
   - component: {fileID: 938332335}
+  - component: {fileID: 938332341}
   m_Layer: 0
   m_Name: boar
   m_TagString: Untagged
@@ -620,13 +621,17 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   isMoving: 0
   isChasing: 0
-  isAgressive: 1
   maxRange: 6
   minRange: 1
   minWaitTime: 1
   maxWaitTime: 10
   lookradius: 3
+  target: {fileID: 0}
   speed: 0.5
+  thisanimal: 0
+  targets: []
+  WolfPack: 0
+  isMother: 0
 --- !u!195 &938332336
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -723,6 +728,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &938332341
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938332334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &955103820
 GameObject:
   m_ObjectHideFlags: 0

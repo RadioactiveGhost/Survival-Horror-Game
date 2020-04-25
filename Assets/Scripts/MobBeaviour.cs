@@ -17,12 +17,12 @@ public class MobBeaviour : MonoBehaviour
     public float minWaitTime;
     public float maxWaitTime;
     public float lookradius;
-    private Transform target;
+    public Transform target;
     public float speed;
     private NavMeshAgent agent;
     private float waitTime;
     private Vector3 center;
-    private Transform transform;
+    //private Transform transform;
     private float rngRest;
     public enum Animal { bear, wolf, boar, deer, bunny, player};
     public Animal thisanimal;
@@ -36,10 +36,12 @@ public class MobBeaviour : MonoBehaviour
     {
         target = PlayerManager.instance.player.transform;
         agent = this.GetComponent<NavMeshAgent>();
-        transform = this.GetComponent<Transform>();
+        
         agent.speed = speed;
         
         waitTime = Random.Range(minWaitTime, maxWaitTime);
+
+        thisanimal = Animal.boar;
     }
 
     void Update()
@@ -182,7 +184,7 @@ public class MobBeaviour : MonoBehaviour
     //    }
     //}
 
-    bool IsPrey(Animal targetAnimal)
+    public bool IsPrey(Animal targetAnimal)
     {
         if (thisanimal == Animal.bear)  // URSO
         {
