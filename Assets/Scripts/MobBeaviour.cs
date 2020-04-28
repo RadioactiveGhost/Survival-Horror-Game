@@ -19,7 +19,6 @@ public class MobBeaviour : MonoBehaviour
     public float minWaitTime;
     public float maxWaitTime;
     public float lookradius;
-    public Transform target;
     public float speed;
     private NavMeshAgent agent;
     private float waitTime;
@@ -32,15 +31,17 @@ public class MobBeaviour : MonoBehaviour
     public List<Transform> targets;
     public Transform follower;
     public SphereCollider sphereCollider;
-
+    private Vector3 target;
     public bool WolfPack; //wolf
+    private GameObject targetSaver;
 
     public bool isMother; // boar
 
     void Start()
     {
-        sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2.5f;
-        target = PlayerManager.instance.player.transform;
+        sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2;
+        //target = PlayerManager.instance.player.transform;
+        //target = transform;
         agent = this.GetComponent<NavMeshAgent>();
         
         agent.speed = speed;
@@ -52,54 +53,60 @@ public class MobBeaviour : MonoBehaviour
 
     void Update()
     {
-
-        rngRest = Random.Range(0f, 10f);
-
-        Debug.Log(rngRest);
        
-        //Chase();
+        rngRest = Random.Range(0f, 10f);
+        target = targetSaver.GetComponent<Transform>().position;
 
-        //if (isFleeing)
-        //    agent.speed = speed * 2f;
-        //else
-        //    agent.speed = speed;
-
-
-        if (isMoving == false && isChasing == false && isFleeing == false) //wander
+        if (isChasing == true)
+        {
+            Chase(target);
+        }
+        else if (isFleeing == true)
+        {
+            Flee(target);
+        }
+        else if (isMoving == false && isChasing == false && isFleeing == false) //wander
         {
             center = transform.position;
             StartCoroutine(Move());
-           
+            isChasing = false;
+            isFleeing = false;
+            agent.speed = speed;
+
         }
+
        
         
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        target.position = other.gameObject.transform.position;
+        //target.position = other.gameObject.transform.position;
+        targetSaver = other.gameObject;
+
         if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
         {
-            Chase();
+            
             isChasing = true;
+            isMoving = false;
+           
+
         }
         else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
         {
-            Flee();
+            
             isFleeing = true;
+            isMoving = false;
+           
+
         }
         else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
         {
             //do nothing
         }
-        else
-        {
-            isChasing = false;
-            isFleeing = false;
-            agent.speed = speed;
-        }
            
     }
+
 
     IEnumerator Move()
     {
@@ -129,28 +136,40 @@ public class MobBeaviour : MonoBehaviour
        
 
     }
-    void Chase()
+    public void Chase(Vector3 target)
     {
         StopCoroutine(Move());
-        float distance = Vector3.Distance(target.position, transform.position);
+        isMoving = false;
+        float distance = Vector3.Distance(target, transform.position);
 
-            agent.SetDestination(target.position);
+            agent.SetDestination(target);
             if (distance <= agent.stoppingDistance)
             {
                 //attack!  ??? todo: atacar random inimigo q esta na area do lookradius e ta na lista de targets - also criar a lista primeiro..
             }
-            FaceTarget();
+            FaceTarget(target);
             agent.speed = speed * 2f;
+        if (distance > GetComponent<SphereCollider>().radius)
+        {
+            isChasing = false;
+        }
 
     }
-    public void Flee()
+    public void Flee(Vector3 target)
     {
         StopCoroutine(Move());
-        float distance = Vector3.Distance(transform.position, target.position);
+        float distance = Vector3.Distance(transform.position, target);
 
-        Vector3 dirToTarget = transform.position - target.position;
+        Vector3 dirToTarget = transform.position - target;
         Vector3 newPosition = transform.position + dirToTarget;
         agent.SetDestination(newPosition);
+        agent.speed = speed * 2f;
+
+        if (distance > GetComponent<SphereCollider>().radius)
+        {
+            isFleeing = false;
+            
+        }
     }
 
     private void OnDrawGizmosSelected() //debugging
@@ -159,9 +178,9 @@ public class MobBeaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, lookradius);
     }
 
-    void FaceTarget()
+    void FaceTarget(Vector3 target)
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
