@@ -11,6 +11,8 @@ public class MobBeaviour : MonoBehaviour
     public Vector3 targetPos;
     public bool isMoving = false; //public for debugging purposes
     public bool isChasing = false; //public for debugging purposes
+    public bool isSecondary = false; //wolf pack member or boar child etc
+    public bool isFleeing = false;
     //public bool isAgressive = false;
     public float maxRange;
     public float minRange;
@@ -26,7 +28,10 @@ public class MobBeaviour : MonoBehaviour
     private float rngRest;
     public enum Animal { bear, wolf, boar, deer, bunny, player};
     public Animal thisanimal;
+    public enum HunterPrey { hunt, flee, nothing};
     public List<Transform> targets;
+    public Transform follower;
+    public SphereCollider sphereCollider;
 
     public bool WolfPack; //wolf
 
@@ -34,6 +39,7 @@ public class MobBeaviour : MonoBehaviour
 
     void Start()
     {
+        sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2.5f;
         target = PlayerManager.instance.player.transform;
         agent = this.GetComponent<NavMeshAgent>();
         
@@ -50,69 +56,69 @@ public class MobBeaviour : MonoBehaviour
         rngRest = Random.Range(0f, 10f);
 
         Debug.Log(rngRest);
-        //Specificbehaviours();
-        Chase(); 
+       
+        //Chase();
 
-        if (isMoving == false && isChasing == false ) //wander
+        //if (isFleeing)
+        //    agent.speed = speed * 2f;
+        //else
+        //    agent.speed = speed;
+
+
+        if (isMoving == false && isChasing == false && isFleeing == false) //wander
         {
             center = transform.position;
             StartCoroutine(Move());
-            //Move2();
+           
         }
-        //else if(isResting == true && isChasing == false && isMoving == false)
-        //{ 
-        //    //StopCoroutine(Move());
-        //    Rest();
-        //    Debug.Log("resting");
-        //}
        
         
     }
 
-    //void Rest()
-    //{
-    //    for(float t = 0.0f; t < 200f; t += Time.deltaTime)
-    //    {
-    //        agent.isStopped = true;
-    //    }
-    //    agent.isStopped = false;
-    //    isResting = false;
-    //}
-
-    //void Move2()
-    //{
-       
-    //    isMoving = true;
-    //    agent.destination = center + (Random.insideUnitSphere * range);
-    //    for (float t = 0.0f; t < 10f; t += Time.deltaTime * 5)
-    //    {
+    private void OnTriggerEnter(Collider other)
+    {
+        target.position = other.gameObject.transform.position;
+        if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+        {
+            Chase();
+            isChasing = true;
+        }
+        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
+        {
+            Flee();
+            isFleeing = true;
+        }
+        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
+        {
+            //do nothing
+        }
+        else
+        {
+            isChasing = false;
+            isFleeing = false;
+            agent.speed = speed;
+        }
            
-    //        if (agent.pathPending || agent.remainingDistance > 0.1f)
-    //            break;
-
-    //    }
-    //    if (rngRest < 5)
-    //    {
-    //        isResting = true;
-    //    }
-    //    isMoving = false;
-    //}
-
+    }
 
     IEnumerator Move()
     {
-        agent.destination = center + (Random.insideUnitSphere * (Random.Range(minRange, maxRange)));
+        if(isSecondary) //ir atras da mae ou do leader de pack etc
+        {
+            agent.destination = follower.position;
+        }
+        else
+        agent.destination = center + (Random.insideUnitSphere * (Random.Range(minRange, maxRange))); //andar randomly por aí
+
         isMoving = true;
-        for (float t = 0.0f; t < 10f; t += Time.deltaTime )
+        for (float t = 0.0f; t < 10f; t += Time.deltaTime)
         {
             if (agent.pathPending || agent.remainingDistance > 0.1f)
             {
                 yield return null;
             }
-            
+
         }
-        Debug.Log("fim do yield");
-       
         if (rngRest < 5)
         {
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
@@ -128,9 +134,6 @@ public class MobBeaviour : MonoBehaviour
         StopCoroutine(Move());
         float distance = Vector3.Distance(target.position, transform.position);
 
-        if (distance <= lookradius)
-        {
-            isChasing = true;
             agent.SetDestination(target.position);
             if (distance <= agent.stoppingDistance)
             {
@@ -138,13 +141,16 @@ public class MobBeaviour : MonoBehaviour
             }
             FaceTarget();
             agent.speed = speed * 2f;
-        }
-        else
-        {
-            isChasing = false;
-            agent.speed = speed;
-        }
-       
+
+    }
+    public void Flee()
+    {
+        StopCoroutine(Move());
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        Vector3 dirToTarget = transform.position - target.position;
+        Vector3 newPosition = transform.position + dirToTarget;
+        agent.SetDestination(newPosition);
     }
 
     private void OnDrawGizmosSelected() //debugging
@@ -160,65 +166,54 @@ public class MobBeaviour : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    //void Specificbehaviours()
-    //{
-    //    if (thisanimal == Animal.bear)
-    //    {
-    //        this.isAgressive = true;
-    //    }
-    //    else if (thisanimal == Animal.wolf)
-    //    {
-    //        this.isAgressive = true;
-    //    }
-    //    else if (thisanimal == Animal.deer)
-    //    {
-    //        this.isAgressive = false;
-    //    }
-    //    else if (thisanimal == Animal.boar)
-    //    {
-    //        this.isAgressive = false; ;
-    //    }
-    //    else if (thisanimal == Animal.bunny)
-    //    {
-    //        this.isAgressive = false;
-    //    }
-    //}
+   
 
-    public bool IsPrey(Animal targetAnimal)
+    public HunterPrey HunterAndPrey(Animal targetAnimal)
     {
         if (thisanimal == Animal.bear)  // URSO
         {
             if (targetAnimal == Animal.wolf || targetAnimal == Animal.deer || targetAnimal == Animal.boar || targetAnimal == Animal.bunny || targetAnimal == Animal.player)
-                return true;
-            else return false;
+                return HunterPrey.hunt;
+            else return HunterPrey.nothing;
         }
         else if (thisanimal == Animal.wolf) // LOBO
         {
             if (targetAnimal == Animal.boar || targetAnimal == Animal.bunny)
-                return true;
+                return HunterPrey.hunt;
             else if (targetAnimal == Animal.player || targetAnimal == Animal.bear || targetAnimal == Animal.deer)
             {
-                if (WolfPack)
-                    return true;
+                if (WolfPack) //matilhaaa
+                    return HunterPrey.hunt;
+                else if (targetAnimal == Animal.player || targetAnimal == Animal.bear)
+                    return HunterPrey.flee;
+                else return HunterPrey.nothing;
             }
-            else return false;
+            else return HunterPrey.nothing;
         }
         else if (thisanimal == Animal.deer) // VIADO
         {
-            return false;
+            if (targetAnimal == Animal.bear || targetAnimal == Animal.wolf)
+                return HunterPrey.flee;
+            else return HunterPrey.nothing;
         }
         else if (thisanimal == Animal.boar) // POSSSO N VALER NADA AGORA MAS JAVALI
         {
-            if (targetAnimal == Animal.player || targetAnimal == Animal.wolf && isMother)
+            if (targetAnimal == Animal.bear)
+                return HunterPrey.flee;
+            else if (targetAnimal == Animal.player || targetAnimal == Animal.wolf)
             {
-                return true;
+                if (isMother) //attacc to protecc
+                    return HunterPrey.hunt;
+                else
+                    return HunterPrey.flee;
             }
-            else return false;
+            else return HunterPrey.nothing;
         }
         else if (thisanimal == Animal.bunny) // COELHO
         {
-            return false;
+            if (targetAnimal == Animal.bunny || targetAnimal == Animal.boar || targetAnimal == Animal.deer)
+                return HunterPrey.nothing;
         }
-        return false;
+        return HunterPrey.nothing;
     }
 }
