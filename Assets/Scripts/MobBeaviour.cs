@@ -48,12 +48,17 @@ public class MobBeaviour : MonoBehaviour
         
         waitTime = Random.Range(minWaitTime, maxWaitTime);
 
-        thisanimal = Animal.boar;
     }
 
     void Update()
     {
-       
+        float distance = Vector3.Distance(transform.position, target);
+        if (distance > GetComponent<SphereCollider>().radius)
+        {
+            isChasing = false;
+            isFleeing = false;
+        }
+
         rngRest = Random.Range(0f, 10f);
         target = targetSaver.GetComponent<Transform>().position;
 
@@ -149,27 +154,23 @@ public class MobBeaviour : MonoBehaviour
             }
             FaceTarget(target);
             agent.speed = speed * 2f;
-        if (distance > GetComponent<SphereCollider>().radius)
-        {
-            isChasing = false;
-        }
 
     }
     public void Flee(Vector3 target)
     {
-        StopCoroutine(Move());
-        float distance = Vector3.Distance(transform.position, target);
+        //StopCoroutine(Move());
+        //float timeLeft;
+        //timeLeft -= Time.deltaTime;
+        //if (timeLeft < 0)
+        //{
+           
+        //}
 
         Vector3 dirToTarget = transform.position - target;
         Vector3 newPosition = transform.position + dirToTarget;
         agent.SetDestination(newPosition);
         agent.speed = speed * 2f;
 
-        if (distance > GetComponent<SphereCollider>().radius)
-        {
-            isFleeing = false;
-            
-        }
     }
 
     private void OnDrawGizmosSelected() //debugging
