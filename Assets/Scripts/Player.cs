@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool grounded, jumping;
 
+    //Stats
+    Common common;
+    public int hunger, thirst, health, armor, strength;
+    public float hungerTimer, thirstTimer;
+    float currentHungerTimer, currentThirstTimer;
+
     private void Awake()
     {
         grounded = true;
@@ -21,7 +27,53 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        currentHungerTimer = Time.time;
+        currentThirstTimer = Time.time;
+        common = new Common(health, strength, armor);
         velocity = (terrainScript.mapSizeX * terrainScript.sizeXtile) / TimeSecondsCrossMap;
+    }
+
+    void Update()
+    {
+        Movement();
+        Jumping();
+        MapFallOffSecurity();
+
+        ManageThirstHunger();
+
+        if(common.dead)
+        {
+            Die();
+        }
+    }
+
+    public void ManageThirstHunger()
+    {
+        currentHungerTimer += Time.deltaTime;
+
+        if (currentHungerTimer > hungerTimer)
+        {
+            currentHungerTimer = 0;
+            hunger -= 1;
+            if (hunger <= 0)
+            {
+                hunger = 0;
+                common.TakeTrueDamage(1, gameObject, false);
+            }
+        }
+
+        currentThirstTimer += Time.deltaTime;
+
+        if (currentThirstTimer > thirstTimer)
+        {
+            currentThirstTimer = 0;
+            thirst -= 1;
+            if (thirst <= 0)
+            {
+                thirst = 0;
+                common.TakeTrueDamage(1, gameObject, false);
+            }
+        }
     }
 
     public void SetPlayerInitialPos()
@@ -32,11 +84,10 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(positionX, positionY, positionZ);
     }
 
-    void Update()
+    public void Die()
     {
-        Movement();
-        Jumping();
-        MapFallOffSecurity();
+        //Only stops things for now
+        Time.timeScale = 0;
     }
 
     void Movement()
