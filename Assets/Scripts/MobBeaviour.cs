@@ -9,10 +9,10 @@ using UnityEngine.AI;
 public class MobBeaviour : MonoBehaviour
 {
     public Vector3 targetPos;
-    public bool isMoving = false; //public for debugging purposes
-    public bool isChasing = false; //public for debugging purposes
+   public bool isMoving = false; //public for debugging purposes
+   // public bool isChasing = false; //public for debugging purposes
     public bool isSecondary = false; //wolf pack member or boar child etc
-    public bool isFleeing = false;
+  //  public bool isFleeing = false;
     //public bool isAgressive = false;
     public float maxRange;
     public float minRange;
@@ -34,6 +34,8 @@ public class MobBeaviour : MonoBehaviour
     private Vector3 target;
     public bool WolfPack; //wolf
     private GameObject targetSaver;
+    public enum Action { chasing, fleeing, moving}
+    public Action action = Action.moving;
 
     public bool isMother; // boar
 
@@ -52,56 +54,75 @@ public class MobBeaviour : MonoBehaviour
 
     void Update()
     {
+        target = targetSaver.GetComponent<Transform>().position;
         float distance = Vector3.Distance(transform.position, target);
+
         if (distance > GetComponent<SphereCollider>().radius)
         {
-            isChasing = false;
-            isFleeing = false;
+            // isChasing = false;
+            // isFleeing = false;
+            action = Action.moving;
         }
 
         rngRest = Random.Range(0f, 10f);
-        target = targetSaver.GetComponent<Transform>().position;
+       
 
-        if (isChasing == true)
+        //if (isChasing == true)
+        //{
+        //    Chase(target);
+        //}
+        //else if (isFleeing == true)
+        //{
+        //    Flee(target);
+        //}
+        //else if (isMoving == false && isChasing == false && isFleeing == false) //wander
+        //{
+        //    center = transform.position;
+        //    StartCoroutine(Move());
+        //    isChasing = false;
+        //    isFleeing = false;
+        //    agent.speed = speed;
+
+        //}
+
+        if(action == Action.chasing)
         {
             Chase(target);
         }
-        else if (isFleeing == true)
+        else if(action == Action.fleeing)
         {
             Flee(target);
         }
-        else if (isMoving == false && isChasing == false && isFleeing == false) //wander
+        else if(action == Action.moving && isMoving == false)
         {
             center = transform.position;
             StartCoroutine(Move());
-            isChasing = false;
-            isFleeing = false;
             agent.speed = speed;
-
         }
 
-       
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //target.position = other.gameObject.transform.position;
-        targetSaver = other.gameObject;
+        
 
         if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
         {
-            
-            isChasing = true;
-            isMoving = false;
+            targetSaver = other.gameObject;
+            // isChasing = true;
+            action = Action.chasing;
+           isMoving = false;
            
 
         }
         else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
         {
-            
-            isFleeing = true;
+            targetSaver = other.gameObject;
+            // isFleeing = true;
             isMoving = false;
+            action = Action.fleeing;
            
 
         }
@@ -144,7 +165,7 @@ public class MobBeaviour : MonoBehaviour
     public void Chase(Vector3 target)
     {
         StopCoroutine(Move());
-        isMoving = false;
+        //isMoving = false;
         float distance = Vector3.Distance(target, transform.position);
 
             agent.SetDestination(target);
@@ -158,14 +179,6 @@ public class MobBeaviour : MonoBehaviour
     }
     public void Flee(Vector3 target)
     {
-        //StopCoroutine(Move());
-        //float timeLeft;
-        //timeLeft -= Time.deltaTime;
-        //if (timeLeft < 0)
-        //{
-           
-        //}
-
         Vector3 dirToTarget = transform.position - target;
         Vector3 newPosition = transform.position + dirToTarget;
         agent.SetDestination(newPosition);
@@ -190,13 +203,13 @@ public class MobBeaviour : MonoBehaviour
 
     public HunterPrey HunterAndPrey(Animal targetAnimal)
     {
-        if (thisanimal == Animal.bear)  // URSO
+        if (thisanimal == Animal.bear)  // URSO---------------
         {
             if (targetAnimal == Animal.wolf || targetAnimal == Animal.deer || targetAnimal == Animal.boar || targetAnimal == Animal.bunny || targetAnimal == Animal.player)
                 return HunterPrey.hunt;
             else return HunterPrey.nothing;
         }
-        else if (thisanimal == Animal.wolf) // LOBO
+        else if (thisanimal == Animal.wolf) // LOBO----------------
         {
             if (targetAnimal == Animal.boar || targetAnimal == Animal.bunny)
                 return HunterPrey.hunt;
@@ -210,13 +223,13 @@ public class MobBeaviour : MonoBehaviour
             }
             else return HunterPrey.nothing;
         }
-        else if (thisanimal == Animal.deer) // VIADO
+        else if (thisanimal == Animal.deer) // VIADO------------
         {
             if (targetAnimal == Animal.bear || targetAnimal == Animal.wolf)
                 return HunterPrey.flee;
             else return HunterPrey.nothing;
         }
-        else if (thisanimal == Animal.boar) // POSSSO N VALER NADA AGORA MAS JAVALI
+        else if (thisanimal == Animal.boar) // POSSSO N VALER NADA AGORA MAS JAVALI----------
         {
             if (targetAnimal == Animal.bear)
                 return HunterPrey.flee;
@@ -229,7 +242,7 @@ public class MobBeaviour : MonoBehaviour
             }
             else return HunterPrey.nothing;
         }
-        else if (thisanimal == Animal.bunny) // COELHO
+        else if (thisanimal == Animal.bunny) // COELHO-----------------
         {
             if (targetAnimal == Animal.bunny || targetAnimal == Animal.boar || targetAnimal == Animal.deer)
                 return HunterPrey.nothing;
