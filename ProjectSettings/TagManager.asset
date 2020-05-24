@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Test
   - Thing
+  - Item
+  - SoundManager
   layers:
   - Default
   - TransparentFX
