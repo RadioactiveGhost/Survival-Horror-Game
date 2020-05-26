@@ -36,6 +36,7 @@ public class MobBeaviour : MonoBehaviour
     private GameObject targetSaver;
     public enum Action { chasing, fleeing, moving}
     public Action action = Action.moving;
+    public float health;
 
     public bool isMother; // boar
 
