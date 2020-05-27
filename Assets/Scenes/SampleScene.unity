@@ -1224,11 +1224,11 @@ MonoBehaviour:
   terrain: {fileID: 296817723}
   wolves: 1
   boars: 1
-  boarpacks: 1
+  boarpacks: 0
   wolfpacks: 0
-  deers: 0
+  deers: 1
   bears: 1
-  bunnies: 0
+  bunnies: 1
   minNumber: 2
   maxNumber: 8
 --- !u!4 &1401054871
