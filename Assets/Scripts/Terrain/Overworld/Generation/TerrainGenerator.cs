@@ -44,7 +44,7 @@ public class TerrainGenerator : MonoBehaviour
 
         //set player on middle of map
         surface.BuildNavMesh();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
 
         //spawn resources
         spawnManager = new Spawns();
@@ -97,6 +97,11 @@ public class TerrainGenerator : MonoBehaviour
                     //Create tile
                     GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
                     plane.name = (i * mapSizeY + j).ToString() + " " + b.biome.ToString();
+
+                    //set walking + hooking properties
+                    plane.layer = LayerMask.NameToLayer("Hookable");
+                    plane.tag = "Ground";
+
                     Tile t = plane.AddComponent<Tile>();
                     t.Initialize(b, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile));
                     map.Add(plane);

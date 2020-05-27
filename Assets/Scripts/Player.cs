@@ -1,28 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    public GameObject terrain;
-    public float jumpForce, TimeSecondsCrossMap;
-    float velocity;
-    TerrainGenerator terrainScript;
+    public float jumpForce, moveForce, maxVelocity;
     float myheight, positionY, positionX, positionZ, currentYVel;
-    bool grounded, jumping;
+    bool jumping, moving;
+    [HideInInspector]
+    public bool grounded, movementAllowed;
 
     //Stats
     Common common;
     public int hunger, thirst, health, armor, strength;
     public float hungerTimer, thirstTimer;
     float currentHungerTimer, currentThirstTimer;
+    Rigidbody rb;
 
     private void Awake()
     {
+        movementAllowed = true;
         grounded = true;
         myheight = transform.localScale.y * gameObject.GetComponent<CapsuleCollider>().height;
-
-        terrainScript = terrain.GetComponent<TerrainGenerator>();
     }
 
     void Start()
@@ -30,15 +30,21 @@ public class Player : MonoBehaviour
         currentHungerTimer = Time.time;
         currentThirstTimer = Time.time;
         common = new Common(health, strength, armor);
-        velocity = (terrainScript.mapSizeX * terrainScript.sizeXtile) / TimeSecondsCrossMap;
+
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate() //Physics stuff
+    {
+        if (movementAllowed)
+        {
+            RBMovement();
+            Jumping();
+        }
     }
 
     void Update()
     {
-        Movement();
-        Jumping();
-        MapFallOffSecurity();
-
         ManageThirstHunger();
 
         if(common.dead)
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetPlayerInitialPos()
+    public void SetPlayerInitialPos(TerrainGenerator terrainScript)
     {
         positionX = (terrainScript.mapSizeX * terrainScript.sizeXtile) / 2;
         positionZ = (terrainScript.mapSizeY * terrainScript.sizeZtile) / 2;
@@ -90,11 +96,11 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    void Movement()
+    void TerrainCustomMovement(TerrainGenerator terrainScript)
     {
         if (Input.GetKey(KeyCode.W))//front
         {
-            gameObject.transform.position += gameObject.transform.forward * velocity * Time.deltaTime;
+            gameObject.transform.position += gameObject.transform.forward * moveForce * Time.deltaTime;
             if (grounded)
             {
                 positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
@@ -103,7 +109,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))//back
         {
-            gameObject.transform.position -= gameObject.transform.forward * velocity * Time.deltaTime;
+            gameObject.transform.position -= gameObject.transform.forward * moveForce * Time.deltaTime;
             if (grounded)
             {
                 positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
@@ -112,7 +118,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))//left
         {
-            gameObject.transform.position -= gameObject.transform.right * velocity * Time.deltaTime;
+            gameObject.transform.position -= gameObject.transform.right * moveForce * Time.deltaTime;
             if (grounded)
             {
                 positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
@@ -121,7 +127,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.D))//right
         {
-            gameObject.transform.position += gameObject.transform.right * velocity * Time.deltaTime;
+            gameObject.transform.position += gameObject.transform.right * moveForce * Time.deltaTime;
             if (grounded)
             {
                 positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
@@ -130,7 +136,72 @@ public class Player : MonoBehaviour
         }
     }
 
+    void RBMovement()
+    {
+        //Extra Gravity
+        rb.AddForce(Vector3.down * Time.deltaTime * 10);
+
+        if (!jumping)//set up movement check
+        {
+            moving = false; 
+        }
+
+        if (grounded)
+        {
+            if (Input.GetKey(KeyCode.W))//front
+            {
+                rb.AddForce(gameObject.transform.forward * moveForce * Time.deltaTime);
+                //Debug.Log("Forward");
+                moving = true;
+            }
+            else if (Input.GetKey(KeyCode.S))//back
+            {
+                rb.AddForce(-gameObject.transform.forward * moveForce * Time.deltaTime);
+                //Debug.Log("Back");
+                moving = true;
+            }
+
+            if (Input.GetKey(KeyCode.A))//left
+            {
+                rb.AddForce(-gameObject.transform.right * moveForce * Time.deltaTime);
+                //Debug.Log("Left");
+                moving = true;
+            }
+            else if (Input.GetKey(KeyCode.D))//right
+            {
+                rb.AddForce(gameObject.transform.right * moveForce * Time.deltaTime);
+                //Debug.Log("Right");
+                moving = true;
+            }
+        }
+
+        if(!moving && grounded) //not moving
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            //Debug.Log("Stopped");
+        }
+
+        if (new Vector2(rb.velocity.x, rb.velocity.z).magnitude > maxVelocity)//velocity check (including diagonals) horizontal movement
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized * maxVelocity + new Vector3(0, rb.velocity.y, 0);
+        }
+    }
+
     void Jumping()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (grounded && !jumping)
+            {
+                rb.AddForce(Vector3.up * jumpForce * Time.deltaTime * 10);
+                jumping = true;
+                //Debug.Log("Jumped");
+                moving = true;
+            }
+        }
+    }
+
+    void TerrainCustomJumping(TerrainGenerator terrainScript)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -165,7 +236,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void MapFallOffSecurity()
+    void MapFallOffSecurity(TerrainGenerator terrainScript)
     {
         positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
         positionY += myheight / 2;
@@ -201,20 +272,20 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Walkable")
+        if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
             jumping = false;
-            Debug.Log("Grounded");
+            //Debug.Log("Grounded");
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.transform.CompareTag("Walkable"))
+        if (collision.transform.CompareTag("Ground"))
         {
             grounded = false;
-            Debug.Log("Took off");
+            //Debug.Log("Took off");
         }
     }
 }
