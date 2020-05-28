@@ -107,9 +107,27 @@ public class MobBeaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //target.position = other.gameObject.transform.position;
-        
+        if(other.CompareTag("Player"))
+        {
+            if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
+            {
+                targetSaver = other.gameObject;
+                action = Action.chasing;
+                isMoving = false;
+            }
+            else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
+            {
+                targetSaver = other.gameObject;
+                isMoving = false;
+                action = Action.fleeing;
+            }
+            else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
+            {
+                //fazer nada
+            }
 
-        if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+        }
+        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
         {
             targetSaver = other.gameObject;
             // isChasing = true;

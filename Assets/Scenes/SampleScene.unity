@@ -1221,7 +1221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f779d18cfec2a5342b7914a3401ec816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalList: []
   terrain: {fileID: 296817723}
+  player: {fileID: 1185857415}
   wolves: 1
   boars: 1
   boarpacks: 0
@@ -1230,7 +1232,7 @@ MonoBehaviour:
   bears: 1
   bunnies: 1
   minNumber: 2
-  maxNumber: 8
+  maxNumber: 6
 --- !u!4 &1401054871
 Transform:
   m_ObjectHideFlags: 0

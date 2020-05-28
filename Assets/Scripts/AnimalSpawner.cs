@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class AnimalSpawner : MonoBehaviour
 {
+    public List<GameObject> animalList;
     public GameObject terrain;
+    public GameObject player;
     TerrainGenerator terrainScript;
+    private bool animalsSpawnFlag = false;
     public bool wolves, boars, boarpacks, wolfpacks, deers, bears, bunnies;
     float random;
     public float minNumber, maxNumber;
@@ -13,9 +16,55 @@ public class AnimalSpawner : MonoBehaviour
     Vector3 rngposition;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     { 
 
+        
+    }
+
+    void Spawn(GameObject animal, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            Debug.Log("SPAWNED YEY");
+            GameObject newAnimal = Instantiate(animal, new Vector3(Random.Range(0, terrainScript.sizeXtile * terrainScript.mapSizeX), 1.5f,
+                  Random.Range(0, terrainScript.sizeZtile * terrainScript.mapSizeY)), Quaternion.identity);
+            animalList.Add(newAnimal);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Debug.Log(animalList.Count);
+        if(animalList.Count < 30)
+        {
+            animalsSpawnFlag = true;
+        }
+        DespawnFarMobs();
+
+        if(animalsSpawnFlag == true)
+        {
+            SpawnMobs();
+        }
+
+
+    }
+    void DespawnFarMobs()
+    {
+        foreach (GameObject animal in animalList)
+        {
+            float dist = Vector3.Distance(animal.transform.position, player.transform.position);
+            if (dist > 40)
+            {
+                animalList.Remove(animal);
+                Destroy(animal);
+            }
+        }
+    }
+
+    void SpawnMobs()
+    {
         terrainScript = terrain.GetComponent<TerrainGenerator>();
         if (wolves)
             Spawn((GameObject)Resources.Load<GameObject>("Animals/wolf"), (int)Random.Range(minNumber, maxNumber));
@@ -31,22 +80,7 @@ public class AnimalSpawner : MonoBehaviour
             Spawn((GameObject)Resources.Load<GameObject>("Animals/Boars/boarPack1"), (int)Random.Range(minNumber, maxNumber));
         if (wolfpacks)
             Spawn((GameObject)Resources.Load<GameObject>("Animals/Wolves/wolfpack1"), (int)Random.Range(minNumber, maxNumber));
+        animalsSpawnFlag = false;
     }
 
-    void Spawn(GameObject animal, int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            Debug.Log("SPAWNED YEY");
-            GameObject newAnimal = Instantiate(animal, new Vector3(Random.Range(0, terrainScript.sizeXtile * terrainScript.mapSizeX), 1.5f,
-                  Random.Range(0, terrainScript.sizeZtile * terrainScript.mapSizeY)), Quaternion.identity);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
 }
