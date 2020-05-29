@@ -1233,6 +1233,8 @@ MonoBehaviour:
   bunnies: 1
   minNumber: 2
   maxNumber: 6
+  spawnRange: 30
+  distForSpawn: 10
 --- !u!4 &1401054871
 Transform:
   m_ObjectHideFlags: 0

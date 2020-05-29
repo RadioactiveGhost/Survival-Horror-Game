@@ -12,6 +12,7 @@ public class AnimalSpawner : MonoBehaviour
     public bool wolves, boars, boarpacks, wolfpacks, deers, bears, bunnies;
     float random;
     public float minNumber, maxNumber;
+    public float spawnRange, distForSpawn;
     // public GameObject wolf, boar, wolfpack1, boarpack1, deer, bear, bunny;
     Vector3 rngposition;
 
@@ -22,26 +23,16 @@ public class AnimalSpawner : MonoBehaviour
         
     }
 
-    void Spawn(GameObject animal, int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            Debug.Log("SPAWNED YEY");
-            GameObject newAnimal = Instantiate(animal, new Vector3(Random.Range(0, terrainScript.sizeXtile * terrainScript.mapSizeX), 1.5f,
-                  Random.Range(0, terrainScript.sizeZtile * terrainScript.mapSizeY)), Quaternion.identity);
-            animalList.Add(newAnimal);
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
+        
         Debug.Log(animalList.Count);
         if(animalList.Count < 30)
         {
             animalsSpawnFlag = true;
         }
-        DespawnFarMobs();
+        //DespawnFarMobs();
 
         if(animalsSpawnFlag == true)
         {
@@ -63,8 +54,30 @@ public class AnimalSpawner : MonoBehaviour
         }
     }
 
+    void Spawn(GameObject animal, int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            Vector3 position = new Vector3(player.GetComponent<Transform>().position.x + Random.Range(-spawnRange, spawnRange), 1.5f,
+                player.GetComponent<Transform>().position.z + Random.Range(-spawnRange, spawnRange));
+
+
+            while (position.x < 0 || position.x > terrainScript.sizeXtile * terrainScript.mapSizeX || position.z < 0
+                || position.z > terrainScript.sizeZtile * terrainScript.mapSizeY || Vector3.Distance(player.GetComponent<Transform>().position, position) < distForSpawn)
+            {
+
+                position = new Vector3(player.GetComponent<Transform>().position.x + Random.Range(-spawnRange, spawnRange), 1.5f,
+                player.GetComponent<Transform>().position.z + Random.Range(-spawnRange, spawnRange));
+            }
+            GameObject newAnimal = Instantiate(animal, new Vector3(position.x, 1.5f,
+                  position.z), Quaternion.identity);
+            animalList.Add(newAnimal);
+        }
+    }
+
     void SpawnMobs()
     {
+        
         terrainScript = terrain.GetComponent<TerrainGenerator>();
         if (wolves)
             Spawn((GameObject)Resources.Load<GameObject>("Animals/wolf"), (int)Random.Range(minNumber, maxNumber));
