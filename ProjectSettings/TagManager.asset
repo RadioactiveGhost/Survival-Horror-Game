@@ -9,6 +9,8 @@ TagManager:
   - Item
   - SoundManager
   - Ground
+  - ResourceManager
+  - InventoryManager
   layers:
   - Default
   - TransparentFX
