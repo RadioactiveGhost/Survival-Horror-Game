@@ -10,7 +10,7 @@ public class AnimalSpawner : MonoBehaviour
     TerrainGenerator terrainScript;
     private bool animalsSpawnFlag = false;
     public bool wolves, boars, boarpacks, wolfpacks, deers, bears, bunnies;
-    float random;
+   
     public float minNumber, maxNumber;
     public float spawnRange, distForSpawn;
     // public GameObject wolf, boar, wolfpack1, boarpack1, deer, bear, bunny;
@@ -41,18 +41,19 @@ public class AnimalSpawner : MonoBehaviour
 
 
     }
-    void DespawnFarMobs()
-    {
-        foreach (GameObject animal in animalList)
-        {
-            float dist = Vector3.Distance(animal.transform.position, player.transform.position);
-            if (dist > 40)
-            {
-                animalList.Remove(animal);
-                Destroy(animal);
-            }
-        }
-    }
+
+    //void DespawnFarMobs()
+    //{
+    //    foreach (GameObject animal in animalList)
+    //    {
+    //        float dist = Vector3.Distance(animal.transform.position, player.transform.position);
+    //        if (dist > 40)
+    //        {
+    //            animalList.Remove(animal);
+    //            Destroy(animal);
+    //        }
+    //    }
+    //}
 
     void Spawn(GameObject animal, int number)
     {
@@ -70,7 +71,7 @@ public class AnimalSpawner : MonoBehaviour
                 player.GetComponent<Transform>().position.z + Random.Range(-spawnRange, spawnRange));
             }
             GameObject newAnimal = Instantiate(animal, new Vector3(position.x, 1.5f,
-                  position.z), Quaternion.identity);
+                  position.z), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
             animalList.Add(newAnimal);
         }
     }

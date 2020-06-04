@@ -9,6 +9,7 @@ TagManager:
   - Item
   - SoundManager
   - Ground
+  - Animal
   layers:
   - Default
   - TransparentFX

@@ -33,7 +33,7 @@ public class MobBeaviour : MonoBehaviour
     public SphereCollider sphereCollider;
     private Vector3 target;
     public bool WolfPack; //wolf
-    private GameObject targetSaver;
+    private GameObject targetSaver = null;
     public enum Action { chasing, fleeing, moving}
     public Action action = Action.moving;
     public float health;
@@ -55,15 +55,19 @@ public class MobBeaviour : MonoBehaviour
 
     void Update()
     {
-        target = targetSaver.GetComponent<Transform>().position;
-        float distance = Vector3.Distance(transform.position, target);
-
-        if (distance > GetComponent<SphereCollider>().radius)
+        if(!(target == null))
         {
-            // isChasing = false;
-            // isFleeing = false;
-            action = Action.moving;
+            target = targetSaver.GetComponent<Transform>().position;
+            float distance = Vector3.Distance(transform.position, target);
+
+            if (distance > GetComponent<SphereCollider>().radius)
+            {
+                // isChasing = false;
+                // isFleeing = false;
+                action = Action.moving;
+            }
         }
+     
 
         rngRest = Random.Range(0f, 10f);
        
@@ -127,28 +131,32 @@ public class MobBeaviour : MonoBehaviour
             }
 
         }
-        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+        else if(other.CompareTag("Animal"))
         {
-            targetSaver = other.gameObject;
-            // isChasing = true;
-            action = Action.chasing;
-           isMoving = false;
-           
+            if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+            {
+                targetSaver = other.gameObject;
+                // isChasing = true;
+                action = Action.chasing;
+                isMoving = false;
 
-        }
-        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
-        {
-            targetSaver = other.gameObject;
-            // isFleeing = true;
-            isMoving = false;
-            action = Action.fleeing;
-           
 
+            }
+            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
+            {
+                targetSaver = other.gameObject;
+                // isFleeing = true;
+                isMoving = false;
+                action = Action.fleeing;
+
+
+            }
+            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
+            {
+                //do nothing
+            }
         }
-        else if(HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
-        {
-            //do nothing
-        }
+        
            
     }
 
