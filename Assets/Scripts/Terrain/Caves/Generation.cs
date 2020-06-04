@@ -112,7 +112,7 @@ public enum BlockType
 public class Generation : MonoBehaviour
 {
     public int scale;
-    public const int size = 10;
+    public const int size = 5;
 
     Block[,,] map;
     Block startPoint;

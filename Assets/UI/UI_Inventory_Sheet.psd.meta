@@ -20,6 +20,126 @@ TextureImporter:
   - first:
       213: 5767446578843804189
     second: UI_Inventory_Button_Craft
+  - first:
+      213: -5617636223601837184
+    second: UI_Inventory_Sheet_0
+  - first:
+      213: 5767446578843804189
+    second: UI_Inventory_Sheet_1
+  - first:
+      213: 9045052625881977288
+    second: UI_Inventory_Sheet_3
+  - first:
+      213: -8876479976968338848
+    second: UI_Inventory_Sheet_4
+  - first:
+      213: -3721158286972023684
+    second: UI_Inventory_Sheet_5
+  - first:
+      213: -7322215895448838170
+    second: UI_Inventory_Sheet_6
+  - first:
+      213: -7670137088719971598
+    second: UI_Inventory_Sheet_7
+  - first:
+      213: -5023692227204713035
+    second: UI_Inventory_Sheet_8
+  - first:
+      213: 7984770061293447280
+    second: UI_Inventory_Sheet_9
+  - first:
+      213: -6234581906718657674
+    second: UI_Inventory_Sheet_10
+  - first:
+      213: 4834856195300024008
+    second: UI_Inventory_Sheet_11
+  - first:
+      213: -4901339583526901140
+    second: UI_Inventory_Sheet_12
+  - first:
+      213: 1335655800654772040
+    second: UI_Inventory_Sheet_13
+  - first:
+      213: -6149567000970024393
+    second: UI_Inventory_Sheet_14
+  - first:
+      213: 3821190219453734234
+    second: UI_Inventory_Sheet_15
+  - first:
+      213: -7272165343657244791
+    second: UI_Inventory_Sheet_16
+  - first:
+      213: -4137491588154209592
+    second: UI_Inventory_Sheet_17
+  - first:
+      213: -1702526614059031318
+    second: UI_Inventory_Sheet_18
+  - first:
+      213: -4426968135007836653
+    second: UI_Inventory_Sheet_19
+  - first:
+      213: -2951140846496622841
+    second: UI_Inventory_Sheet_20
+  - first:
+      213: -2133864498497349371
+    second: UI_Inventory_Sheet_21
+  - first:
+      213: 7008578025172356790
+    second: UI_Inventory_Sheet_22
+  - first:
+      213: 7216611838329057593
+    second: UI_Inventory_Sheet_23
+  - first:
+      213: -4117938584213214058
+    second: UI_Inventory_Sheet_24
+  - first:
+      213: 34223509500165766
+    second: UI_Inventory_Sheet_25
+  - first:
+      213: 1558754133357961447
+    second: UI_Inventory_Sheet_26
+  - first:
+      213: 7959848889526033474
+    second: UI_Inventory_Sheet_27
+  - first:
+      213: 2837850327274060149
+    second: UI_Inventory_Sheet_28
+  - first:
+      213: -2316502787902254910
+    second: UI_Inventory_Sheet_29
+  - first:
+      213: -1161625751554116006
+    second: UI_Inventory_Sheet_30
+  - first:
+      213: -4574116179636539184
+    second: UI_Inventory_Sheet_31
+  - first:
+      213: -3470740866314252111
+    second: UI_Inventory_Sheet_32
+  - first:
+      213: 7569437709099305342
+    second: UI_Inventory_Sheet_33
+  - first:
+      213: -1978830208877482008
+    second: UI_Inventory_Sheet_34
+  - first:
+      213: 8955816801111389206
+    second: UI_Inventory_Sheet_35
+  - first:
+      213: 4581691407815383936
+    second: UI_Inventory_Sheet_36
+  - first:
+      213: -8148923643588093348
+    second: UI_Inventory_Sheet_37
+  - first:
+      213: 1379699615269667746
+    second: UI_Inventory_Sheet_38
+  - first:
+      213: 3551296846196805532
+    second: UI_Inventory_Sheet_39
+  - first:
+      213: 7558984944028501682
+    second: UI_Inventory_Sheet_8
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -63,7 +183,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 4, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -128,78 +248,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Inventory_Background
+      name: UI_Inventory_Sheet_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 971
-        width: 1914
-        height: 1077
+        x: 33
+        y: 846
+        width: 295
+        height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a2074b135218eb90800000000000000
-      internalID: -7212494655084625240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Inventory_Button_Inventory
-      rect:
-        serializedVersion: 2
-        x: 431
-        y: 830
-        width: 351
-        height: 117
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7afc319d1f504a5a0800000000000000
-      internalID: -6511072624983683161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Inventory_Button_Craft
-      rect:
-        serializedVersion: 2
-        x: 411
-        y: 150
-        width: 309
-        height: 308
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 894ae0a03173261c0800000000000000
-      internalID: -4511983321759177576
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Inventory_Button_Recipes
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 816
-        width: 358
-        height: 143
-      alignment: 0
-      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,22 +269,358 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Inventory_Slot
+      name: UI_Inventory_Sheet_0
       rect:
         serializedVersion: 2
-        x: 727
-        y: 1
-        width: 263
-        height: 266
+        x: 0
+        y: 968
+        width: 1920
+        height: 1080
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 20, z: 20, w: 20}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08b78de3e952a02b0800000000000000
+      internalID: -5617636223601837184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 846
+        width: 295
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 721699f44e4630920800000000000000
-      internalID: 2955316712235950375
+      spriteID: fc812794344161230800000000000000
+      internalID: 3609094430611609807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 896
+        width: 116
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c1d864c07b768d70800000000000000
+      internalID: 9045052625881977288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 880
+        width: 367
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0624fe49d7860d480800000000000000
+      internalID: -8876479976968338848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 53
+        width: 618
+        height: 809
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c0808e04acb5cc0800000000000000
+      internalID: -3721158286972023684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 712
+        width: 462
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef9d071073426a90800000000000000
+      internalID: -7322215895448838170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 484
+        width: 741
+        height: 315
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fa1c48b4f23e8590800000000000000
+      internalID: -7670137088719971598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 595
+        width: 430
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a61500e91fafbb0800000000000000
+      internalID: -4901339583526901140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 448
+        width: 257
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5d9cb15248970530800000000000000
+      internalID: 3821190219453734234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 345
+        width: 352
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31662e0bfef3092c0800000000000000
+      internalID: -4426968135007836653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 154
+        width: 304
+        height: 299
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7075c6239017b07d0800000000000000
+      internalID: -2951140846496622841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 239
+        width: 185
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5099f385b8df262e0800000000000000
+      internalID: -2133864498497349371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 226
+        width: 323
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68e79beb916997000800000000000000
+      internalID: 34223509500165766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 281
+        width: 121
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c9cf55460177e60800000000000000
+      internalID: 7959848889526033474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 99
+        width: 299
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a56bba4988311efe0800000000000000
+      internalID: -1161625751554116006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 35
+        width: 185
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8efab09c868c984e0800000000000000
+      internalID: -1978830208877482008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Inventory_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 28
+        width: 184
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b64853e1c8e6e860800000000000000
+      internalID: 7558984944028501682
       vertices: []
       indices: 
       edges: []
