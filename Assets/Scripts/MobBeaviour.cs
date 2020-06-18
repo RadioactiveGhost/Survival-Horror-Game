@@ -31,9 +31,9 @@ public class MobBeaviour : MonoBehaviour
     public List<Transform> targets;
     public Transform follower;
     public SphereCollider sphereCollider;
-    private Vector3 target;
+    private Vector3 target = new Vector3(0, 0, 0);
     public bool WolfPack; //wolf
-    private Vector3 targetSaver = new Vector3(0, 0, 0);
+    private GameObject targetSaver = null;
     public enum Action { chasing, fleeing, moving}
     public Action action = Action.moving;
     public float health;
@@ -43,8 +43,7 @@ public class MobBeaviour : MonoBehaviour
     void Start()
     {
         sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2;
-        //target = PlayerManager.instance.player.transform;
-        //target = transform;
+       
         agent = this.GetComponent<NavMeshAgent>();
         
         agent.speed = speed;
@@ -55,15 +54,14 @@ public class MobBeaviour : MonoBehaviour
 
     void Update()
     {
-        if(!(target == null))
+        if(!(targetSaver == null))
         {
-            target = targetSaver;
+            target = targetSaver.GetComponent<Transform>().position;
             float distance = Vector3.Distance(transform.position, target);
 
             if (distance > GetComponent<SphereCollider>().radius)
             {
-                // isChasing = false;
-                // isFleeing = false;
+              
                 action = Action.moving;
             }
         }
@@ -72,23 +70,7 @@ public class MobBeaviour : MonoBehaviour
         rngRest = Random.Range(0f, 10f);
        
 
-        //if (isChasing == true)
-        //{
-        //    Chase(target);
-        //}
-        //else if (isFleeing == true)
-        //{
-        //    Flee(target);
-        //}
-        //else if (isMoving == false && isChasing == false && isFleeing == false) //wander
-        //{
-        //    center = transform.position;
-        //    StartCoroutine(Move());
-        //    isChasing = false;
-        //    isFleeing = false;
-        //    agent.speed = speed;
 
-        //}
 
         if(action == Action.chasing)
         {
@@ -110,20 +92,21 @@ public class MobBeaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //target.position = other.gameObject.transform.position;
+       
         if(other.CompareTag("Player"))
         {
             if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
             {
-                targetSaver = other.GetComponent<GameObject>().transform.position;
+                // targetSaver = other.gameObject.transform.position;
+                targetSaver = other.gameObject;
                 action = Action.chasing;
                 isMoving = false;
             }
             else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
             {
-                targetSaver = other.GetComponent<GameObject>().transform.position;
-                isMoving = false;
+                targetSaver = other.gameObject;
                 action = Action.fleeing;
+                isMoving = false;
             }
             else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
             {
@@ -137,7 +120,7 @@ public class MobBeaviour : MonoBehaviour
             {
                 // targetSaver = other.GetComponent<GameObject>().transform.position;
 
-                targetSaver = other.transform.position;
+                targetSaver = other.gameObject;
            
                 action = Action.chasing;
                 isMoving = false;
@@ -146,7 +129,7 @@ public class MobBeaviour : MonoBehaviour
             }
             else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
             {
-                targetSaver = other.transform.position;
+                targetSaver = other.gameObject;
          
                 isMoving = false;
                 action = Action.fleeing;

@@ -20,6 +20,8 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     public GameObject player;
 
+    private bool playerLow = false;
+
     public bool isMoving = false; 
     
     public bool isSecondary = false;
@@ -30,8 +32,8 @@ public class mobAi : MonoBehaviour
     public enum Type { lookPhobic, movimentSensor, huntinPack, darknessCrawler, bloodLeecher}
     public Type type;
 
-    private Vector3 targetSaver = new Vector3(0,0,0);
-    private Vector3 target;
+    private GameObject targetSaver; 
+    private Vector3 target = new Vector3(0, 0, 0);
     public bool bIsOnTheMove = false;
 
     private IEnumerator CheckMoving(GameObject entity)
@@ -48,43 +50,10 @@ public class mobAi : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
-        switch (type)
+        if (other.CompareTag("Player"))
         {
-            case Type.lookPhobic:
-                break;
-            case Type.movimentSensor:
-                    {
-                        CheckMoving(player);
-                        if (bIsOnTheMove)
-                        {
-                            targetSaver = other.GetComponent<GameObject>().transform.position;
-                            action = Action.chasing;
-                            isMoving = false;
-                        }
-                    }
-                break;
-            case Type.huntinPack:
-                    {
-                        //check if same type mob nearby
-                    }
-                break;
-            case Type.darknessCrawler:
-                    {
-                        //check if lightsource in radius
-                    }
-                break;
-            case Type.bloodLeecher:
-                    {
-                        if(other.GetComponent<Player>().health <= 45)
-                        {
-                            //targetSaver = other.gameObject;
-                            targetSaver = other.GetComponent<GameObject>().transform.position;
-                            action = Action.chasing;
-                            isMoving = false;
-                        }
-                    }
-                break;
+            //targetSaver = other.gameObject.transform.position
+            targetSaver = other.gameObject;
         }
         
     }
@@ -93,7 +62,6 @@ public class mobAi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         agent = this.GetComponent<NavMeshAgent>();
 
         agent.speed = speed;
@@ -104,9 +72,15 @@ public class mobAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!(target == null))
+        
+
+
+
+
+        if (!(targetSaver == null))
         {
-            target = targetSaver;
+           
+            target = targetSaver.GetComponent<Transform>().position;
             float distance = Vector3.Distance(transform.position, target);
 
             if (distance > GetComponent<SphereCollider>().radius)
@@ -115,7 +89,51 @@ public class mobAi : MonoBehaviour
                 // isFleeing = false;
                 action = Action.moving;
             }
+            else if (distance <= GetComponent<SphereCollider>().radius)
+            {
+                switch (type)
+                {
+
+                    case Type.bloodLeecher:
+                        if (CheckPlayerHP() < 40)
+                        {
+                            action = Action.chasing;
+                            isMoving = false;
+                        }
+                        else
+                        {
+                            action = Action.moving;
+
+                        }
+                        break;
+                    case Type.movimentSensor:
+                        CheckMoving(player);
+                        if (bIsOnTheMove)
+                        {
+                            action = Action.chasing;
+                            isMoving = false;
+                        }
+                        break;
+                    case Type.lookPhobic:
+                        break;
+                    case Type.huntinPack:
+                        break;
+                    case Type.darknessCrawler:
+                        //check if lightsource in radius
+                        break;
+
+
+
+                }
+            }
+
+
+
+            
+
+
         }
+
 
 
         rngRest = Random.Range(0f, 10f);
@@ -200,5 +218,9 @@ public class mobAi : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    int CheckPlayerHP()
+    {
+        return player.GetComponent<Player>().health;
+    }
 
 }
