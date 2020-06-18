@@ -27,7 +27,7 @@ public class AnimalSpawner : MonoBehaviour
     void Update()
     {
         
-        Debug.Log(animalList.Count);
+        //Debug.Log(animalList.Count);
         if(animalList.Count < 30)
         {
             animalsSpawnFlag = true;
