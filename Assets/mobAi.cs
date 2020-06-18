@@ -34,32 +34,20 @@ public class mobAi : MonoBehaviour
 
     private GameObject targetSaver; 
     private Vector3 target = new Vector3(0, 0, 0);
-    public bool bIsOnTheMove = false;
 
-    private IEnumerator CheckMoving(GameObject entity)
-    {
-        Vector3 startPos = entity.GetComponent<Transform>().position;
-        yield return new WaitForSeconds(1f);
-        Vector3 finalPos = entity.GetComponent<Transform>().position;
 
-        if (startPos.x != finalPos.x || startPos.y != finalPos.y
-            || startPos.z != finalPos.z)
-            bIsOnTheMove = true;
-    }
-
+ 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            //targetSaver = other.gameObject.transform.position
+            
             targetSaver = other.gameObject;
         }
         
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
@@ -73,13 +61,8 @@ public class mobAi : MonoBehaviour
     void Update()
     {
         
-
-
-
-
         if (!(targetSaver == null))
-        {
-           
+        {   
             target = targetSaver.GetComponent<Transform>().position;
             float distance = Vector3.Distance(transform.position, target);
 
@@ -93,7 +76,6 @@ public class mobAi : MonoBehaviour
             {
                 switch (type)
                 {
-
                     case Type.bloodLeecher:
                         if (CheckPlayerHP() < 40)
                         {
@@ -107,11 +89,15 @@ public class mobAi : MonoBehaviour
                         }
                         break;
                     case Type.movimentSensor:
-                        CheckMoving(player);
-                        if (bIsOnTheMove)
+                        //StartCoroutine("CheckifPlayerMoving");
+                        if (CheckPlayerMotion())
                         {
                             action = Action.chasing;
                             isMoving = false;
+                        }
+                        else
+                        {
+                            action = Action.moving;
                         }
                         break;
                     case Type.lookPhobic:
@@ -121,17 +107,8 @@ public class mobAi : MonoBehaviour
                     case Type.darknessCrawler:
                         //check if lightsource in radius
                         break;
-
-
-
                 }
             }
-
-
-
-            
-
-
         }
 
 
@@ -156,6 +133,28 @@ public class mobAi : MonoBehaviour
 
        
     }
+
+    private bool CheckPlayerMotion()
+    {
+        if (player.GetComponent<Rigidbody>().velocity.magnitude < 2)
+            return false;   
+        else
+            return true;
+    }
+    //private IEnumerator CheckifPlayerMoving()
+    //{
+    //    Vector3 startPos = player.GetComponent<Transform>().position;
+    //    yield return new WaitForSeconds(1f);
+    //    Vector3 finalPos = player.GetComponent<Transform>().position;
+
+    //    if (startPos.x != finalPos.x || startPos.y != finalPos.y
+    //        || startPos.z != finalPos.z)
+    //        playerIsOnTheMove = true;
+    //    else
+    //    {
+    //        playerIsOnTheMove = false;
+    //    }
+    //}
 
     public void Chase(Vector3 target)
     {
