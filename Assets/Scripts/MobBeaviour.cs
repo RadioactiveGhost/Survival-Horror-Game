@@ -8,90 +8,257 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MobBeaviour : MonoBehaviour
 {
-    public Vector3 targetPos;
-    public bool isMoving = false;
+   public Vector3 targetPos;
+   public bool isMoving = false; //public for debugging purposes
+   // public bool isChasing = false; //public for debugging purposes
+    public bool isSecondary = false; //wolf pack member or boar child etc
+  //  public bool isFleeing = false;
+    //public bool isAgressive = false;
     public float maxRange;
     public float minRange;
     public float minWaitTime;
     public float maxWaitTime;
-   
-
-    public float speed = 1.5f;
+    public float lookradius;
+    public float speed;
     private NavMeshAgent agent;
-    private float range;
     private float waitTime;
     private Vector3 center;
-    private Transform transform;
+    //private Transform transform;
+    private float rngRest;
+    public enum Animal { bear, wolf, boar, deer, bunny, player};
+    public Animal thisanimal;
+    public enum HunterPrey { hunt, flee, nothing};
+    public List<Transform> targets;
+    public Transform follower;
+    public SphereCollider sphereCollider;
+    private Vector3 target = new Vector3(0, 0, 0);
+    public bool WolfPack; //wolf
+    private GameObject targetSaver = null;
+    public enum Action { chasing, fleeing, moving}
+    public Action action = Action.moving;
+    public float health;
+
+    public bool isMother; // boar
+
     void Start()
     {
+        sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2;
+       
         agent = this.GetComponent<NavMeshAgent>();
-        transform = this.GetComponent<Transform>();
+        
         agent.speed = speed;
-        range = Random.Range(minRange, maxRange);
+        
         waitTime = Random.Range(minWaitTime, maxWaitTime);
+
     }
 
     void Update()
     {
-        if (isMoving == false)
+        if(!(targetSaver == null))
         {
-            //FindNewTargetPos();
-            StartCoroutine(Move());
-            center = transform.position;
+            target = targetSaver.GetComponent<Transform>().position;
+            float distance = Vector3.Distance(transform.position, target);
+
+            if (distance > GetComponent<SphereCollider>().radius)
+            {
+              
+                action = Action.moving;
+            }
         }
+     
+
+        rngRest = Random.Range(0f, 10f);
+       
+
+
+
+        if(action == Action.chasing)
+        {
+            Chase(target);
+        }
+        else if(action == Action.fleeing)
+        {
+            Flee(target);
+        }
+        else if(action == Action.moving && isMoving == false)
+        {
+            center = transform.position;
+            StartCoroutine(Move());
+            agent.speed = speed;
+        }
+
+
     }
 
-    //private void FindNewTargetPos()
-    //{
-    //    Vector3 pos = transform.position;
-    //    targetPos = new Vector3();
-    //    targetPos.x = Random.Range(pos.x - maxRange, pos.x + maxRange);
-    //    targetPos.y = pos.y;
-    //    targetPos.z = Random.Range(pos.z - maxRange, pos.z + maxRange);
+    private void OnTriggerEnter(Collider other)
+    {
+       
+        if(other.CompareTag("Player"))
+        {
+            if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
+            {
+                // targetSaver = other.gameObject.transform.position;
+                targetSaver = other.gameObject;
+                action = Action.chasing;
+                isMoving = false;
+            }
+            else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
+            {
+                targetSaver = other.gameObject;
+                action = Action.fleeing;
+                isMoving = false;
+            }
+            else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
+            {
+                //fazer nada
+            }
 
-    //    transform.LookAt(targetPos);
-    //    StartCoroutine(Move());
-    //}
+        }
+        else if(other.CompareTag("Animal"))
+        {
+            if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+            {
+                // targetSaver = other.GetComponent<GameObject>().transform.position;
+
+                targetSaver = other.gameObject;
+           
+                action = Action.chasing;
+                isMoving = false;
+
+
+            }
+            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
+            {
+                targetSaver = other.gameObject;
+         
+                isMoving = false;
+                action = Action.fleeing;
+
+
+            }
+            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
+            {
+                //do nothing
+            }
+        }
+        
+           
+    }
+
 
     IEnumerator Move()
     {
-        isMoving = true;
-
-        //for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * speed)
-        //{
-
-        //    transform.position = Vector3.MoveTowards(transform.position, targetPos, t);
-        //    yield return null;
-        //}
-
-
-
-        //for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * speed)
-        //{
-
-        //    agent.SetDestination(targetPos);
-        //    yield return null;
-        //}
-
-
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * 5)
+        if(isSecondary) //ir atras da mae ou do leader de pack etc
         {
-                agent.destination = center + (Random.insideUnitSphere * range) ;
-     
+            agent.destination = follower.position;
+        }
+        else
+        agent.destination = center + (Random.insideUnitSphere * (Random.Range(minRange, maxRange))); //andar randomly por aí
 
-                if (agent.pathPending || agent.remainingDistance > 0.1f)
-                {        
-                    yield return null;
-                }
+        isMoving = true;
+        for (float t = 0.0f; t < 10f; t += Time.deltaTime)
+        {
+            if (agent.pathPending || agent.remainingDistance > 0.1f)
+            {
+                yield return null;
+            }
 
         }
-        yield return new WaitForSeconds(waitTime);
+        if (rngRest < 5)
+        {
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        }
         isMoving = false;
-        yield return null;
 
+        //StopCoroutine(Move());
+       
 
+    }
+    public void Chase(Vector3 target)
+    {
+        StopCoroutine(Move());
+        //isMoving = false;
+        float distance = Vector3.Distance(target, transform.position);
 
+            agent.SetDestination(target);
+            if (distance <= agent.stoppingDistance)
+            {
+                //attack!  ??? todo: atacar random inimigo q esta na area do lookradius e ta na lista de targets - also criar a lista primeiro..
+            }
+            FaceTarget(target);
+            agent.speed = speed * 2f;
 
+    }
+    public void Flee(Vector3 target)
+    {
+        Vector3 dirToTarget = transform.position - target;
+        Vector3 newPosition = transform.position + dirToTarget;
+        agent.SetDestination(newPosition);
+        agent.speed = speed * 2f;
 
+    }
+
+    private void OnDrawGizmosSelected() //debugging
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookradius);
+    }
+
+    void FaceTarget(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+   
+
+    public HunterPrey HunterAndPrey(Animal targetAnimal)
+    {
+        if (thisanimal == Animal.bear)  // URSO---------------
+        {
+            if (targetAnimal == Animal.wolf || targetAnimal == Animal.deer || targetAnimal == Animal.boar || targetAnimal == Animal.bunny || targetAnimal == Animal.player)
+                return HunterPrey.hunt;
+            else return HunterPrey.nothing;
+        }
+        else if (thisanimal == Animal.wolf) // LOBO----------------
+        {
+            if (targetAnimal == Animal.boar || targetAnimal == Animal.bunny)
+                return HunterPrey.hunt;
+            else if (targetAnimal == Animal.player || targetAnimal == Animal.bear || targetAnimal == Animal.deer)
+            {
+                if (WolfPack) //matilhaaa
+                    return HunterPrey.hunt;
+                else if (targetAnimal == Animal.player || targetAnimal == Animal.bear)
+                    return HunterPrey.flee;
+                else return HunterPrey.nothing;
+            }
+            else return HunterPrey.nothing;
+        }
+        else if (thisanimal == Animal.deer) // VIADO------------
+        {
+            if (targetAnimal == Animal.bear || targetAnimal == Animal.wolf)
+                return HunterPrey.flee;
+            else return HunterPrey.nothing;
+        }
+        else if (thisanimal == Animal.boar) // POSSSO N VALER NADA AGORA MAS JAVALI----------
+        {
+            if (targetAnimal == Animal.bear)
+                return HunterPrey.flee;
+            else if (targetAnimal == Animal.player || targetAnimal == Animal.wolf)
+            {
+                if (isMother) //attacc to protecc
+                    return HunterPrey.hunt;
+                else
+                    return HunterPrey.flee;
+            }
+            else return HunterPrey.nothing;
+        }
+        else if (thisanimal == Animal.bunny) // COELHO-----------------
+        {
+            if (targetAnimal == Animal.bunny || targetAnimal == Animal.boar || targetAnimal == Animal.deer)
+                return HunterPrey.nothing;
+        }
+        return HunterPrey.nothing;
     }
 }

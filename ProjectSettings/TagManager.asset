@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Test
   - Thing
+  - Item
+  - SoundManager
+  - Ground
+  - Animal
+  - ResourceManager
+  - InventoryManager
   layers:
   - Default
   - TransparentFX
@@ -15,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Hookable
   - 
   - 
   - 
