@@ -20,6 +20,8 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     public GameObject player;
 
+    private bool selfIsOnTheMove = false;
+
     private bool playerLow = false;
 
     public bool isMoving = false; 
@@ -34,6 +36,7 @@ public class mobAi : MonoBehaviour
 
     private GameObject targetSaver; 
     private Vector3 target = new Vector3(0, 0, 0);
+    private Animator animator;
 
 
  
@@ -50,6 +53,8 @@ public class mobAi : MonoBehaviour
 
     void Start()
     {
+        animator = this.GetComponent<Animator>();
+        
         agent = this.GetComponent<NavMeshAgent>();
 
         agent.speed = speed;
@@ -60,7 +65,9 @@ public class mobAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      
+
+
         if (!(targetSaver == null))
         {   
             target = targetSaver.GetComponent<Transform>().position;
@@ -110,7 +117,7 @@ public class mobAi : MonoBehaviour
                 }
             }
         }
-
+        
 
 
         rngRest = Random.Range(0f, 10f);
@@ -119,13 +126,17 @@ public class mobAi : MonoBehaviour
         if (action == Action.chasing)
         {
             Chase(target);
+            animator.SetBool("isWalking", true);
+
         }
         else if (action == Action.fleeing)
         {
             Flee(target);
+            animator.SetBool("isWalking", true);
         }
         else if (action == Action.moving && isMoving == false)
         {
+
             center = transform.position;
             StartCoroutine(Move());
             agent.speed = speed;
@@ -134,6 +145,8 @@ public class mobAi : MonoBehaviour
        
     }
 
+
+
     private bool CheckPlayerMotion()
     {
         if (player.GetComponent<Rigidbody>().velocity.magnitude < 2)
@@ -141,18 +154,18 @@ public class mobAi : MonoBehaviour
         else
             return true;
     }
-    //private IEnumerator CheckifPlayerMoving()
+    //private IEnumerator CheckifSelfMoving()
     //{
-    //    Vector3 startPos = player.GetComponent<Transform>().position;
+    //    Vector3 startPos = this.GetComponent<Transform>().position;
     //    yield return new WaitForSeconds(1f);
-    //    Vector3 finalPos = player.GetComponent<Transform>().position;
+    //    Vector3 finalPos = this.GetComponent<Transform>().position;
 
     //    if (startPos.x != finalPos.x || startPos.y != finalPos.y
     //        || startPos.z != finalPos.z)
-    //        playerIsOnTheMove = true;
+    //        selfIsOnTheMove = true;
     //    else
     //    {
-    //        playerIsOnTheMove = false;
+    //        selfIsOnTheMove = false;
     //    }
     //}
 
@@ -174,6 +187,7 @@ public class mobAi : MonoBehaviour
 
     IEnumerator Move()
     {
+        animator.SetBool("isWalking", true);
         if (isSecondary) //ir atras da mae ou do leader de pack etc
         {
             agent.destination = follower.position;
@@ -192,9 +206,11 @@ public class mobAi : MonoBehaviour
         }
         if (rngRest < 5)
         {
+            animator.SetBool("isWalking", false);
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
         isMoving = false;
+        animator.SetBool("isWalking", true);
 
         //StopCoroutine(Move());
 
