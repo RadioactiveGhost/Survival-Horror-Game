@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class mobAi : MonoBehaviour
 {
 
-
     public float maxRange;
     public float minRange;
     public float minWaitTime;
@@ -20,22 +19,24 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     public GameObject player;
 
-    private bool selfIsOnTheMove = false;
+    public float timeLeft = 5;
 
-    private bool playerLow = false;
+    public bool isStaring = false;
+
+
 
     public bool isMoving = false; 
     
     public bool isSecondary = false;
 
-    public enum Action { chasing, fleeing, moving, other }
+    public enum Action { chasing, fleeing, moving, immobilized, other }
     public Action action = Action.moving;
     public float health;
     public enum Type { lookPhobic, movimentSensor, huntinPack, darknessCrawler, bloodLeecher}
     public Type type;
 
     private GameObject targetSaver; 
-    private Vector3 target = new Vector3(0, 0, 0);
+    public Vector3 target = new Vector3(0, 0, 0);
     private Animator animator;
 
 
@@ -96,15 +97,30 @@ public class mobAi : MonoBehaviour
                         }
                         break;
                     case Type.movimentSensor:
-                        //StartCoroutine("CheckifPlayerMoving");
                         if (CheckPlayerMotion())
                         {
+                            timeLeft = 5;
                             action = Action.chasing;
                             isMoving = false;
+                            isStaring = true;
                         }
                         else
                         {
-                            action = Action.moving;
+                            isMoving = false;
+                            action = Action.immobilized;
+                            //timer com reset - > creepyLook
+                            timeLeft -= Time.deltaTime;
+                            
+
+                            isStaring = true;
+                            if (timeLeft < 0)
+                            {
+                                action = Action.moving;
+                                isStaring = false;
+                            }
+                           
+
+                            
                         }
                         break;
                     case Type.lookPhobic:
@@ -122,21 +138,27 @@ public class mobAi : MonoBehaviour
 
         rngRest = Random.Range(0f, 10f);
 
-
-        if (action == Action.chasing)
+        if(action == Action.immobilized)
         {
+            animator.SetBool("isWalking", false);
+            agent.isStopped = true;
+        }
+        else if (action == Action.chasing)
+        {
+            agent.isStopped = false;
             Chase(target);
             animator.SetBool("isWalking", true);
 
         }
         else if (action == Action.fleeing)
         {
+            agent.isStopped = false;
             Flee(target);
             animator.SetBool("isWalking", true);
         }
         else if (action == Action.moving && isMoving == false)
         {
-
+            agent.isStopped = false;
             center = transform.position;
             StartCoroutine(Move());
             agent.speed = speed;
@@ -145,7 +167,7 @@ public class mobAi : MonoBehaviour
        
     }
 
-
+    
 
     private bool CheckPlayerMotion()
     {
