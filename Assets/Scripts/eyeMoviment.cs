@@ -60,18 +60,6 @@ public class eyeMoviment : MonoBehaviour
             switch (eye)
             {
                 case Eye.right:
-
-                    //Debug.Log("r" + transform.localEulerAngles.y);
-
-                    //if (transform.localEulerAngles.x > 80)
-                    //{
-                    //    transform.Rotate(new Vector3(1, 0, 0), 80);
-                    //}
-                    //else if (transform.localEulerAngles.x < 50)
-                    //{
-                    //    transform.Rotate(new Vector3(1, 0, 0), 50);
-                    //direction.x = Mathf.Clamp(direction.x, 50, 80);
-                    //}
                     minClampR = 0f;
                     maxClampR = 80;
 
