@@ -19,7 +19,7 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     public GameObject player;
 
-    public float timeLeft = 5;
+    public float timeLeft = 7;
 
     public bool isStaring = false;
 
@@ -99,7 +99,7 @@ public class mobAi : MonoBehaviour
                     case Type.movimentSensor:
                         if (CheckPlayerMotion())
                         {
-                            timeLeft = 5;
+                            timeLeft = 7;
                             action = Action.chasing;
                             isMoving = false;
                             isStaring = true;

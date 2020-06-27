@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
             Transform objectHit = hit.transform;
         }
     }
-
+        
     void MouseCamUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

@@ -34,9 +34,13 @@ public class MobBeaviour : MonoBehaviour
     private Vector3 target = new Vector3(0, 0, 0);
     public bool WolfPack; //wolf
     private GameObject targetSaver = null;
-    public enum Action { chasing, fleeing, moving}
+    public enum Action { chasing, fleeing, moving, dead}
     public Action action = Action.moving;
     public float health;
+    public float timeLeft = 10;
+    public int attackDamage, armor;
+    private bool deathRotFlag = false;
+
 
     public bool isMother; // boar
 
@@ -54,6 +58,18 @@ public class MobBeaviour : MonoBehaviour
 
     void Update()
     {
+        if(health <= 0)
+        {
+            action = Action.dead;
+            agent.isStopped = true;
+            Debug.Log("dead");
+            if(deathRotFlag == false)
+            {
+                transform.Rotate(new Vector3(0, 0, 90));
+                deathRotFlag = true;
+            }
+            //enable looting script!
+        }
         if(!(targetSaver == null))
         {
             target = targetSaver.GetComponent<Transform>().position;
@@ -68,23 +84,31 @@ public class MobBeaviour : MonoBehaviour
      
 
         rngRest = Random.Range(0f, 10f);
-       
 
 
 
-        if(action == Action.chasing)
+        switch (action)
         {
-            Chase(target);
-        }
-        else if(action == Action.fleeing)
-        {
-            Flee(target);
-        }
-        else if(action == Action.moving && isMoving == false)
-        {
-            center = transform.position;
-            StartCoroutine(Move());
-            agent.speed = speed;
+            case Action.dead:
+                {
+                    //laydead
+                }
+                break;
+            case Action.chasing:
+                Chase(target);
+                break;
+            case Action.fleeing:
+                Flee(target);
+                break;
+            case Action.moving:
+                if (isMoving == false)
+                {
+                    center = transform.position;
+                    StartCoroutine(Move());
+                    agent.speed = speed;
+                }
+                break;
+           
         }
 
 
@@ -92,55 +116,58 @@ public class MobBeaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       if(!(action == Action.dead))
+        {
+            if (other.CompareTag("Player"))
+            {
+                if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
+                {
+                    // targetSaver = other.gameObject.transform.position;
+                    targetSaver = other.gameObject;
+                    action = Action.chasing;
+                    isMoving = false;
+                }
+                else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
+                {
+                    targetSaver = other.gameObject;
+                    action = Action.fleeing;
+                    isMoving = false;
+                }
+                else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
+                {
+                    //fazer nada
+                }
+
+            }
+            else if (other.CompareTag("Animal"))
+            {
+                if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+                {
+                    // targetSaver = other.GetComponent<GameObject>().transform.position;
+
+                    targetSaver = other.gameObject;
+
+                    action = Action.chasing;
+                    isMoving = false;
+
+
+                }
+                else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
+                {
+                    targetSaver = other.gameObject;
+
+                    isMoving = false;
+                    action = Action.fleeing;
+
+
+                }
+                else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
+                {
+                    //do nothing
+                }
+            }
+        }
        
-        if(other.CompareTag("Player"))
-        {
-            if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
-            {
-                // targetSaver = other.gameObject.transform.position;
-                targetSaver = other.gameObject;
-                action = Action.chasing;
-                isMoving = false;
-            }
-            else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
-            {
-                targetSaver = other.gameObject;
-                action = Action.fleeing;
-                isMoving = false;
-            }
-            else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
-            {
-                //fazer nada
-            }
-
-        }
-        else if(other.CompareTag("Animal"))
-        {
-            if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
-            {
-                // targetSaver = other.GetComponent<GameObject>().transform.position;
-
-                targetSaver = other.gameObject;
-           
-                action = Action.chasing;
-                isMoving = false;
-
-
-            }
-            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
-            {
-                targetSaver = other.gameObject;
-         
-                isMoving = false;
-                action = Action.fleeing;
-
-
-            }
-            else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
-            {
-                //do nothing
-            }
-        }
         
            
     }
@@ -176,6 +203,7 @@ public class MobBeaviour : MonoBehaviour
     }
     public void Chase(Vector3 target)
     {
+       
         StopCoroutine(Move());
         //isMoving = false;
         float distance = Vector3.Distance(target, transform.position);
@@ -183,7 +211,19 @@ public class MobBeaviour : MonoBehaviour
             agent.SetDestination(target);
             if (distance <= agent.stoppingDistance)
             {
-                //attack!  ??? todo: atacar random inimigo q esta na area do lookradius e ta na lista de targets - also criar a lista primeiro..
+              timeLeft -= Time.deltaTime;
+              if (timeLeft < 0)
+              {
+                 
+                if (targetSaver.CompareTag("Animal"))
+                    targetSaver.GetComponent<MobBeaviour>().health -= (attackDamage - targetSaver.GetComponent<MobBeaviour>().armor);
+                else if (targetSaver.CompareTag("Player"))
+                {
+                    targetSaver.GetComponent<Player>().health -= (attackDamage - targetSaver.GetComponent<Player>().armor);
+                }
+                timeLeft = 1;
+            }
+           
             }
             FaceTarget(target);
             agent.speed = speed * 2f;

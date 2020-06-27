@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { STONE, STICKS, METAL };
+public enum ItemType { STONE, STICKS, METAL, SMALL_TRAP };
 public class Item : MonoBehaviour
 {
     public ItemType type;
@@ -25,6 +25,9 @@ public class Item : MonoBehaviour
                 break;
             case ItemType.METAL:
                 Debug.Log("I just used metal");
+                break;
+            case ItemType.SMALL_TRAP:
+                //trap Deploy
                 break;
         }
     }

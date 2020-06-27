@@ -11,6 +11,7 @@ public class eyeMoviment : MonoBehaviour
     private float rotationResetSpeed = 10f; 
     public enum Eye { right, left};
     public Eye eye;
+    public GameObject EyeManager;
 
     private float minClampR;
     private float maxClampR;
@@ -28,7 +29,8 @@ public class eyeMoviment : MonoBehaviour
     // Update is called once per frame
     void Update() //75 a 125
     {
-        if(enemy.GetComponent<mobAi>().isStaring == true)
+
+        if(enemy.GetComponent<mobAi>().isStaring == true && EyeManager.GetComponent<EyeHandler>().playercheck)
         {
             float angleZ = transform.localEulerAngles.z;
             float angleX = transform.localEulerAngles.x;
