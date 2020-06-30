@@ -440,11 +440,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surface: {fileID: 1462509330}
-  texture: {fileID: 0}
   sizeXtile: 50
   sizeZtile: 50
-  mapSizeX: 1
-  mapSizeY: 1
+  mapSizeX: 3
+  mapSizeY: 3
   textureDetailMultiplier: 10
   uvX: 0
   uvY: 1

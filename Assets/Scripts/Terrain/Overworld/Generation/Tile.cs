@@ -33,8 +33,8 @@ public class Tile : MonoBehaviour
     {
         spawns = new List<Spawn>();
 
-        //this.biome = biome;
-        this.biome = Biomes.biomes[2]; //Force mountain
+        this.biome = biome;
+        //this.biome = Biomes.biomes[2]; //Force mountain
         mesh = new Mesh();
         HeightColors = this.biome.color;
         this.mainPos = mainPos;

@@ -54,8 +54,8 @@ public struct VertexHeightJob : IJobParallelFor
         }
         pointsToFindHeight.x = helper;
 
-        pointsToFindHeight.x = (1 / (float)detailMultiplier) * pointsToFindHeight.x;
-        pointsToFindHeight.y = (1 / (float)detailMultiplier) * pointsToFindHeight.y;
+        pointsToFindHeight.x = ((1 / (float)detailMultiplier) * pointsToFindHeight.x) + originalPoints[0].x;
+        pointsToFindHeight.y = ((1 / (float)detailMultiplier) * pointsToFindHeight.y) + originalPoints[0].z;
 
         float2 bottomLeft = new float2(Mathf.Floor(pointsToFindHeight.x), Mathf.Floor(pointsToFindHeight.y));
         float2 bottomRight = new float2(Mathf.Floor(pointsToFindHeight.x) + 1, Mathf.Floor(pointsToFindHeight.y));
