@@ -35,7 +35,7 @@ public class Biomes : MonoBehaviour
 
     void Awake()
     {
-        biomes = new List<BiomeStats>();
+        //biomes = new List<BiomeStats>();
         biomes = inspectorBiomes;
     }
 }

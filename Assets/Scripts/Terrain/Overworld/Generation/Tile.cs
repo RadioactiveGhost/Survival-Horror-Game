@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 
 public class Tile : MonoBehaviour
 {
@@ -20,36 +22,49 @@ public class Tile : MonoBehaviour
     HeightColor[] HeightColors;
     Texture2D texture;
     public List<Spawn> spawns;
+    int textureDetailMultiplier;
 
     public BiomeStats biome;
 
     //TEST
     public Vector2[] uvs;
 
-    public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, Vector3 mainPos)
+    public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, Vector3 mainPos, int textureDetailMultiplier, bool multiThreading)
     {
         spawns = new List<Spawn>();
 
-        this.biome = biome;
+        //this.biome = biome;
+        this.biome = Biomes.biomes[2]; //Force mountain
         mesh = new Mesh();
-        HeightColors = biome.color;
+        HeightColors = this.biome.color;
         this.mainPos = mainPos;
         this.sizeXtile = sizeXtile;
         this.sizeZtile = sizeZtile;
+        this.textureDetailMultiplier = textureDetailMultiplier;
 
         vertexes = new Vector3[(sizeXtile + 1) * (sizeZtile + 1)];
         triangles = new int[sizeXtile * sizeZtile * 6];
-        colors = new Color[(sizeXtile + 1) * (sizeZtile + 1)];
-        uvs = new Vector2[(sizeXtile + 1) * (sizeZtile + 1)];
-        noiseAmplitude = biome.Amp;
-        noiseFrequency = biome.Freq;
-        maxHeight = biome.MaxY;
-        minHeight = biome.MinY;
+        colors = new Color[(sizeXtile * this.textureDetailMultiplier) * (sizeZtile * this.textureDetailMultiplier)];
+        uvs = new Vector2[vertexes.Length];
+        noiseAmplitude = this.biome.Amp;
+        noiseFrequency = this.biome.Freq;
+        maxHeight = this.biome.MaxY;
+        minHeight = this.biome.MinY;
 
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
 
-        CreateShape(sizeZtile, sizeXtile);
+        if (!multiThreading)
+        {
+            CreateShape(sizeZtile, sizeXtile);
+        }
+        else
+        {
+            //CHANGE
+            CreateShape(sizeXtile, sizeZtile);
+        }
+
+
         //Vertextest();
     }
 
@@ -57,8 +72,8 @@ public class Tile : MonoBehaviour
     {
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_NORMALMAP");
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_METALLICGLOSSMAP");
-        //texture.filterMode = FilterMode.Point;
-        texture.filterMode = FilterMode.Bilinear;
+        texture.filterMode = FilterMode.Point;
+        //texture.filterMode = FilterMode.Bilinear;
         texture.wrapMode = TextureWrapMode.Clamp;
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = texture;
         this.texture = texture;
@@ -66,8 +81,8 @@ public class Tile : MonoBehaviour
 
     public void Initialize(Material mat) //ONLY USE TO REDO TILE FROM PREMADE ONE
     {
-        vertexes = new Vector3[(sizeXtile + 1) * (sizeZtile + 1)];
-        triangles = new int[sizeXtile * sizeZtile * 6];
+        vertexes = new Vector3[vertexes.Length];
+        triangles = new int[triangles.Length];
         //colors = new Color[(sizeXtile + 1) * (sizeZtile + 1)];
 
         gameObject.GetComponent<MeshRenderer>().material = mat;
@@ -88,18 +103,18 @@ public class Tile : MonoBehaviour
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
-    public void CreateShape(int sizeZtile, int sizeXtile)
+    void CreateShape(int sizeZtile, int sizeXtile)
     {
         //creating vertexes
 
-        float seed = Random.Range(0f, 1f);
+        float seed = UnityEngine.Random.Range(0f, 1f);
         for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
         {
             for (int x = 0; x <= sizeXtile; x++)
             {
                 float y = Mathf.PerlinNoise((float)(x * noiseFrequency + seed), (float)(z * noiseFrequency + seed)) * noiseAmplitude;
                 y += Mathf.PerlinNoise((float)(x * noiseFrequency + seed), (float)(z * noiseFrequency + seed)) * noiseAmplitude * 0.1f;
-                
+
                 if (y > maxY) //height storage and refinement
                 {
                     if (y > maxHeight)
@@ -119,8 +134,9 @@ public class Tile : MonoBehaviour
 
                 vertexes[i] = new Vector3(x, y, z) + mainPos;
 
-                //CONFIRM
-                uvs[i] = new Vector2((float)x / (float)sizeXtile, 1 - (float)z / (float)sizeZtile);
+                //uvs
+                //uvs[i] = new Vector2((float)x / (float)sizeXtile, 1 - (float)z / (float)sizeZtile);
+                uvs[i] = new Vector2((1f / (float)sizeXtile * (float)x), (1f / (float)sizeZtile * (float)z));
 
                 i++;
             }
@@ -158,44 +174,101 @@ public class Tile : MonoBehaviour
                 i++;
             }
         }
-        ApplyTexture((Texture2D)gameObject.GetComponent<MeshRenderer>().material.mainTexture);
+        ApplyTexture(texture);
         mesh.uv = uvs;
     }
 
     public void CreateColors()
     {
-        for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
+        float y, height;
+        for (int z = 0; z < sizeZtile * textureDetailMultiplier; z++) //vertices go to 1 more than size
         {
-            for (int x = 0; x <= sizeXtile; x++)
+            for (int x = 0; x < sizeXtile * textureDetailMultiplier; x++)
             {
-                float y = vertexes[i].y;
-                //colors[i] = gradient.Evaluate(Mathf.InverseLerp(minY, maxY, y));
+                //find height on certain point (works for points not in plane vertexes)
+                y = HeightAt(new Vector2((1 / (float)textureDetailMultiplier) * x, (1 / (float)textureDetailMultiplier) * z));
+
+                //Go through colors
+                height = -1;
                 for (int k = 0; k < HeightColors.Length; k++)
                 {
-                    if (y >= HeightColors[k].height)
+                    if (y >= HeightColors[k].height && height < HeightColors[k].height)
                     {
-                        colors[i] = HeightColors[k].color;
+                        colors[z * (sizeZtile * textureDetailMultiplier) + x] = HeightColors[k].color;
+                        height = HeightColors[k].height;
                     }
                 }
-                i++;
             }
         }
         ApplyTexture(CreateTextureFromCurrentColors());
     }
 
-    public Texture2D CreateTextureFromCurrentColors()
+    public void MultiThreadingCreateColors()
     {
-        Texture2D tex = new Texture2D(sizeXtile, sizeZtile);
-        for (int i = 0; i < sizeZtile; i++)
+        NativeArray<float3> originalPointsArray = new NativeArray<float3>(vertexes.Length, Allocator.TempJob);
+        for (int i = 0; i < originalPointsArray.Length; i++)
         {
-            for (int j = 0; j < sizeXtile; j++)
-            {
-                //tex.SetPixel(j, i, colors[j * sizeZtile + i]);
-                tex.SetPixels(colors);
-                tex.Apply();
-                //Debug.Log(colors[j * sizeZtile + i]);
-            }
+            originalPointsArray[i] = vertexes[i];
         }
+
+        NativeArray<float> resultsArray = new NativeArray<float>((sizeZtile * textureDetailMultiplier) * (sizeXtile * textureDetailMultiplier), Allocator.TempJob);
+
+        VertexHeightJob vertexHeightJob = new VertexHeightJob
+        {
+            originalPoints = originalPointsArray,
+            sizeZtile = sizeZtile,
+            detailMultiplier = textureDetailMultiplier,
+            results = resultsArray
+        };
+
+        JobHandle jobHandle1 = vertexHeightJob.Schedule(resultsArray.Length, 100);
+        jobHandle1.Complete();
+
+
+        //temp variables for jobs
+        NativeArray<Color> colorArray = new NativeArray<Color>(colors, Allocator.TempJob);
+        NativeArray<float> heightColorsHeightArray = new NativeArray<float>(HeightColors.Length, Allocator.TempJob);
+        NativeArray<Color> heightColorsColorArray = new NativeArray<Color>(HeightColors.Length, Allocator.TempJob);
+
+        for (int i = 0; i < HeightColors.Length; i++)
+        {
+            heightColorsHeightArray[i] = HeightColors[i].height;
+            heightColorsColorArray[i] = HeightColors[i].color;
+        }
+
+        ColorJob paralelColorJob = new ColorJob
+        {
+            colors = colorArray,
+            heights = resultsArray,
+            heightsFromBiome = heightColorsHeightArray,
+            colorsFromBiome = heightColorsColorArray
+        };
+
+        JobHandle jobHandle = paralelColorJob.Schedule(colors.Length, 100);
+        jobHandle.Complete();
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = colorArray[i];
+        }
+
+        colorArray.Dispose();
+        heightColorsHeightArray.Dispose();
+        heightColorsColorArray.Dispose();
+
+        resultsArray.Dispose();
+        originalPointsArray.Dispose();
+
+        ApplyTexture(CreateTextureFromCurrentColors());
+    }
+
+    Texture2D CreateTextureFromCurrentColors()
+    {
+        Texture2D tex = new Texture2D(sizeXtile * textureDetailMultiplier, sizeZtile  * textureDetailMultiplier);
+
+        tex.SetPixels(colors);
+        tex.Apply();
+
         return tex;
     }
 
@@ -225,7 +298,7 @@ public class Tile : MonoBehaviour
                 return vertexes[i].y;
             }
         }
-        Debug.LogError("Failed to find point at: " + positionXZ);
+        //Debug.LogError("Failed to find point at: " + positionXZ);
         return 0;
     }
 

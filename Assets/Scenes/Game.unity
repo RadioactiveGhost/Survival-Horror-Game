@@ -443,10 +443,12 @@ MonoBehaviour:
   texture: {fileID: 0}
   sizeXtile: 50
   sizeZtile: 50
-  mapSizeX: 3
-  mapSizeY: 3
+  mapSizeX: 1
+  mapSizeY: 1
+  textureDetailMultiplier: 10
   uvX: 0
   uvY: 1
+  multiThreading: 1
 --- !u!4 &296817725
 Transform:
   m_ObjectHideFlags: 0
@@ -504,12 +506,15 @@ MonoBehaviour:
     MinY: 2
     biome: 2
     color:
-    - name: Ground
-      color: {r: 0.4056604, g: 0.25972158, b: 0, a: 0}
+    - name: Bottom
+      color: {r: 0.26912385, g: 0.3490566, b: 0, a: 0}
       height: 0
     - name: Ice
       color: {r: 1, g: 1, b: 1, a: 0}
-      height: 4
+      height: 3
+    - name: Rock
+      color: {r: 0.25490198, g: 0.19850285, b: 0, a: 0}
+      height: 1
 --- !u!1 &917266582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,7 +1679,7 @@ PrefabInstance:
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
@@ -1684,7 +1689,7 @@ PrefabInstance:
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}

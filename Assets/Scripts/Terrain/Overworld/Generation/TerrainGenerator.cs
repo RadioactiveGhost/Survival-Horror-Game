@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.AI;
+using UnityEngine.Profiling;
 
 public class TerrainGenerator : MonoBehaviour
 {
@@ -10,10 +10,10 @@ public class TerrainGenerator : MonoBehaviour
 
     List<GameObject> map;
 
-    Material mat;
-    public Texture2D texture;
+    //Material mat;
+    //public Texture2D texture;
 
-    public int sizeXtile, sizeZtile, mapSizeX, mapSizeY;
+    public int sizeXtile, sizeZtile, mapSizeX, mapSizeY, textureDetailMultiplier;
     //public float noiseFrequency, noiseAmplitude;
     bool first;
 
@@ -21,26 +21,34 @@ public class TerrainGenerator : MonoBehaviour
 
     public int uvX, uvY;
 
-    private float elapsedTime, startTime;
+    //DEBUGGING STUFF
+    //private DateTime startTime;
+    //TimeSpan elapsedTime;
+
+    public bool multiThreading;
 
     void Awake()
     {
         first = true;
-        mat = new Material(Shader.Find("Standard"));
-        mat.color = Color.green;
+        //mat = new Material(Shader.Find("Standard"));
+        //mat.color = Color.green;
 
         map = new List<GameObject>();
-
-        //GenMap();
-        //test();
     }
 
     private void Start()
     {
-        startTime = Time.time;
+        //setting start timer
+        //startTime = System.DateTime.Now;
+        //Profiler.BeginSample("Terrain generation");
 
         //generate map
         GenMap();
+
+        //Debugging time count...
+        //Profiler.EndSample();
+        //elapsedTime = System.DateTime.Now - startTime;
+        //Debug.Log("Time spent generating terrain: " + elapsedTime);
 
         //set player on middle of map
         surface.BuildNavMesh();
@@ -52,10 +60,6 @@ public class TerrainGenerator : MonoBehaviour
         {
             spawnManager.Populate(g.GetComponent<Tile>());
         }
-
-        //Debugging not working bcs time only starts on update...
-        elapsedTime = Time.time - startTime;
-        //Debug.Log("Time spent generating: " + elapsedTime);
     }
 
     private void Update()
@@ -103,12 +107,19 @@ public class TerrainGenerator : MonoBehaviour
                     plane.tag = "Ground";
 
                     Tile t = plane.AddComponent<Tile>();
-                    t.Initialize(b, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile));
+                    t.Initialize(b, sizeXtile, sizeZtile, new Vector3(j * sizeXtile, 0, i * sizeZtile), textureDetailMultiplier, multiThreading);
                     map.Add(plane);
 
                     Connect(j, i, t);
 
-                    t.CreateColors();
+                    if (!multiThreading)
+                    {
+                        t.CreateColors();
+                    }
+                    else
+                    {
+                        t.MultiThreadingCreateColors();
+                    }
 
                     //Testing Purposes
                     //t.TextureTest();

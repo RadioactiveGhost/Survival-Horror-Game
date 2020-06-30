@@ -20,9 +20,9 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     public GameObject player;
 
-    private bool selfIsOnTheMove = false;
+    //private bool selfIsOnTheMove = false;
 
-    private bool playerLow = false;
+    //private bool playerLow = false;
 
     public bool isMoving = false; 
     
