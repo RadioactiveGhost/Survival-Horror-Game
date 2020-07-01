@@ -146,7 +146,7 @@ public class Spawns
                     continue;
                 }
                 g.transform.position = s.location;
-                g.tag = "Thing";
+                g.tag = "PickUp";
                 g.name = s.thing.ToString();
             }
         }

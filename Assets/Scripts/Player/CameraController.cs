@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public float mouseSensitivity;
     float xRotation;
-    Camera cam;
+    //Camera cam;
 
     // Start is called before the first frame update
     void Start()
@@ -13,7 +11,7 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         xRotation = 0;
-        cam = GetComponent<Camera>();
+        //cam = GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -22,16 +20,16 @@ public class CameraController : MonoBehaviour
         MouseCamUpdate();
     }
 
-    void Raycast()
-    {
-        RaycastHit hit;
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+    //void Raycast()
+    //{
+    //    RaycastHit hit;
+    //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            Transform objectHit = hit.transform;
-        }
-    }
+    //    if (Physics.Raycast(ray, out hit))
+    //    {
+    //        Transform objectHit = hit.transform;
+    //    }
+    //}
 
     void MouseCamUpdate()
     {

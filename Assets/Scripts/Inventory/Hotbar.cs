@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Hotbar : MonoBehaviour
 {
@@ -10,6 +7,7 @@ public class Hotbar : MonoBehaviour
     [HideInInspector]
     public int selected;
     InvSlot[] slots;
+    PickUpManager pickUpManager;
     //ItemCount[] items;
     private void Start()
     {
@@ -18,12 +16,15 @@ public class Hotbar : MonoBehaviour
         Select(0);
         //items = new ItemCount[slots.Length];
         UpdateBar();
+        pickUpManager = transform.root.GetComponentInChildren<PickUpManager>();
     }
 
     private void Update()
     {
         //CHANGE
         UpdateBar();
+
+        //Select item on hotbar
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Select(0);
@@ -44,6 +45,16 @@ public class Hotbar : MonoBehaviour
         {
             Select(4);
         }
+
+        //Use Item
+        if(Input.GetMouseButtonDown(0))
+        {
+            pickUpManager.PickUpResource();
+
+            //Change
+            //Debug.Log("Use: " + GetItemSelectedName());
+        }
+
     }
 
     void Select(int selection)
@@ -102,5 +113,24 @@ public class Hotbar : MonoBehaviour
             }
         }
         Debug.LogError("No matches found to remove from hotbar");
+    }
+
+    public bool ItemSelectedCheck(string s)
+    {
+        if(slots[selected].GetItemName() == s)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public string GetItemSelectedName()
+    {
+        return slots[selected].GetItemName();
+    }
+
+    public string GetItemSelected()
+    {
+        return slots[selected].GetItemName();
     }
 }

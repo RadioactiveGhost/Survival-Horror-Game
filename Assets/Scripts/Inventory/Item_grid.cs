@@ -1,27 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Item_grid : MonoBehaviour
 {
+    public GameObject InventoryMenu;
     public GameObject inventoryScriptGameObject;
-    NewInventory inventory;
+    NewInventory inventoryScript;
     public GameObject slotsParent, slotsParent2;
 
     List<InvSlot> childrenSlots, childrenSlots2;
 
     private void Update()
     {
-        //Not efficient
+        //Not efficient CHANGE
         PopulateAll();
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            InventoryMenu.SetActive(!InventoryMenu.activeSelf);
+            if(InventoryMenu.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
     }
 
     void Start()
     {
         childrenSlots = new List<InvSlot>();
         childrenSlots2 = new List<InvSlot>();
-        inventory = inventoryScriptGameObject.GetComponent<NewInventory>();
+        inventoryScript = inventoryScriptGameObject.GetComponent<NewInventory>();
 
         foreach (Transform child in slotsParent.transform)
         {
@@ -43,16 +57,16 @@ public class Item_grid : MonoBehaviour
     void PopulateOnIndex(int index)
     {
         //childrenSlots[index].SetImage(inventory.items[index].item.sprite);
-        childrenSlots[index].SetItem(inventory.inventory[index]);
+        childrenSlots[index].SetItem(inventoryScript.inventory[index]);
     }
 
     void PopulateAll()
     {
         for (int i = 0; i < childrenSlots.Count; i++)
         {
-            if (i < inventory.inventory.Count)
+            if (i < inventoryScript.inventory.Count)
             {
-                childrenSlots[i].SetItem(inventory.inventory[i]);
+                childrenSlots[i].SetItem(inventoryScript.inventory[i]);
             }
             else
             {
@@ -62,9 +76,9 @@ public class Item_grid : MonoBehaviour
 
         for (int i = 0; i < childrenSlots2.Count; i++)
         {
-            if (i < inventory.inventory.Count)
+            if (i < inventoryScript.inventory.Count)
             {
-                childrenSlots2[i].SetItem(inventory.inventory[i]);
+                childrenSlots2[i].SetItem(inventoryScript.inventory[i]);
             }
             else
             {
