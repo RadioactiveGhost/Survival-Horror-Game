@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using System;
 
 public class Tile : MonoBehaviour
 {
@@ -16,8 +16,6 @@ public class Tile : MonoBehaviour
     float maxY, minY;
     float noiseFrequency, noiseAmplitude, maxHeight, minHeight;
     [HideInInspector]
-    public Vector3 mainPos;
-    [HideInInspector]
     public int sizeXtile, sizeZtile;
     HeightColor[] HeightColors;
     Texture2D texture;
@@ -29,15 +27,14 @@ public class Tile : MonoBehaviour
     //TEST
     public Vector2[] uvs;
 
-    public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, Vector3 mainPos, int textureDetailMultiplier, bool multiThreading)
+    public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, int textureDetailMultiplier, bool multiThreading)
     {
         spawns = new List<Spawn>();
 
         this.biome = biome;
-        //this.biome = Biomes.biomes[2]; //Force mountain
+        //this.biome = Biomes.biomes[2]; //Force mountain TEST
         mesh = new Mesh();
         HeightColors = this.biome.color;
-        this.mainPos = mainPos;
         this.sizeXtile = sizeXtile;
         this.sizeZtile = sizeZtile;
         this.textureDetailMultiplier = textureDetailMultiplier;
@@ -64,7 +61,6 @@ public class Tile : MonoBehaviour
             CreateShape(sizeXtile, sizeZtile);
         }
 
-
         //Vertextest();
     }
 
@@ -79,13 +75,13 @@ public class Tile : MonoBehaviour
         this.texture = texture;
     }
 
-    public void Initialize(Material mat) //ONLY USE TO REDO TILE FROM PREMADE ONE
+    public void Initialize() //ONLY USE TO REDO TILE FROM PREMADE ONE
     {
         vertexes = new Vector3[vertexes.Length];
         triangles = new int[triangles.Length];
-        //colors = new Color[(sizeXtile + 1) * (sizeZtile + 1)];
+        colors = new Color[(sizeXtile * this.textureDetailMultiplier) * (sizeZtile * this.textureDetailMultiplier)];
 
-        gameObject.GetComponent<MeshRenderer>().material = mat;
+        //gameObject.GetComponent<MeshRenderer>().material = mat;
 
         CreateShape(sizeZtile, sizeXtile);
 
@@ -107,7 +103,8 @@ public class Tile : MonoBehaviour
     {
         //creating vertexes
 
-        float seed = UnityEngine.Random.Range(0f, 1f);
+        //float seed = UnityEngine.Random.Range(0f, 1f);
+        float seed = System.DateTime.Now.Second;
         for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
         {
             for (int x = 0; x <= sizeXtile; x++)
@@ -132,10 +129,10 @@ public class Tile : MonoBehaviour
                     minY = y;
                 }
 
-                vertexes[i] = new Vector3(x, y, z) + mainPos;
+                //vertexes[i] = new Vector3(x, y, z) + gameObject.transform.position;
+                vertexes[i] = new Vector3(x, y, z);
 
                 //uvs
-                //uvs[i] = new Vector2((float)x / (float)sizeXtile, 1 - (float)z / (float)sizeZtile);
                 uvs[i] = new Vector2((1f / (float)sizeXtile * (float)x), (1f / (float)sizeZtile * (float)z));
 
                 i++;
@@ -291,6 +288,15 @@ public class Tile : MonoBehaviour
 
     public float FindPointHeight(Vector2 positionXZ)
     {
+        while (positionXZ.x > sizeXtile - 1)
+        {
+            positionXZ.x -= sizeXtile;
+        }
+        while (positionXZ.y > sizeZtile - 1)
+        {
+            positionXZ.y -= sizeZtile;
+        }
+
         for (int i = 0; i < vertexes.Length; i++)
         {
             if (positionXZ.x == vertexes[i].x && positionXZ.y == vertexes[i].z)
@@ -298,8 +304,7 @@ public class Tile : MonoBehaviour
                 return vertexes[i].y;
             }
         }
-        //Debug.LogError("Failed to find point at: " + positionXZ);
-        return 0;
+        throw new Exception("Point " + positionXZ + " out of bounds");
     }
 
     void Vertextest()
@@ -337,7 +342,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void TextureTest()
+    void TextureTest()
     {
         //Sprite s = Sprite.Create(this.texture, new Rect(0, 0, this.texture.width, this.texture.height), Vector2.zero);
         //GameObject.FindGameObjectWithTag("Test").GetComponent<Image>().sprite = s;

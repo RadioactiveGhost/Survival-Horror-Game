@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class Spawns
 {
-    //public GameObject terrain;
-    //TerrainGenerator tScript;
     float maxX, maxZ;
     bool repeat;
 
-    //private void Start()
-    //{
-    //    //tScript = terrain.GetComponent<TerrainGenerator>();
-    //}
-
     void CreateSpawns(Tile t)
     {
-        maxX = t.mainPos.x + t.sizeXtile;
-        maxZ = t.mainPos.z + t.sizeZtile;
+        maxX = t.transform.position.x + t.sizeXtile;
+        maxZ = t.transform.position.z + t.sizeZtile;
 
         for (int i = 0; i < (t.sizeXtile * t.sizeZtile) / 2; i++)
         {
             repeat = false;
-            Vector3 place = new Vector3(Random.Range(t.mainPos.x, maxX), 0, Random.Range(t.mainPos.z, maxZ));
+            Vector3 place = new Vector3(Random.Range(t.transform.position.x, maxX), 0, Random.Range(t.transform.position.z, maxZ));
             place.y = t.HeightAt(new Vector2(place.x, place.z));
             for (int j = 0; j < t.spawns.Count; j++)//If place isn't repeated add that one to list
             {
@@ -148,6 +141,7 @@ public class Spawns
                 g.transform.position = s.location;
                 g.tag = "PickUp";
                 g.name = s.thing.ToString();
+                g.transform.parent = t.gameObject.transform;
             }
         }
     }

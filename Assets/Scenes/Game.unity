@@ -316,6 +316,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager_Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 8455563875290138233, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8455563875290138238, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
         type: 3}
       propertyPath: InventoryMenu
@@ -798,6 +803,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Manager_Resource
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727774, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf2ddf52043ef2c42bf863b5542cf63f, type: 3}
@@ -1287,6 +1297,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1751615934292108047, guid: 00a212442d02b144db45e9042f25ed43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1751615934455246217, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_IsActive
@@ -1667,9 +1682,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6023181841114185089, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
-      propertyPath: terrain
+      propertyPath: tG
       value: 
-      objectReference: {fileID: 296817723}
+      objectReference: {fileID: 296817724}
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_LocalPosition.x

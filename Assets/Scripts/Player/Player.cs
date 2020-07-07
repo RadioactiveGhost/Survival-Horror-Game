@@ -8,15 +8,16 @@ public class Player : MonoBehaviour
     public float jumpForce, moveForce, maxVelocity;
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool jumping, moving;
-    [HideInInspector]
+    //[HideInInspector]
     public bool grounded, movementAllowed;
+    Rigidbody rb;
+    public TerrainGenerator tG;
 
     //Stats
     Common common;
     public int hunger, thirst, health, armor, strength;
     public float hungerTimer, thirstTimer;
     float currentHungerTimer, currentThirstTimer;
-    Rigidbody rb;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() //Physics stuff
     {
+        WorldLoop();
         if (movementAllowed)
         {
             RBMovement();
@@ -236,6 +238,34 @@ public class Player : MonoBehaviour
     //    }
     //}
 
+    void WorldLoop()
+    {
+        if (tG) //Bounds calculation
+        {
+            if (transform.position.x > tG.mapSizeX * tG.sizeXtile)
+            {
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position - new Vector3(tG.mapSizeX * tG.sizeXtile, 0, 0));
+            }
+            else if (transform.position.x < 0)
+            {
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position + new Vector3(tG.mapSizeX * tG.sizeXtile, 0, 0));
+            }
+
+            if (transform.position.z > tG.mapSizeY * tG.sizeZtile)
+            {
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position - new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
+            }
+            else if (transform.position.z < 0)
+            {
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position + new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
+            }
+        }
+    }
+
     void MapFallOffSecurity(TerrainGenerator terrainScript)
     {
         positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
@@ -272,12 +302,12 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            grounded = true;
-            jumping = false;
-            //Debug.Log("Grounded");
-        }
+        //if (collision.gameObject.tag == "Ground")
+        //{
+        //    grounded = true;
+        //    jumping = false;
+        //    //Debug.Log("Grounded");
+        //}
     }
 
     private void OnCollisionExit(Collision collision)
@@ -286,6 +316,16 @@ public class Player : MonoBehaviour
         {
             grounded = false;
             //Debug.Log("Took off");
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+            jumping = false;
+            //Debug.Log("Grounded");
         }
     }
 }
