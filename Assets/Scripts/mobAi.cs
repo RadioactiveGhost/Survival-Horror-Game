@@ -38,15 +38,17 @@ public class mobAi : MonoBehaviour
     private GameObject targetSaver; 
     public Vector3 target = new Vector3(0, 0, 0);
     private Animator animator;
+    public int attackDamage, armor;
+    public bool onPlayerSight = false;
 
 
- 
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !(action == Action.immobilized))
         {
-            
+            if(other.GetComponent<Player>().health > 0)
             targetSaver = other.gameObject;
         }
         
@@ -54,6 +56,8 @@ public class mobAi : MonoBehaviour
 
     void Start()
     {
+        if (type == Type.huntinPack)
+           gameObject.GetComponent<packCheck>().enabled = true;
         animator = this.GetComponent<Animator>();
         
         agent = this.GetComponent<NavMeshAgent>();
@@ -124,8 +128,22 @@ public class mobAi : MonoBehaviour
                         }
                         break;
                     case Type.lookPhobic:
+                        if(!onPlayerSight)
+                        {
+                            action = Action.chasing;
+                            isMoving = false;
+                        }
+                        else
+                        {
+                            action = Action.moving;
+                        }
                         break;
                     case Type.huntinPack:
+                        if(GetComponent<packCheck>().packFormed)
+                        {
+                            action = Action.chasing;
+                            isMoving = false;
+                        }
                         break;
                     case Type.darknessCrawler:
                         //check if lightsource in radius
@@ -200,7 +218,11 @@ public class mobAi : MonoBehaviour
         agent.SetDestination(target);
         if (distance <= agent.stoppingDistance)
         {
-            //attack!  ??? todo: atacar random inimigo q esta na area do lookradius e ta na lista de targets - also criar a lista primeiro..
+            timeLeft -= Time.deltaTime;
+
+            targetSaver.GetComponent<Player>().health -= (attackDamage - targetSaver.GetComponent<Player>().armor);
+
+            timeLeft = 1;
         }
         FaceTarget(target);
         agent.speed = speed * 2f;

@@ -8,7 +8,7 @@ public class eyeMoviment : MonoBehaviour
     public GameObject enemy;
     private bool resetEyeRot = false;
     private Quaternion initialRotation;
-    private float rotationResetSpeed = 10f; 
+    private float rotationResetSpeed = 20f; 
     public enum Eye { right, left};
     public Eye eye;
     public GameObject EyeManager;

@@ -62,7 +62,6 @@ public class MobBeaviour : MonoBehaviour
         {
             action = Action.dead;
             agent.isStopped = true;
-            Debug.Log("dead");
             if(deathRotFlag == false)
             {
                 transform.Rotate(new Vector3(0, 0, 90));
@@ -120,51 +119,59 @@ public class MobBeaviour : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
+                if(other.GetComponent<Player>().health > 0)
                 {
-                    // targetSaver = other.gameObject.transform.position;
-                    targetSaver = other.gameObject;
-                    action = Action.chasing;
-                    isMoving = false;
+                    if (HunterAndPrey(Animal.player) == HunterPrey.hunt)
+                    {
+                        // targetSaver = other.gameObject.transform.position;
+                        targetSaver = other.gameObject;
+                        action = Action.chasing;
+                        isMoving = false;
+                    }
+                    else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
+                    {
+                        targetSaver = other.gameObject;
+                        action = Action.fleeing;
+                        isMoving = false;
+                    }
+                    else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
+                    {
+                        //fazer nada
+                    }
                 }
-                else if (HunterAndPrey(Animal.player) == HunterPrey.flee)
-                {
-                    targetSaver = other.gameObject;
-                    action = Action.fleeing;
-                    isMoving = false;
-                }
-                else if (HunterAndPrey(Animal.player) == HunterPrey.nothing)
-                {
-                    //fazer nada
-                }
+                
 
             }
             else if (other.CompareTag("Animal"))
             {
-                if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+                if(other.GetComponent<MobBeaviour>().health > 0)
                 {
-                    // targetSaver = other.GetComponent<GameObject>().transform.position;
+                    if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.hunt)
+                    {
+                        // targetSaver = other.GetComponent<GameObject>().transform.position;
 
-                    targetSaver = other.gameObject;
+                        targetSaver = other.gameObject;
 
-                    action = Action.chasing;
-                    isMoving = false;
+                        action = Action.chasing;
+                        isMoving = false;
 
 
+                    }
+                    else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
+                    {
+                        targetSaver = other.gameObject;
+
+                        isMoving = false;
+                        action = Action.fleeing;
+
+
+                    }
+                    else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
+                    {
+                        //do nothing
+                    }
                 }
-                else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.flee)
-                {
-                    targetSaver = other.gameObject;
-
-                    isMoving = false;
-                    action = Action.fleeing;
-
-
-                }
-                else if (HunterAndPrey(other.gameObject.GetComponent<MobBeaviour>().thisanimal) == HunterPrey.nothing)
-                {
-                    //do nothing
-                }
+                
             }
         }
        
