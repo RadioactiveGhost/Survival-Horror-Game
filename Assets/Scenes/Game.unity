@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 296817725}
   - component: {fileID: 296817724}
   - component: {fileID: 296817726}
+  - component: {fileID: 296817727}
   m_Layer: 0
   m_Name: Terrain Generator
   m_TagString: Untagged
@@ -230,13 +231,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surface: {fileID: 1462509330}
+  map: []
+  decoys: []
   sizeXtile: 50
   sizeZtile: 50
-  mapSizeX: 3
-  mapSizeY: 3
+  mapSizeX: 4
+  mapSizeY: 4
   textureDetailMultiplier: 10
-  uvX: 0
-  uvY: 1
   multiThreading: 1
 --- !u!4 &296817725
 Transform:
@@ -304,6 +305,19 @@ MonoBehaviour:
     - name: Rock
       color: {r: 0.25490198, g: 0.19850285, b: 0, a: 0}
       height: 1
+--- !u!114 &296817727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296817723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5bdb0c62b951b43bce9526d2e7a0c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0.1
 --- !u!1001 &418645373
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,8 +8,10 @@ public class TerrainGenerator : MonoBehaviour
 {
     public NavMeshSurface surface;
 
-    List<GameObject> map;
-    List<GameObject> decoys;
+    [HideInInspector]
+    public List<GameObject> map;
+    [HideInInspector]
+    public List<GameObject> decoys;
 
     //Material mat;
     //public Texture2D texture;
@@ -20,7 +22,8 @@ public class TerrainGenerator : MonoBehaviour
 
     Spawns spawnManager;
 
-    public int uvX, uvY;
+    //TEXTURE DEBUGGING STUFF
+    //public int uvX, uvY;
 
     //DEBUGGING STUFF
     //private DateTime startTime;
@@ -78,13 +81,13 @@ public class TerrainGenerator : MonoBehaviour
         //}
     }
 
-    void changeUVs()
-    {
-        foreach(GameObject g in map)
-        {
-            g.GetComponent<Tile>().ChangeUVs(uvX, uvY);
-        }
-    }
+    //void changeUVs()
+    //{
+    //    foreach(GameObject g in map)
+    //    {
+    //        g.GetComponent<Tile>().ChangeUVs(uvX, uvY);
+    //    }
+    //}
 
     void GenMap()
     {
@@ -182,11 +185,15 @@ public class TerrainGenerator : MonoBehaviour
             GameObject plane = Instantiate(map[i]); //create copy
             plane.name = "Top " + i + "decoy";
             plane.transform.position = new Vector3(i * sizeXtile, 0, mapSizeY * sizeZtile); //1 outside
+            DecoyBehaviour dB = plane.AddComponent<DecoyBehaviour>();
+            dB.original = map[i];
 
             //bottom
             GameObject plane2 = Instantiate(map[(mapSizeY - 1) * mapSizeY + i]); //create copy
             plane2.name = "Bottom " + i + "decoy";
             plane2.transform.position = new Vector3(i * sizeXtile, 0, -sizeZtile); //-1 outside
+            DecoyBehaviour dB2 = plane2.AddComponent<DecoyBehaviour>();
+            dB2.original = map[(mapSizeY - 1) * mapSizeY + i];
 
             decoys.Add(plane);
             decoys.Add(plane2);
@@ -198,11 +205,15 @@ public class TerrainGenerator : MonoBehaviour
             GameObject plane = Instantiate(map[i * mapSizeY + mapSizeX - 1]); //create copy
             plane.name = "Left " + i + "decoy";
             plane.transform.position = new Vector3(-sizeXtile, 0, sizeZtile * i);
+            DecoyBehaviour dB = plane.AddComponent<DecoyBehaviour>();
+            dB.original = map[i * mapSizeY + mapSizeX - 1];
 
             //Right
             GameObject plane2 = Instantiate(map[i * mapSizeY + 0]); //create copy
             plane2.name = "Right " + i + "decoy";
             plane2.transform.position = new Vector3(sizeXtile * mapSizeY, 0, sizeZtile * i);
+            DecoyBehaviour dB2 = plane2.AddComponent<DecoyBehaviour>();
+            dB2.original = map[i * mapSizeY + 0];
 
             decoys.Add(plane);
             decoys.Add(plane2);
@@ -213,21 +224,29 @@ public class TerrainGenerator : MonoBehaviour
         GameObject topLeft = Instantiate(map[mapSizeX - 1]);
         topLeft.name = "Top left decoy";
         topLeft.transform.position = new Vector3(-sizeXtile, 0, sizeZtile * mapSizeY);
+        DecoyBehaviour dB3 = topLeft.AddComponent<DecoyBehaviour>();
+        dB3.original = map[mapSizeX - 1];
 
         //top right
         GameObject topRight = Instantiate(map[0]);
         topRight.name = "Top right decoy";
         topRight.transform.position = new Vector3(sizeXtile * mapSizeX, 0, sizeZtile * mapSizeY);
+        DecoyBehaviour dB4 = topRight.AddComponent<DecoyBehaviour>();
+        dB4.original = map[0];
 
         //bottom left
         GameObject bottomLeft = Instantiate(map[map.Count - 1]);
         bottomLeft.name = "Bottom left decoy";
         bottomLeft.transform.position = new Vector3(-sizeXtile, 0, -sizeZtile);
+        DecoyBehaviour dB5 = bottomLeft.AddComponent<DecoyBehaviour>();
+        dB5.original = map[map.Count - 1];
 
         //bottom right
         GameObject bottomRight = Instantiate(map[(mapSizeY - 1) * mapSizeX]);
         bottomRight.name = "Bottom right decoy";
         bottomRight.transform.position = new Vector3(sizeXtile * mapSizeX, 0, -sizeZtile);
+        DecoyBehaviour dB6 = bottomRight.AddComponent<DecoyBehaviour>();
+        dB6.original = map[(mapSizeY - 1) * mapSizeX];
 
         decoys.Add(topLeft);
         decoys.Add(topRight);
@@ -378,5 +397,19 @@ public class TerrainGenerator : MonoBehaviour
             }
         }
         throw new Exception("Point " + pos + " out of bounds");
+    }
+
+    public Tile FindTileByPosition(Vector2 pos)
+    {
+        for (int i = 0; i < map.Count; i++)
+        {
+            if (new Rect(new Vector2(map[i].transform.position.x, map[i].GetComponent<Tile>().transform.position.z), new Vector2(sizeXtile, sizeZtile)).Contains(pos))
+            {
+                return map[i].GetComponent<Tile>();
+            }
+        }
+        //throw new Exception("Point " + pos + " out of bounds");
+        Debug.LogError("Point " + pos + " out of bounds");
+        return null;
     }
 }
