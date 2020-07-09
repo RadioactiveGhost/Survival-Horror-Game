@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class NewInventory : MonoBehaviour
@@ -23,14 +22,15 @@ public class NewInventory : MonoBehaviour
     {
         if(once)
         {
-            Test();
+            //Test();
         }
     }
 
     void Test()
     {
-        AddItem(Items.FindItemByString("Stick"), 20);
-        AddItem(Items.FindItemByString("Metal"), 20);
+        //AddItem(Items.FindItemByString("Stick"), 20);
+        //AddItem(Items.FindItemByString("Metal"), 20);
+        AddItem(Items.FindItemByString("Pickaxe"), 1);
         once = !once;
     }
 
@@ -160,5 +160,19 @@ public class NewInventory : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void AddItemsToInventory(List<ItemCount> list)
+    {
+        if(list == null)
+        {
+            Debug.LogError("This shouldn't happen");
+            return;
+        }
+        for (int i = 0; i < list.Count; i++)
+        {
+            item thing = Items.FindItemByString(list[i].item.name);
+            AddItem(thing, list[i].count);
+        }
     }
 }

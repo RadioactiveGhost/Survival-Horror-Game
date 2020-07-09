@@ -8,15 +8,16 @@ public class Player : MonoBehaviour
     public float jumpForce, moveForce, maxVelocity;
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool jumping, moving;
-    [HideInInspector]
+    //[HideInInspector]
     public bool grounded, movementAllowed;
+    Rigidbody rb;
+    public TerrainGenerator tG;
 
     //Stats
     Common common;
     public int hunger, thirst, health, armor, strength;
     public float hungerTimer, thirstTimer;
     float currentHungerTimer, currentThirstTimer;
-    Rigidbody rb;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() //Physics stuff
     {
+        WorldLoop();
         if (movementAllowed)
         {
             RBMovement();
@@ -96,45 +98,45 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    void TerrainCustomMovement(TerrainGenerator terrainScript)
-    {
-        if (Input.GetKey(KeyCode.W))//front
-        {
-            gameObject.transform.position += gameObject.transform.forward * moveForce * Time.deltaTime;
-            if (grounded)
-            {
-                positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
-            }
-        }
-        else if (Input.GetKey(KeyCode.S))//back
-        {
-            gameObject.transform.position -= gameObject.transform.forward * moveForce * Time.deltaTime;
-            if (grounded)
-            {
-                positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
-            }
-        }
-        if (Input.GetKey(KeyCode.A))//left
-        {
-            gameObject.transform.position -= gameObject.transform.right * moveForce * Time.deltaTime;
-            if (grounded)
-            {
-                positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
-            }
-        }
-        else if (Input.GetKey(KeyCode.D))//right
-        {
-            gameObject.transform.position += gameObject.transform.right * moveForce * Time.deltaTime;
-            if (grounded)
-            {
-                positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
-            }
-        }
-    }
+    //void TerrainCustomMovement(TerrainGenerator terrainScript)
+    //{
+    //    if (Input.GetKey(KeyCode.W))//front
+    //    {
+    //        gameObject.transform.position += gameObject.transform.forward * moveForce * Time.deltaTime;
+    //        if (grounded)
+    //        {
+    //            positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+    //            gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
+    //        }
+    //    }
+    //    else if (Input.GetKey(KeyCode.S))//back
+    //    {
+    //        gameObject.transform.position -= gameObject.transform.forward * moveForce * Time.deltaTime;
+    //        if (grounded)
+    //        {
+    //            positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+    //            gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
+    //        }
+    //    }
+    //    if (Input.GetKey(KeyCode.A))//left
+    //    {
+    //        gameObject.transform.position -= gameObject.transform.right * moveForce * Time.deltaTime;
+    //        if (grounded)
+    //        {
+    //            positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+    //            gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
+    //        }
+    //    }
+    //    else if (Input.GetKey(KeyCode.D))//right
+    //    {
+    //        gameObject.transform.position += gameObject.transform.right * moveForce * Time.deltaTime;
+    //        if (grounded)
+    //        {
+    //            positionY = terrainScript.HeightAt(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+    //            gameObject.transform.position = new Vector3(gameObject.transform.position.x, positionY + myheight / 2, gameObject.transform.position.z);
+    //        }
+    //    }
+    //}
 
     void RBMovement()
     {
@@ -201,37 +203,65 @@ public class Player : MonoBehaviour
         }
     }
 
-    void TerrainCustomJumping(TerrainGenerator terrainScript)
+    //void TerrainCustomJumping(TerrainGenerator terrainScript)
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        if (grounded)
+    //        {
+    //            Debug.Log("Jumping");
+    //            currentYVel = jumpForce;
+    //            transform.position += Vector3.up * Time.deltaTime * jumpForce;
+    //            jumping = true;
+    //        }
+    //    }
+    //    if (jumping)
+    //    {
+    //        currentYVel -= jumpForce * 0.1f;
+    //        if (currentYVel > 0)
+    //        {
+    //            Debug.Log("Rising");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Falling");
+    //        }
+    //        positionY = terrainScript.HeightAt(new Vector2(transform.position.x, transform.position.z)) + myheight / 2;
+    //        if ((transform.position + (Vector3.up * Time.deltaTime * currentYVel)).y >= positionY)//is on or above terrain
+    //        {
+    //            transform.position += Vector3.up * Time.deltaTime * currentYVel;
+    //        }
+    //        else
+    //        {
+    //            transform.position = new Vector3(transform.position.x, positionY, transform.position.z);
+    //        }
+    //    }
+    //}
+
+    void WorldLoop()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (tG) //Bounds calculation
         {
-            if (grounded)
+            if (transform.position.x > tG.mapSizeX * tG.sizeXtile)
             {
-                Debug.Log("Jumping");
-                currentYVel = jumpForce;
-                transform.position += Vector3.up * Time.deltaTime * jumpForce;
-                jumping = true;
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position - new Vector3(tG.mapSizeX * tG.sizeXtile, 0, 0));
             }
-        }
-        if (jumping)
-        {
-            currentYVel -= jumpForce * 0.1f;
-            if (currentYVel > 0)
+            else if (transform.position.x < 0)
             {
-                Debug.Log("Rising");
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position + new Vector3(tG.mapSizeX * tG.sizeXtile, 0, 0));
             }
-            else
+
+            if (transform.position.z > tG.mapSizeY * tG.sizeZtile)
             {
-                Debug.Log("Falling");
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position - new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
             }
-            positionY = terrainScript.HeightAt(new Vector2(transform.position.x, transform.position.z)) + myheight / 2;
-            if ((transform.position + (Vector3.up * Time.deltaTime * currentYVel)).y >= positionY)//is on or above terrain
+            else if (transform.position.z < 0)
             {
-                transform.position += Vector3.up * Time.deltaTime * currentYVel;
-            }
-            else
-            {
-                transform.position = new Vector3(transform.position.x, positionY, transform.position.z);
+                //Debug.Log("World looping...");
+                rb.MovePosition(rb.position + new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
             }
         }
     }
@@ -272,12 +302,12 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            grounded = true;
-            jumping = false;
-            //Debug.Log("Grounded");
-        }
+        //if (collision.gameObject.tag == "Ground")
+        //{
+        //    grounded = true;
+        //    jumping = false;
+        //    //Debug.Log("Grounded");
+        //}
     }
 
     private void OnCollisionExit(Collision collision)
@@ -286,6 +316,16 @@ public class Player : MonoBehaviour
         {
             grounded = false;
             //Debug.Log("Took off");
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+            jumping = false;
+            //Debug.Log("Grounded");
         }
     }
 }
