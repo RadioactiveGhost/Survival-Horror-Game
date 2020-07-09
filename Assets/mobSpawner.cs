@@ -8,7 +8,7 @@ public class mobSpawner : MonoBehaviour
     public GameObject terrain;
     public GameObject player;
     TerrainGenerator terrainScript;
-    public int numbOfMonsters;
+    public int numbOfMonsters = 20;
     private bool spawnFlag = false;
     public bool lookPhobic, moveSensor, lifeLeach, packHunter, darkCrawler;
 
@@ -49,9 +49,9 @@ public class mobSpawner : MonoBehaviour
                 position = new Vector3(player.GetComponent<Transform>().position.x + Random.Range(-spawnRange, spawnRange), 1.5f,
                 player.GetComponent<Transform>().position.z + Random.Range(-spawnRange, spawnRange));
             }
-            GameObject newAnimal = Instantiate(mob, new Vector3(position.x, 1.5f,
+            GameObject newMob = Instantiate(mob, new Vector3(position.x, 1.5f,
                   position.z), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
-            mobList.Add(newAnimal);
+            mobList.Add(newMob);
         }
     }
 
