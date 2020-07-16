@@ -17,7 +17,7 @@ public class mobAi : MonoBehaviour
     private Vector3 center;
     public Transform follower;
     private float rngRest;
-    public GameObject player;
+    private GameObject player;
 
     public float timeLeft = 7;
 
@@ -56,6 +56,7 @@ public class mobAi : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.Find("Player");
         if (type == Type.huntinPack)
            gameObject.GetComponent<packCheck>().enabled = true;
         animator = this.GetComponent<Animator>();

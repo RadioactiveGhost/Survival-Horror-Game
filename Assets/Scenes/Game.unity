@@ -732,89 +732,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968892339}
   m_CullTransparentMesh: 0
---- !u!1 &1009640023
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1009640025}
-  - component: {fileID: 1009640024}
-  - component: {fileID: 1009640026}
-  m_Layer: 0
-  m_Name: SpawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1009640024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009640023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f779d18cfec2a5342b7914a3401ec816, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animalList: []
-  terrain: {fileID: 296817723}
-  player: {fileID: 1185857415}
-  wolves: 1
-  boars: 1
-  boarpacks: 0
-  wolfpacks: 0
-  deers: 1
-  bears: 1
-  bunnies: 1
-  minNumber: 2
-  maxNumber: 6
-  spawnRange: 30
-  distForSpawn: 10
---- !u!4 &1009640025
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009640023}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 259.24738, y: -49.560974, z: 145.66899}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1009640026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009640023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b0f11859cc3434088a6f6527f3c6bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mobList: []
-  terrain: {fileID: 296817723}
-  player: {fileID: 1185857415}
-  numbOfMonsters: 20
-  lookPhobic: 1
-  moveSensor: 1
-  lifeLeach: 0
-  packHunter: 1
-  darkCrawler: 0
-  minNumber: 1
-  maxNumber: 5
-  spawnRange: 30
-  distForSpawn: 10
 --- !u!1 &1144354318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,75 +1110,95 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2039477171070705834
+--- !u!1001 &690483016294959684
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683539, guid: 65ed3dbc39aeec545916be653da19955,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 690483016360683548, guid: 65ed3dbc39aeec545916be653da19955,
+        type: 3}
+      propertyPath: terrain
+      value: 
+      objectReference: {fileID: 296817723}
+    - target: {fileID: 690483016360683548, guid: 65ed3dbc39aeec545916be653da19955,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1185857415}
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.96592
+      value: 259.24738
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.215523
+      value: -49.560974
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 84.677864
+      value: 145.66899
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963980, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683549, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2039477169536963982, guid: 343cc16eaee955740ad74b2741f180aa,
+    - target: {fileID: 690483016360683550, guid: 65ed3dbc39aeec545916be653da19955,
         type: 3}
-      propertyPath: m_Name
-      value: Small Trap
-      objectReference: {fileID: 0}
+      propertyPath: terrain
+      value: 
+      objectReference: {fileID: 296817723}
+    - target: {fileID: 690483016360683550, guid: 65ed3dbc39aeec545916be653da19955,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1185857415}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 343cc16eaee955740ad74b2741f180aa, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 65ed3dbc39aeec545916be653da19955, type: 3}
 --- !u!1001 &6023181840148267533
 PrefabInstance:
   m_ObjectHideFlags: 0
