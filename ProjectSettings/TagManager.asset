@@ -11,8 +11,8 @@ TagManager:
   - Animal
   - ResourceManager
   - InventoryManager
-  - PickUp
   - Enemy
+  - PickUp
   layers:
   - Default
   - TransparentFX
