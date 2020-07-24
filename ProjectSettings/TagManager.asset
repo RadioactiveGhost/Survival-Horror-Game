@@ -5,13 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Test
-  - Thing
   - Item
   - SoundManager
   - Ground
   - Animal
   - ResourceManager
   - InventoryManager
+  - PickUp
   - Enemy
   layers:
   - Default
@@ -23,7 +23,7 @@ TagManager:
   - 
   - 
   - Hookable
-  - 
+  - Resource
   - 
   - 
   - 

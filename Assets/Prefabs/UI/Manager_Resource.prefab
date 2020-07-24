@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5499034487172727772}
   - component: {fileID: 5499034487172727773}
   - component: {fileID: 4369239526858327742}
+  - component: {fileID: 1344400998}
+  - component: {fileID: 1344400999}
   m_Layer: 0
   m_Name: Manager_Resource
   m_TagString: ResourceManager
@@ -160,3 +162,39 @@ MonoBehaviour:
     sprite: {fileID: 0}
     ingredientNames: []
     ingredients: []
+--- !u!114 &1344400998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499034487172727774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6b0593a8fc7114097cf889a6a4769f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hotbar: {fileID: 0}
+  selected: 0
+--- !u!114 &1344400999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499034487172727774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ff1f44e1d1f3049bc4baa5c6a2ea46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpMaxDist: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
+  pointerGameObject: {fileID: 0}
+  hotbarGameObject: {fileID: 5499034487172727774}
+  InventoryGameObject: {fileID: 0}
+  defaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  pickUpSprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+  pickUpPossible: {fileID: 0}

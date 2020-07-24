@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -80,5 +78,17 @@ public class InvSlot : MonoBehaviour
     public ItemCount GetItemCount()
     {
         return iC;
+    }
+
+    public string GetItemName()
+    {
+        if (iC != null)
+        {
+            return iC.item.name;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

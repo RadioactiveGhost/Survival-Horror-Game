@@ -10,6 +10,7 @@ public class Crafting_Manager : MonoBehaviour
     public GameObject[] craftItemSlots;
     ItemCount[] itemsOnSlots;
     int selected;
+    [HideInInspector]
     public recipe craftable;
     NewInventory inventory;
 
