@@ -136,8 +136,8 @@ MonoBehaviour:
   lookradius: 3
   speed: 0.4
   follower: {fileID: 0}
-  player: {fileID: 0}
   timeLeft: 5
+  attackTimeLeft: 0
   isStaring: 0
   isMoving: 0
   isSecondary: 0
@@ -146,7 +146,8 @@ MonoBehaviour:
   type: 0
   target: {x: 0, y: 0, z: 0}
   attackDamage: 15
-  armor: 10
+  armor: 5
+  attackSpeed: 0.5
   onPlayerSight: 0
 --- !u!135 &8558216398840817858
 SphereCollider:
@@ -247,3 +248,4 @@ MonoBehaviour:
   packCount: 0
   packTreshHold: 3
   packFormed: 0
+  samePackGuys: []

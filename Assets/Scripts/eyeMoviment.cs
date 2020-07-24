@@ -23,7 +23,7 @@ public class eyeMoviment : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        moBai = GameObject.Find("SpookMS").GetComponent<mobAi>();
+        moBai = GetComponentInParent<mobAi>();
         initialRotation = transform.localRotation;
 
         switch (eye)

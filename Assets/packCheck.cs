@@ -17,11 +17,7 @@ public class packCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        packCount = samePackGuys.Count;
-        if (samePackGuys.Count >= packTreshHold)
-            packFormed = true;
-        else
-            packFormed = false;
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,7 +28,11 @@ public class packCheck : MonoBehaviour
                 if (!samePackGuys.Contains(other.gameObject))
                 {
                     samePackGuys.Add(other.gameObject);
-
+                    packCount = samePackGuys.Count;
+                    if (samePackGuys.Count >= packTreshHold)
+                        packFormed = true;
+                    else
+                        packFormed = false;
                 }
             }
     }
@@ -45,6 +45,11 @@ public class packCheck : MonoBehaviour
                 if (samePackGuys.Contains(other.gameObject))
                 {
                     samePackGuys.Remove(other.gameObject);
+                    packCount = samePackGuys.Count;
+                    if (samePackGuys.Count >= packTreshHold)
+                        packFormed = true;
+                    else
+                        packFormed = false;
                 }
             }
     }

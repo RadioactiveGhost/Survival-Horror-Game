@@ -514,6 +514,7 @@ MonoBehaviour:
   speed: 0.4
   follower: {fileID: 0}
   timeLeft: 7
+  attackTimeLeft: 0
   isStaring: 0
   isMoving: 0
   isSecondary: 0
@@ -521,8 +522,9 @@ MonoBehaviour:
   health: 100
   type: 1
   target: {x: 0, y: 0, z: 0}
-  attackDamage: 0
-  armor: 0
+  attackDamage: 25
+  armor: 10
+  attackSpeed: 1.5
   onPlayerSight: 0
 --- !u!135 &4175698932497013010
 SphereCollider:

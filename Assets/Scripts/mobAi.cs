@@ -19,7 +19,7 @@ public class mobAi : MonoBehaviour
     private float rngRest;
     private GameObject player;
 
-    public float timeLeft = 7;
+    public float timeLeft = 7, attackTimeLeft;
 
     public bool isStaring = false;
 
@@ -39,6 +39,7 @@ public class mobAi : MonoBehaviour
     public Vector3 target = new Vector3(0, 0, 0);
     private Animator animator;
     public int attackDamage, armor;
+    public float attackSpeed;
     public bool onPlayerSight = false;
 
 
@@ -71,7 +72,10 @@ public class mobAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+       if(attackTimeLeft > 0)
+       {
+            attackTimeLeft -= Time.deltaTime;
+       }
 
 
         if (!(targetSaver == null))
@@ -145,6 +149,11 @@ public class mobAi : MonoBehaviour
                             action = Action.chasing;
                             isMoving = false;
                         }
+                        else
+                        {
+                            action = Action.moving;
+                        }
+                           
                         break;
                     case Type.darknessCrawler:
                         //check if lightsource in radius
@@ -219,11 +228,12 @@ public class mobAi : MonoBehaviour
         agent.SetDestination(target);
         if (distance <= agent.stoppingDistance)
         {
-            timeLeft -= Time.deltaTime;
-
-            targetSaver.GetComponent<Player>().health -= (attackDamage - targetSaver.GetComponent<Player>().armor);
-
-            timeLeft = 1;
+            if (attackTimeLeft <= 0)
+            {
+                targetSaver.GetComponent<Player>().health -= (attackDamage - targetSaver.GetComponent<Player>().armor);
+                attackTimeLeft = 1 / attackSpeed;
+            }
+            
         }
         FaceTarget(target);
         agent.speed = speed * 2f;

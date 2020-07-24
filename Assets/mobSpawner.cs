@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class mobSpawner : MonoBehaviour
 {
-    public List<GameObject> mobList;
-    public GameObject terrain;
-    public GameObject player;
-    TerrainGenerator terrainScript;
-    public int numbOfMonsters = 20;
-    private bool spawnFlag = false;
     public bool lookPhobic, moveSensor, lifeLeach, packHunter, darkCrawler;
-
     public float minNumber, maxNumber;
     public float spawnRange, distForSpawn;
+    public int numbOfMonsters = 20;
+
+    
+    public List<GameObject> mobList;
+    
+    public GameObject terrain;
+    [HideInInspector]
+    public GameObject player;
+   
+    TerrainGenerator terrainScript;
+    
+    private bool spawnFlag = false;
+    
+
+   
 
     void Start()
     {
-        
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -63,7 +72,7 @@ public class mobSpawner : MonoBehaviour
         if (moveSensor)
             Spawn((GameObject)Resources.Load<GameObject>("Spooks/SpookMS"), (int)Random.Range(minNumber, maxNumber));
         if (lifeLeach)
-            Spawn((GameObject)Resources.Load<GameObject>("Spooks/SpookLL"), (int)Random.Range(minNumber, maxNumber));
+            Spawn((GameObject)Resources.Load<GameObject>("Spooks/SpookBL"), (int)Random.Range(minNumber, maxNumber));
         //if (darkCrawler)
         //    Spawn((GameObject)Resources.Load<GameObject>("Spooks/SpookDC"), (int)Random.Range(minNumber, maxNumber));
         if (packHunter)

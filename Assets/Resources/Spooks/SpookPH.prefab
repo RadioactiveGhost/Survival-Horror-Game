@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4155509956667600467}
   - component: {fileID: 1433675033470801651}
   m_Layer: 0
-  m_Name: SpookPH 1
+  m_Name: SpookPH
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   speed: 0.4
   follower: {fileID: 0}
   timeLeft: 7
+  attackTimeLeft: 0
   isStaring: 0
   isMoving: 0
   isSecondary: 0
@@ -144,8 +145,9 @@ MonoBehaviour:
   health: 100
   type: 2
   target: {x: 0, y: 0, z: 0}
-  attackDamage: 0
-  armor: 0
+  attackDamage: 10
+  armor: 10
+  attackSpeed: 1
   onPlayerSight: 0
 --- !u!135 &368731215067662668
 SphereCollider:
