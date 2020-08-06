@@ -4,38 +4,18 @@ using UnityEngine;
 public class Item_grid : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    public GameObject inventoryScriptGameObject;
     NewInventory inventoryScript;
     public GameObject slotsParent, slotsParent2;
+    PickUpManager pickUpManagerScript;
 
     List<InvSlot> childrenSlots, childrenSlots2;
-
-    private void Update()
-    {
-        //Not efficient CHANGE
-        PopulateAll();
-
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            InventoryMenu.SetActive(!InventoryMenu.activeSelf);
-            if(InventoryMenu.activeSelf)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-    }
 
     void Start()
     {
         childrenSlots = new List<InvSlot>();
         childrenSlots2 = new List<InvSlot>();
-        inventoryScript = inventoryScriptGameObject.GetComponent<NewInventory>();
+        inventoryScript = gameObject.GetComponent<NewInventory>();
+        pickUpManagerScript = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<PickUpManager>();
 
         foreach (Transform child in slotsParent.transform)
         {
@@ -50,6 +30,29 @@ public class Item_grid : MonoBehaviour
             if (child.GetComponent<InvSlot>())
             {
                 childrenSlots2.Add(child.GetComponent<InvSlot>());
+            }
+        }
+    }
+
+    private void Update()
+    {
+        //Not efficient CHANGE
+        PopulateAll();
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            InventoryMenu.SetActive(!InventoryMenu.activeSelf);
+            if(InventoryMenu.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                pickUpManagerScript.CheckPickups = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                pickUpManagerScript.CheckPickups = true;
             }
         }
     }

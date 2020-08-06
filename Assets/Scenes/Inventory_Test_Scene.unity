@@ -128,11 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5203300592986624849, guid: 170961b63d5e1da4fb4866c386c6bd0c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -300,7 +295,7 @@ GameObject:
   - component: {fileID: 384995789}
   - component: {fileID: 384995788}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,26 +425,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1074147902322993514, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074147902322993514, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074147902322993514, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074147902322993514, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1751615934292108043, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -560,26 +535,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2711175649866702324, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2711175649866702324, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2711175649866702324, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2711175649866702324, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3496200324879949251, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -638,66 +593,6 @@ PrefabInstance:
     - target: {fileID: 4044931746856329459, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5419212100333053700, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5419212100333053700, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5419212100333053700, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5419212100333053700, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438695674929461293, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438695674929461293, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438695674929461293, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5438695674929461293, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564118103732848846, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564118103732848846, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564118103732848846, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5564118103732848846, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7562606606410635195, guid: 00a212442d02b144db45e9042f25ed43,
@@ -876,12 +771,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 970109297}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2058875074 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8455563875290138233, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 8455563876730712139}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5499034487980060095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -897,10 +786,6 @@ PrefabInstance:
       propertyPath: pointerGameObject
       value: 
       objectReference: {fileID: 2032464868}
-    - target: {fileID: 1344400999, guid: cf2ddf52043ef2c42bf863b5542cf63f, type: 3}
-      propertyPath: InventoryGameObject
-      value: 
-      objectReference: {fileID: 2058875074}
     - target: {fileID: 4369239526858327742, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: CraftingList

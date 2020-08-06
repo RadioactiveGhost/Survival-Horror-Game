@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,25 +7,30 @@ public class PickUpManager : MonoBehaviour
     Camera cameraRef;
     public float pickUpMaxDist;
     public LayerMask mask;
-    public GameObject pointerGameObject, hotbarGameObject, InventoryGameObject;
+    public GameObject pointerGameObject;
     public Sprite defaultSprite, pickUpSprite;
     Image pointerImage;
     Hotbar hotbar;
     NewInventory inventory;
+    GameObject pickUpPossible;
     [HideInInspector]
-    public GameObject pickUpPossible;
+    public bool CheckPickups;
 
     private void Start()
     {
         cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         pointerImage = pointerGameObject.GetComponent<Image>();
-        hotbar = hotbarGameObject.GetComponent<Hotbar>();
-        inventory = InventoryGameObject.GetComponent<NewInventory>();
+        hotbar = gameObject.GetComponent<Hotbar>();
+        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
+        CheckPickups = true;
     }
 
     private void Update()
     {
-        pickUpPossible = RaycastResource();
+        if (CheckPickups)
+        {
+            pickUpPossible = RaycastResource();
+        }
     }
 
     public GameObject RaycastResource()
@@ -60,7 +64,7 @@ public class PickUpManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't pick up anything");
+            //Debug.Log("Can't pick up anything");
         }
     }
 }

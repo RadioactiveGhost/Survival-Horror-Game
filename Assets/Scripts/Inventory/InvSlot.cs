@@ -40,6 +40,10 @@ public class InvSlot : MonoBehaviour
 
     public void SetItem(ItemCount ic)
     {
+        if (ic == null)
+        {
+            return;
+        }
         iC = ic;
         SetImage(iC.item.sprite);
         SetText(iC.count);
@@ -57,7 +61,10 @@ public class InvSlot : MonoBehaviour
         switch(purpose)
         {
             case Function.Inventory:
-                hotbar.SetSlotCurrent(iC);
+                if (iC != null)
+                {
+                    hotbar.SetSlotCurrent(iC);
+                }
                 break;
 
             case Function.CraftingSlot:

@@ -100,7 +100,7 @@ public class Hotbar : MonoBehaviour
     {
         if(itemCount == null)
         {
-            Debug.LogError("NULL");
+            Debug.Log("NULL, is slot empty?");
             return;
         }
         for (int i = 0; i < slots.Length; i++)

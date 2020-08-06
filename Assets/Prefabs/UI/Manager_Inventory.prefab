@@ -60,6 +60,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InventoryMenu: {fileID: 0}
-  inventoryScriptGameObject: {fileID: 8455563875290138233}
   slotsParent: {fileID: 0}
   slotsParent2: {fileID: 0}

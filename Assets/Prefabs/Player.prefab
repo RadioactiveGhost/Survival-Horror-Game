@@ -389,6 +389,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grappling Hook
       objectReference: {fileID: 0}
+    - target: {fileID: 1580731685952152120, guid: aede4ea5df6ef6746834122142ff201e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1580731685952152122, guid: aede4ea5df6ef6746834122142ff201e,
         type: 3}
       propertyPath: cameraRef

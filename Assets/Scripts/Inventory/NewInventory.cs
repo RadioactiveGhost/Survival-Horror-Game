@@ -28,9 +28,9 @@ public class NewInventory : MonoBehaviour
 
     void Test()
     {
-        //AddItem(Items.FindItemByString("Stick"), 20);
-        //AddItem(Items.FindItemByString("Metal"), 20);
-        AddItem(Items.FindItemByString("Pickaxe"), 1);
+        AddItem(Items.FindItemByString("Stick"), 20);
+        AddItem(Items.FindItemByString("Metal"), 20);
+        //AddItem(Items.FindItemByString("Pickaxe"), 1);
         once = !once;
     }
 

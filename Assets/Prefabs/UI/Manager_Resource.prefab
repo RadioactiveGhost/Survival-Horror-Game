@@ -193,8 +193,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   pointerGameObject: {fileID: 0}
-  hotbarGameObject: {fileID: 5499034487172727774}
-  InventoryGameObject: {fileID: 0}
   defaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   pickUpSprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
-  pickUpPossible: {fileID: 0}
+  CheckPickups: 0
