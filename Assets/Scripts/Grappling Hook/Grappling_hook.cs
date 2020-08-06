@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class Grappling_hook : MonoBehaviour
 {
@@ -28,7 +25,7 @@ public class Grappling_hook : MonoBehaviour
             //Debug.Log("Shooting");
             Fire();
         }
-        else if(Input.GetKeyDown(KeyCode.F) && grappling) //Release mid grappling
+        else if(Input.GetKeyDown(KeyCode.R) && grappling) //Release mid grappling
         {
             //Debug.Log("Release mid grapple");
             Release();

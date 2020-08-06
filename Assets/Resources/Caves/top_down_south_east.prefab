@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2994074145020373698}
   - component: {fileID: 6113091330799423732}
   - component: {fileID: 570436828995922957}
-  m_Layer: 0
+  - component: {fileID: 3658610485596767456}
+  m_Layer: 8
   m_Name: top_down_south_east
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &3658610485596767456
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2294108242567502033}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5250080150013936348, guid: 474d5b739f35bc34e85c5cdb2218b115, type: 3}

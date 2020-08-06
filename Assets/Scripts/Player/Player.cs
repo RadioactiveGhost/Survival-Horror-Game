@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -300,32 +297,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void SetGroundBool(bool boolToSet)
     {
-        //if (collision.gameObject.tag == "Ground")
-        //{
-        //    grounded = true;
-        //    jumping = false;
-        //    //Debug.Log("Grounded");
-        //}
+        grounded = boolToSet;
     }
 
-    private void OnCollisionExit(Collision collision)
+    public void SetJumpingBool(bool boolToSet)
     {
-        if (collision.transform.CompareTag("Ground"))
-        {
-            grounded = false;
-            //Debug.Log("Took off");
-        }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            grounded = true;
-            jumping = false;
-            //Debug.Log("Grounded");
-        }
+        jumping = boolToSet;
     }
 }
