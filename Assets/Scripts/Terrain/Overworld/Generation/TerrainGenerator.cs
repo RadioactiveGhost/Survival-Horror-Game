@@ -43,6 +43,11 @@ public class TerrainGenerator : MonoBehaviour
 
     private void Start()
     {
+        if (textureDetailMultiplier < 1)
+        {
+            Debug.LogError("TextureDetailMultiplier should be at least 1");
+        }
+
         //setting start timer
         //startTime = System.DateTime.Now;
         //Profiler.BeginSample("Terrain generation");
@@ -66,7 +71,14 @@ public class TerrainGenerator : MonoBehaviour
 
         //set player on middle of map
         surface.BuildNavMesh();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+        try
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+        }
+        catch
+        {
+            Debug.Log("Is player missing? Maybe untagged?");
+        }
     }
 
     private void Update()
@@ -119,10 +131,15 @@ public class TerrainGenerator : MonoBehaviour
 
                     map.Add(plane);
 
+                    //connect edges to previous tile
                     ConnectInsideEdges(x, z, t);
                 }
             }
+
+            //Connect edges on edge tiles to other side
             ConectOuterEdges();
+
+            //set colors by biome and height
             for (int i = 0; i < map.Count; i++)
             {
                 Tile t = map[i].GetComponent<Tile>();
@@ -134,7 +151,60 @@ public class TerrainGenerator : MonoBehaviour
                 {
                     t.MultiThreadingCreateColors();
                 }
+            }
 
+            //Change colors to transition from neighboors
+            for (int i = 0; i < map.Count; i++)
+            {
+                //Debug.Log("Tile " + i);
+                int[] numbers = new int[4];
+
+                //top
+                if (i < (mapSizeX - 1) * mapSizeY) //isn't top row?
+                {
+                    numbers[0] = i + mapSizeX;
+                }
+                else
+                {
+                    numbers[0] = i - ((mapSizeX - 1) * mapSizeY);
+                }
+
+                //bottom
+                if (i >= mapSizeX) //isn't bottom row?
+                {
+                    numbers[1] = i - mapSizeX;
+                }
+                else
+                {
+                    numbers[1] = i + ((mapSizeX - 1) * mapSizeY);
+                }
+
+                //left
+                if (i % mapSizeX != 0) //isn't left collumn?
+                {
+                    numbers[2] = i - 1;
+                }
+                else
+                {
+                    numbers[2] = i + (mapSizeX - 1);
+                }
+
+                //right
+                if (i % mapSizeX != mapSizeX - 1) //isn't right collumn?
+                {
+                    numbers[3] = i + 1;
+                }
+                else
+                {
+                    numbers[3] = i - (mapSizeX - 1);
+                }
+
+                map[i].GetComponent<Tile>().MixColors(map[numbers[0]].GetComponent<Tile>(), map[numbers[1]].GetComponent<Tile>(), map[numbers[2]].GetComponent<Tile>(), map[numbers[3]].GetComponent<Tile>());
+            }
+
+            //Update mesh to update all changes
+            for (int i = 0; i < map.Count; i++)
+            {
                 map[i].GetComponent<Tile>().UpdateMesh();
             }
             first = false;

@@ -68,8 +68,8 @@ public class Tile : MonoBehaviour
     {
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_NORMALMAP");
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_METALLICGLOSSMAP");
-        texture.filterMode = FilterMode.Point;
-        //texture.filterMode = FilterMode.Bilinear;
+        //texture.filterMode = FilterMode.Point;
+        texture.filterMode = FilterMode.Bilinear;
         texture.wrapMode = TextureWrapMode.Clamp;
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = texture;
         this.texture = texture;
@@ -197,7 +197,7 @@ public class Tile : MonoBehaviour
                 }
             }
         }
-        ApplyTexture(CreateTextureFromCurrentColors());
+        //ApplyTexture(CreateTextureFromCurrentColors());
     }
 
     public void MultiThreadingCreateColors()
@@ -256,12 +256,12 @@ public class Tile : MonoBehaviour
         resultsArray.Dispose();
         originalPointsArray.Dispose();
 
-        ApplyTexture(CreateTextureFromCurrentColors());
+        //ApplyTexture(CreateTextureFromCurrentColors());
     }
 
     Texture2D CreateTextureFromCurrentColors()
     {
-        Texture2D tex = new Texture2D(sizeXtile * textureDetailMultiplier, sizeZtile  * textureDetailMultiplier);
+        Texture2D tex = new Texture2D(sizeXtile * textureDetailMultiplier, sizeZtile * textureDetailMultiplier);
 
         tex.SetPixels(colors);
         tex.Apply();
@@ -347,5 +347,112 @@ public class Tile : MonoBehaviour
         //Sprite s = Sprite.Create(this.texture, new Rect(0, 0, this.texture.width, this.texture.height), Vector2.zero);
         //GameObject.FindGameObjectWithTag("Test").GetComponent<Image>().sprite = s;
         GameObject.FindGameObjectWithTag("Test").GetComponent<MeshRenderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+    }
+
+    public void MixColors(Tile top, Tile bottom, Tile left, Tile right)
+    {
+        if (top.biome.biome != biome.biome)
+        {
+            //top transition
+            for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
+            {
+                //set media of top corner on both corners
+                colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i] =
+                    (colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i] + top.colors[i]) / 2;
+                top.colors[i] = colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i];
+                //make gradual transition to that media
+                for (int j = 1; j < textureDetailMultiplier; j++) //transition up
+                {
+                    //calculate change
+                    float Rdist = colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i].r - colors[(sizeXtile * textureDetailMultiplier - 1 - j) * (sizeZtile * textureDetailMultiplier) + i].r;
+                    float Gdist = colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i].g - colors[(sizeXtile * textureDetailMultiplier - 1 - j) * (sizeZtile * textureDetailMultiplier) + i].g;
+                    float Bdist = colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i].b - colors[(sizeXtile * textureDetailMultiplier - 1 - j) * (sizeZtile * textureDetailMultiplier) + i].b;
+                    //calculate increment
+                    Rdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Gdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Bdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+
+                    colors[(sizeXtile * textureDetailMultiplier - 1 - j) * (sizeZtile * textureDetailMultiplier) + i] += new Color(Rdist, Gdist, Bdist);
+                }
+            }
+        }
+
+        if (bottom.biome.biome != biome.biome)
+        {
+            //bottom transition
+            for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
+            {
+                //set media of bottom corner
+                colors[i] =
+                    (colors[i] + bottom.colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i]) / 2;
+                bottom.colors[(sizeXtile * textureDetailMultiplier - 1) * (sizeZtile * textureDetailMultiplier) + i] = colors[i];
+                //make gradual transition to that media
+                for (int j = 1; j < textureDetailMultiplier; j++) //transition up
+                {
+                    //calculate change
+                    float Rdist = colors[i].r - colors[j * sizeXtile * textureDetailMultiplier + i].r;
+                    float Gdist = colors[i].g - colors[j * sizeXtile * textureDetailMultiplier + i].g;
+                    float Bdist = colors[i].b - colors[j * sizeXtile * textureDetailMultiplier + i].b;
+                    //calculate increment
+                    Rdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Gdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Bdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+
+                    colors[j * sizeXtile * textureDetailMultiplier + i] += new Color(Rdist, Gdist, Bdist);
+                }
+            }
+        }
+
+        if (left.biome.biome != biome.biome)
+        {
+            //left transition
+            for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
+            {
+                //set media left corner
+                colors[i * sizeXtile * textureDetailMultiplier] = (colors[i * sizeXtile * textureDetailMultiplier] + left.colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1]) / 2;
+                left.colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1] = colors[i * sizeXtile * textureDetailMultiplier];
+
+                for (int j = 1; j < textureDetailMultiplier; j++) //transition right
+                {
+                    //calculate change
+                    float Rdist = colors[i * sizeXtile * textureDetailMultiplier].r - colors[i * sizeXtile * textureDetailMultiplier + j].r;
+                    float Gdist = colors[i * sizeXtile * textureDetailMultiplier].g - colors[i * sizeXtile * textureDetailMultiplier + j].g;
+                    float Bdist = colors[i * sizeXtile * textureDetailMultiplier].b - colors[i * sizeXtile * textureDetailMultiplier + j].b;
+                    //calculate increment
+                    Rdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Gdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Bdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+
+                    colors[i * sizeXtile * textureDetailMultiplier + j] += new Color(Rdist, Gdist, Bdist);
+                }
+            }
+        }
+
+        if (right.biome.biome != biome.biome)
+        {
+            //right transition
+            for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to right
+            {
+                //set media right corner
+                colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1] = (colors[i * sizeXtile * textureDetailMultiplier + sizeZtile * textureDetailMultiplier - 1] + right.colors[i * sizeXtile * textureDetailMultiplier]) / 2;
+                right.colors[i * sizeXtile * textureDetailMultiplier] = colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1];
+
+                for (int j = 1; j < textureDetailMultiplier; j++) //transition left
+                {
+                    //calculate change
+                    float Rdist = colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1].r - colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1 - j].r;
+                    float Gdist = colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1].g - colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1 - j].g;
+                    float Bdist = colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1].b - colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1 - j].b;
+                    //calculate increment
+                    Rdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Gdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+                    Bdist *= (textureDetailMultiplier - j) / (float)textureDetailMultiplier;
+
+                    colors[i * sizeXtile * textureDetailMultiplier + sizeXtile * textureDetailMultiplier - 1 - j] += new Color(Rdist, Gdist, Bdist);
+                }
+            }
+        }
+
+        ApplyTexture(CreateTextureFromCurrentColors());
     }
 }

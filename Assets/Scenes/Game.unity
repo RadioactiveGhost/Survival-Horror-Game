@@ -229,8 +229,8 @@ MonoBehaviour:
   decoys: []
   sizeXtile: 50
   sizeZtile: 50
-  mapSizeX: 4
-  mapSizeY: 4
+  mapSizeX: 3
+  mapSizeY: 3
   textureDetailMultiplier: 10
   multiThreading: 1
 --- !u!4 &296817725
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296817723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e5bdb0c62b951b43bce9526d2e7a0c8, type: 3}
   m_Name: 
@@ -430,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &955103821
 RectTransform:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &968892340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -578,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1009640024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1361,6 +1361,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1751615934292108047, guid: 00a212442d02b144db45e9042f25ed43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3496200324879949251, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1638,7 +1643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5837213883446032362
 Transform:
   m_ObjectHideFlags: 0

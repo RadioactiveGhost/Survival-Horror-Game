@@ -36,6 +36,15 @@ public struct ColorJob : IJobParallelFor
 }
 
 [BurstCompile]
+public struct ColorMixingJob : IJobParallelFor
+{
+    public void Execute(int index)
+    {
+
+    }
+}
+
+[BurstCompile]
 public struct VertexHeightJob : IJobParallelFor
 {
     [NativeDisableParallelForRestriction]
