@@ -778,6 +778,61 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: maxRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: minRange
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: minWaitTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: maxWaitTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: lookradius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: attackDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: armor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208028885017849859, guid: 01822db4b22d97543b1c8e90e0b32bd4,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8251111173534279070, guid: 01822db4b22d97543b1c8e90e0b32bd4,
         type: 3}
       propertyPath: m_Name
