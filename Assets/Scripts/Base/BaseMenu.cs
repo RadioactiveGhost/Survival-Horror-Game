@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BaseMenu : MonoBehaviour
 {
     public Button b_storage, b_bed, b_crafting;
-    public GameObject daySprite, nightSprite, lighternightSprite;
+    public GameObject daySprite, nightSprite, lighternightSprite, craftingMenu, storageMenu;
     public bool day;
     // Start is called before the first frame update
     void Start()
@@ -34,12 +34,12 @@ public class BaseMenu : MonoBehaviour
 
     void OpenStorage()
     {
-
+        storageMenu.SetActive(true);
     }
 
     void OpenCraftin()
     {
-       
+        craftingMenu.SetActive(true);
     }
 
     void LongRest()
