@@ -12,7 +12,7 @@ public class ManagerScenes : MonoBehaviour
         Lose = 2
     };
 
-    public static void LoadScene(scenes s)//Experimental untested
+    public static void LoadScene(scenes s)
     {
         Debug.Log("Loading " + s.ToString());
         SceneManager.LoadScene(s.ToString());
