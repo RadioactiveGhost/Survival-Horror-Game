@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BaseMenu : MonoBehaviour
 {
-    public Button b_storage, b_bed, b_crafting;
+    public Button b_storage, b_bed, b_crafting, b_closeC, b_closeS;
     public GameObject daySprite, nightSprite, lighternightSprite, craftingMenu, storageMenu;
     public bool day;
     // Start is called before the first frame update
@@ -30,6 +31,18 @@ public class BaseMenu : MonoBehaviour
         b_storage.onClick.AddListener(OpenStorage);
         b_bed.onClick.AddListener(LongRest);
         b_crafting.onClick.AddListener(OpenCraftin);
+        b_closeC.onClick.AddListener(CloseCraftin);
+        b_closeS.onClick.AddListener(CloseStorage);
+    }
+
+    private void CloseCraftin()
+    {
+        craftingMenu.SetActive(false);
+    }
+
+    private void CloseStorage()
+    {
+        storageMenu.SetActive(false);
     }
 
     void OpenStorage()
