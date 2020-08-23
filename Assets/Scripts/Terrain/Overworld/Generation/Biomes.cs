@@ -28,6 +28,25 @@ public enum Biome
     Mountain
 }
 
+[System.Serializable]
+public struct BiomeStatsToSerialize
+{
+    public float Amp;
+    public float Freq;
+    public float MaxY;
+    public float MinY;
+    public Biome biome;
+    public HeightColorToSerialize[] color;
+}
+
+[System.Serializable]
+public struct HeightColorToSerialize
+{
+    public string name;
+    public float[] colors;
+    public float height;
+}
+
 public class Biomes : MonoBehaviour
 {
     public List<BiomeStats> inspectorBiomes;

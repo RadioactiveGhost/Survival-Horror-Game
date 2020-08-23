@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     public void SetPlayerInitialPos(TerrainGenerator terrainScript)
     {
         positionX = (terrainScript.mapSizeX * terrainScript.sizeXtile) / 2;
-        positionZ = (terrainScript.mapSizeY * terrainScript.sizeZtile) / 2;
+        positionZ = (terrainScript.mapSizeZ * terrainScript.sizeZtile) / 2;
         positionY = terrainScript.HeightAt(new Vector2(positionX, positionZ)) + myheight / 2;
         transform.position = new Vector3(positionX, positionY, positionZ);
     }
@@ -250,15 +250,15 @@ public class Player : MonoBehaviour
                 rb.MovePosition(rb.position + new Vector3(tG.mapSizeX * tG.sizeXtile, 0, 0));
             }
 
-            if (transform.position.z > tG.mapSizeY * tG.sizeZtile)
+            if (transform.position.z > tG.mapSizeZ * tG.sizeZtile)
             {
                 //Debug.Log("World looping...");
-                rb.MovePosition(rb.position - new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
+                rb.MovePosition(rb.position - new Vector3(0, 0, tG.mapSizeZ * tG.sizeZtile));
             }
             else if (transform.position.z < 0)
             {
                 //Debug.Log("World looping...");
-                rb.MovePosition(rb.position + new Vector3(0, 0, tG.mapSizeY * tG.sizeZtile));
+                rb.MovePosition(rb.position + new Vector3(0, 0, tG.mapSizeZ * tG.sizeZtile));
             }
         }
     }
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
 
         //BorderLimit
         float minZ = 0;
-        float maxZ = terrainScript.sizeZtile * terrainScript.mapSizeY;
+        float maxZ = terrainScript.sizeZtile * terrainScript.mapSizeZ;
         float minX = 0;
         float maxX = terrainScript.sizeXtile * terrainScript.mapSizeX;
 

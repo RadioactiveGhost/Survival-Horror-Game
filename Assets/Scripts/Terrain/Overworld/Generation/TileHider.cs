@@ -52,7 +52,7 @@ public class TileHider : MonoBehaviour
             {
                 helper = tG.map.Count - (tG.mapSizeX - index);
             }
-            else if(index >= tG.mapSizeX * (tG.mapSizeY - 1) && k == 1) //top
+            else if(index >= tG.mapSizeX * (tG.mapSizeZ - 1) && k == 1) //top
             {
                 helper = index % tG.mapSizeX; //FIX
             }

@@ -64,7 +64,7 @@ public class AnimalSpawner : MonoBehaviour
 
 
             while (position.x < 0 || position.x > terrainScript.sizeXtile * terrainScript.mapSizeX || position.z < 0
-                || position.z > terrainScript.sizeZtile * terrainScript.mapSizeY || Vector3.Distance(player.GetComponent<Transform>().position, position) < distForSpawn)
+                || position.z > terrainScript.sizeZtile * terrainScript.mapSizeZ || Vector3.Distance(player.GetComponent<Transform>().position, position) < distForSpawn)
             {
 
                 position = new Vector3(player.GetComponent<Transform>().position.x + Random.Range(-spawnRange, spawnRange), 1.5f,

@@ -37,7 +37,7 @@ public class Spawns
 
     void Spawnables(Tile t)
     {
-        switch (t.biome.biome)
+        switch (t.biomestats.biome)
         {
             case Biome.Forest:
                 for (int i = 0; i < t.spawns.Count / 2; i++)

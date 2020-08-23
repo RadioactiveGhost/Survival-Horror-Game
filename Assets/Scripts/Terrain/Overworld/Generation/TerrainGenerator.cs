@@ -16,7 +16,7 @@ public class TerrainGenerator : MonoBehaviour
     //Material mat;
     //public Texture2D texture;
 
-    public int sizeXtile, sizeZtile, mapSizeX, mapSizeY, textureDetailMultiplier;
+    public int sizeXtile, sizeZtile, mapSizeX, mapSizeZ, textureDetailMultiplier;
     //public float noiseFrequency, noiseAmplitude;
     bool first;
 
@@ -42,6 +42,30 @@ public class TerrainGenerator : MonoBehaviour
     }
 
     private void Start()
+    {
+        if (CustomGameManager.saveData == null)
+        {
+            GenerateEverything();
+        }
+        else
+        {
+            LoadEverything(CustomGameManager.saveData);
+        }
+    }
+
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.R)) //DEBUG
+        //{
+        //    GenMap();
+        //}
+        //if (Input.GetKeyDown(KeyCode.T)) //DEBUG
+        //{
+        //    changeUVs();
+        //}
+    }
+
+    void GenerateEverything()
     {
         if (textureDetailMultiplier < 1)
         {
@@ -81,16 +105,45 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    private void Update()
+    void LoadEverything(SaveData data)
     {
-        //if (Input.GetKeyDown(KeyCode.R)) //DEBUG
-        //{
-        //    GenMap();
-        //}
-        //if (Input.GetKeyDown(KeyCode.T)) //DEBUG
-        //{
-        //    changeUVs();
-        //}
+        if (textureDetailMultiplier < 1)
+        {
+            Debug.LogError("TextureDetailMultiplier should be at least 1");
+        }
+
+        //find tile size
+        sizeXtile = data.sizeXtile;
+        sizeZtile = data.sizeZtile;
+        //Debug.Log("Tile size: " + sizeXtile + "," + sizeZtile);
+
+        mapSizeX = data.mapSizeX;
+        mapSizeZ = data.mapSizeZ;
+        //Debug.Log("Map size: " + mapSizeX + "," + mapSizeZ);
+
+        textureDetailMultiplier = data.textureDetailMultiplier;
+
+        SetMap(data);
+
+        spawnManager = new Spawns();
+        for (int i = 0; i < map.Count; i++)
+        {
+            spawnManager.Populate(map[i].GetComponent<Tile>());
+        }
+
+        CreateDecoys();
+
+        surface.BuildNavMesh();
+
+        //set player on middle of map
+        try
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+        }
+        catch
+        {
+            Debug.Log("Is player missing? Maybe untagged?");
+        }
     }
 
     //void changeUVs()
@@ -103,14 +156,14 @@ public class TerrainGenerator : MonoBehaviour
 
     void GenMap()
     {
-        if (mapSizeY == 0 || mapSizeX == 0 || sizeXtile == 0 || sizeZtile == 0)
+        if (mapSizeZ == 0 || mapSizeX == 0 || sizeXtile == 0 || sizeZtile == 0)
         {
             Debug.LogError("Map and tiles can't be with any size 0!");
             return;
         }
         if (first) //Create map
         {
-            for (int z = 0; z < mapSizeY; z++) //Y
+            for (int z = 0; z < mapSizeZ; z++) //Y
             {
                 for (int x = 0; x < mapSizeX; x++) //X
                 {
@@ -119,7 +172,7 @@ public class TerrainGenerator : MonoBehaviour
 
                     //Create tile
                     GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    plane.name = (z * mapSizeY + x).ToString() + " " + b.biome.ToString();
+                    plane.name = (z * mapSizeZ + x).ToString() + " " + b.biome.ToString();
 
                     //set walking + hooking properties
                     plane.layer = LayerMask.NameToLayer("Hookable");
@@ -160,13 +213,13 @@ public class TerrainGenerator : MonoBehaviour
                 int[] numbers = new int[4];
 
                 //top
-                if (i < (mapSizeX - 1) * mapSizeY) //isn't top row?
+                if (i < (mapSizeX - 1) * mapSizeZ) //isn't top row?
                 {
                     numbers[0] = i + mapSizeX;
                 }
                 else
                 {
-                    numbers[0] = i - ((mapSizeX - 1) * mapSizeY);
+                    numbers[0] = i - ((mapSizeX - 1) * mapSizeZ);
                 }
 
                 //bottom
@@ -176,7 +229,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
                 else
                 {
-                    numbers[1] = i + ((mapSizeX - 1) * mapSizeY);
+                    numbers[1] = i + ((mapSizeX - 1) * mapSizeZ);
                 }
 
                 //left
@@ -214,7 +267,7 @@ public class TerrainGenerator : MonoBehaviour
             int x = 0, z = 0;
             for (int i = 0; i < map.Count; i++)
             {
-                if (z == mapSizeY)
+                if (z == mapSizeZ)
                 {
                     Debug.LogError("Something wrong isn't right");
                 }
@@ -247,6 +300,57 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
+    void SetMap(SaveData data)
+    {
+        for (int z = 0; z < mapSizeZ; z++) //Y
+        {
+            for (int x = 0; x < mapSizeX; x++) //X
+            {
+                //Create tile
+                GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                plane.name = (z * mapSizeZ + x).ToString();
+
+                //set walking + hooking properties
+                plane.layer = LayerMask.NameToLayer("Hookable");
+                plane.tag = "Ground";
+                plane.transform.position = new Vector3(x * sizeXtile, 0, z * sizeZtile);
+
+                Tile t = plane.AddComponent<Tile>();
+
+                float[,] points = new float[data.points.GetLength(1), data.points.GetLength(2)];
+
+                for (int i = 0; i < data.points.GetLength(1); i++)
+                {
+                    for (int j = 0; j < data.points.GetLength(2); j++)
+                    {
+                        points[i, j] = data.points[z * mapSizeX + x, i, j];
+                    }
+                }
+
+                float[,] colors = new float[data.colors.GetLength(1), data.colors.GetLength(2)];
+
+                for (int i = 0; i < data.colors.GetLength(1); i++)
+                {
+                    for (int j = 0; j < data.colors.GetLength(2); j++)
+                    {
+                        colors[i, j] = data.colors[z * mapSizeX + x, i, j];
+                    }
+                }
+
+                t.Initialize(colors, points, sizeXtile, sizeZtile, data.textureDetailMultiplier);
+
+                map.Add(plane);
+            }
+        }
+
+        //Update mesh to update all changes
+        for (int i = 0; i < map.Count; i++)
+        {
+            map[i].GetComponent<Tile>().SetTexture();
+            map[i].GetComponent<Tile>().UpdateMesh();
+        }
+    }
+
     void CreateDecoys()
     {
         for (int i = 0; i < mapSizeX; i++) //top + bottom decoys
@@ -254,36 +358,36 @@ public class TerrainGenerator : MonoBehaviour
             //top
             GameObject plane = Instantiate(map[i]); //create copy
             plane.name = "Top " + i + "decoy";
-            plane.transform.position = new Vector3(i * sizeXtile, 0, mapSizeY * sizeZtile); //1 outside
+            plane.transform.position = new Vector3(i * sizeXtile, 0, mapSizeZ * sizeZtile); //1 outside
             DecoyBehaviour dB = plane.AddComponent<DecoyBehaviour>();
             dB.original = map[i];
 
             //bottom
-            GameObject plane2 = Instantiate(map[(mapSizeY - 1) * mapSizeY + i]); //create copy
+            GameObject plane2 = Instantiate(map[(mapSizeZ - 1) * mapSizeZ + i]); //create copy
             plane2.name = "Bottom " + i + "decoy";
             plane2.transform.position = new Vector3(i * sizeXtile, 0, -sizeZtile); //-1 outside
             DecoyBehaviour dB2 = plane2.AddComponent<DecoyBehaviour>();
-            dB2.original = map[(mapSizeY - 1) * mapSizeY + i];
+            dB2.original = map[(mapSizeZ - 1) * mapSizeZ + i];
 
             decoys.Add(plane);
             decoys.Add(plane2);
         }
 
-        for (int i = 0; i < mapSizeY; i++) //left + right decoys
+        for (int i = 0; i < mapSizeZ; i++) //left + right decoys
         {
             //Left
-            GameObject plane = Instantiate(map[i * mapSizeY + mapSizeX - 1]); //create copy
+            GameObject plane = Instantiate(map[i * mapSizeZ + mapSizeX - 1]); //create copy
             plane.name = "Left " + i + "decoy";
             plane.transform.position = new Vector3(-sizeXtile, 0, sizeZtile * i);
             DecoyBehaviour dB = plane.AddComponent<DecoyBehaviour>();
-            dB.original = map[i * mapSizeY + mapSizeX - 1];
+            dB.original = map[i * mapSizeZ + mapSizeX - 1];
 
             //Right
-            GameObject plane2 = Instantiate(map[i * mapSizeY + 0]); //create copy
+            GameObject plane2 = Instantiate(map[i * mapSizeZ + 0]); //create copy
             plane2.name = "Right " + i + "decoy";
-            plane2.transform.position = new Vector3(sizeXtile * mapSizeY, 0, sizeZtile * i);
+            plane2.transform.position = new Vector3(sizeXtile * mapSizeZ, 0, sizeZtile * i);
             DecoyBehaviour dB2 = plane2.AddComponent<DecoyBehaviour>();
-            dB2.original = map[i * mapSizeY + 0];
+            dB2.original = map[i * mapSizeZ + 0];
 
             decoys.Add(plane);
             decoys.Add(plane2);
@@ -293,14 +397,14 @@ public class TerrainGenerator : MonoBehaviour
         //top left
         GameObject topLeft = Instantiate(map[mapSizeX - 1]);
         topLeft.name = "Top left decoy";
-        topLeft.transform.position = new Vector3(-sizeXtile, 0, sizeZtile * mapSizeY);
+        topLeft.transform.position = new Vector3(-sizeXtile, 0, sizeZtile * mapSizeZ);
         DecoyBehaviour dB3 = topLeft.AddComponent<DecoyBehaviour>();
         dB3.original = map[mapSizeX - 1];
 
         //top right
         GameObject topRight = Instantiate(map[0]);
         topRight.name = "Top right decoy";
-        topRight.transform.position = new Vector3(sizeXtile * mapSizeX, 0, sizeZtile * mapSizeY);
+        topRight.transform.position = new Vector3(sizeXtile * mapSizeX, 0, sizeZtile * mapSizeZ);
         DecoyBehaviour dB4 = topRight.AddComponent<DecoyBehaviour>();
         dB4.original = map[0];
 
@@ -312,11 +416,11 @@ public class TerrainGenerator : MonoBehaviour
         dB5.original = map[map.Count - 1];
 
         //bottom right
-        GameObject bottomRight = Instantiate(map[(mapSizeY - 1) * mapSizeX]);
+        GameObject bottomRight = Instantiate(map[(mapSizeZ - 1) * mapSizeX]);
         bottomRight.name = "Bottom right decoy";
         bottomRight.transform.position = new Vector3(sizeXtile * mapSizeX, 0, -sizeZtile);
         DecoyBehaviour dB6 = bottomRight.AddComponent<DecoyBehaviour>();
-        dB6.original = map[(mapSizeY - 1) * mapSizeX];
+        dB6.original = map[(mapSizeZ - 1) * mapSizeX];
 
         decoys.Add(topLeft);
         decoys.Add(topRight);
@@ -330,15 +434,15 @@ public class TerrainGenerator : MonoBehaviour
         if (x != 0)
         {
             //left tile
-            Tile lastVerts = map[z * mapSizeY + x - 1].GetComponent<Tile>();
+            Tile lastVerts = map[z * mapSizeZ + x - 1].GetComponent<Tile>();
             for (int k = 0; k < sizeZtile + 1; k++)//tiles are size+1, ignore corners
             {
-                if ((k == 0 && z != 0) || (k == sizeZtile && z != mapSizeY - 1))//corners with more tiles
+                if ((k == 0 && z != 0) || (k == sizeZtile && z != mapSizeZ - 1))//corners with more tiles
                 {
                     if (z != 0 && k == 0)
                     {
-                        Tile bottomLeft = map[(z - 1) * mapSizeY + x - 1].GetComponent<Tile>();
-                        Tile bottom = map[(z - 1) * mapSizeY + x].GetComponent<Tile>();
+                        Tile bottomLeft = map[(z - 1) * mapSizeZ + x - 1].GetComponent<Tile>();
+                        Tile bottom = map[(z - 1) * mapSizeZ + x].GetComponent<Tile>();
 
                         Vector3 current = t.vertexes[sizeXtile * k + k];
                         Vector3 left = lastVerts.vertexes[k * sizeXtile + k + sizeXtile];
@@ -371,10 +475,10 @@ public class TerrainGenerator : MonoBehaviour
         if (z != 0)
         {
             //bottom tile
-            Vector3[] lastVerts = map[(z - 1) * mapSizeY + x].GetComponent<Tile>().vertexes;
+            Vector3[] lastVerts = map[(z - 1) * mapSizeZ + x].GetComponent<Tile>().vertexes;
             for (int l = 0; l < sizeXtile + 1; l++)//tiles are size+1, ignore corners
             {
-                if ((l == 0 && x != 0) || (l == sizeZtile && x != mapSizeY - 1))
+                if ((l == 0 && x != 0) || (l == sizeZtile && x != mapSizeZ - 1))
                 {
                     continue; //skip this loop
                 }
@@ -382,7 +486,7 @@ public class TerrainGenerator : MonoBehaviour
                 float height = mediaHeightOne(t.vertexes[l], lastVerts[(sizeXtile + 1) * (sizeZtile) + l]);
 
                 t.vertexes[l].y = height;
-                map[(z - 1) * mapSizeY + x].GetComponent<Tile>().vertexes[(sizeXtile + 1) * (sizeZtile) + l].y = height;
+                map[(z - 1) * mapSizeZ + x].GetComponent<Tile>().vertexes[(sizeXtile + 1) * (sizeZtile) + l].y = height;
             }
         }
     }
@@ -393,7 +497,7 @@ public class TerrainGenerator : MonoBehaviour
         //conect bottom edge to top edge
         for (int i = 0; i < mapSizeX; i++)
         {
-            Tile topTile = map[(mapSizeY - 1) * mapSizeX + i].GetComponent<Tile>();
+            Tile topTile = map[(mapSizeZ - 1) * mapSizeX + i].GetComponent<Tile>();
             Tile bottomTile = map[i].GetComponent<Tile>();
 
             for (int j = 0; j < sizeXtile + 1; j++) //size is (sizeX + 1) * (sizeZ + 1)
@@ -406,10 +510,10 @@ public class TerrainGenerator : MonoBehaviour
         }
 
         //connect left edge to right edge
-        for (int i = 0; i < mapSizeY; i++)
+        for (int i = 0; i < mapSizeZ; i++)
         {
             Tile LeftTile = map[i * mapSizeX].GetComponent<Tile>();
-            Tile rightTile = map[(mapSizeY - 1) + i * mapSizeX].GetComponent<Tile>();
+            Tile rightTile = map[(mapSizeZ - 1) + i * mapSizeX].GetComponent<Tile>();
 
             for (int j = 0; j < sizeZtile + 1; j++) //size is (sizeX + 1) * (sizeZ + 1)
             {

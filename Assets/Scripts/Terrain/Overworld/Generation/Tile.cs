@@ -12,29 +12,32 @@ public class Tile : MonoBehaviour
     [HideInInspector]
     public Vector3[] vertexes;
     int[] triangles;
-    Color[] colors;
+    [HideInInspector]
+    public Color[] colors;
     float maxY, minY;
     float noiseFrequency, noiseAmplitude, maxHeight, minHeight;
     [HideInInspector]
     public int sizeXtile, sizeZtile;
     HeightColor[] HeightColors;
-    Texture2D texture;
+    [HideInInspector]
+    public Texture2D texture;
     public List<Spawn> spawns;
     int textureDetailMultiplier;
 
-    public BiomeStats biome;
+    public BiomeStats biomestats;
 
     //TEST
     public Vector2[] uvs;
 
+    //create new tile
     public void Initialize(BiomeStats biome, int sizeXtile, int sizeZtile, int textureDetailMultiplier, bool multiThreading)
     {
         spawns = new List<Spawn>();
 
-        this.biome = biome;
+        this.biomestats = biome;
         //this.biome = Biomes.biomes[2]; //Force mountain TEST
         mesh = new Mesh();
-        HeightColors = this.biome.color;
+        HeightColors = this.biomestats.color;
         this.sizeXtile = sizeXtile;
         this.sizeZtile = sizeZtile;
         this.textureDetailMultiplier = textureDetailMultiplier;
@@ -43,10 +46,10 @@ public class Tile : MonoBehaviour
         triangles = new int[sizeXtile * sizeZtile * 6];
         colors = new Color[(sizeXtile * this.textureDetailMultiplier) * (sizeZtile * this.textureDetailMultiplier)];
         uvs = new Vector2[vertexes.Length];
-        noiseAmplitude = this.biome.Amp;
-        noiseFrequency = this.biome.Freq;
-        maxHeight = this.biome.MaxY;
-        minHeight = this.biome.MinY;
+        noiseAmplitude = this.biomestats.Amp;
+        noiseFrequency = this.biomestats.Freq;
+        maxHeight = this.biomestats.MaxY;
+        minHeight = this.biomestats.MinY;
 
         gameObject.GetComponent<MeshFilter>().mesh = mesh;
         gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
@@ -64,6 +67,41 @@ public class Tile : MonoBehaviour
         //Vertextest();
     }
 
+    //from existing vertexes
+    public void Initialize(float[,]colors, float[,] points, int sizeXtile, int sizeZtile, int textureDetailMultiplier)
+    {
+        this.textureDetailMultiplier = textureDetailMultiplier;
+        spawns = new List<Spawn>();
+        mesh = new Mesh();
+        this.sizeXtile = sizeXtile;
+        this.sizeZtile = sizeZtile;
+
+        vertexes = new Vector3[points.GetLength(0)];
+        for (int i = 0; i < vertexes.Length; i++)
+        {
+            vertexes[i].x = points[i, 0];
+            vertexes[i].y = points[i, 1];
+            vertexes[i].z = points[i, 2];
+        }
+
+        triangles = new int[sizeXtile * sizeZtile * 6];
+
+        this.colors = new Color[(sizeXtile * this.textureDetailMultiplier) * (sizeZtile * this.textureDetailMultiplier)];
+        for (int i = 0; i < this.colors.Length; i++)
+        {
+            this.colors[i].r = colors[i, 0];
+            this.colors[i].g = colors[i, 1];
+            this.colors[i].b = colors[i, 2];
+        }
+
+        uvs = new Vector2[vertexes.Length];
+
+        gameObject.GetComponent<MeshFilter>().mesh = mesh;
+        gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
+
+        SetShape();
+    }
+
     public void ApplyTexture(Texture2D texture)
     {
         //gameObject.GetComponent<MeshRenderer>().material.EnableKeyword("_NORMALMAP");
@@ -73,6 +111,11 @@ public class Tile : MonoBehaviour
         texture.wrapMode = TextureWrapMode.Clamp;
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = texture;
         this.texture = texture;
+    }
+
+    public void SetTexture()
+    {
+        ApplyTexture(CreateTextureFromCurrentColors());
     }
 
     public void Initialize() //ONLY USE TO REDO TILE FROM PREMADE ONE
@@ -161,6 +204,39 @@ public class Tile : MonoBehaviour
         }
     }
 
+    void SetShape()
+    {
+        //set uvs
+        for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
+        {
+            for (int x = 0; x <= sizeXtile; x++)
+            {
+                uvs[i] = new Vector2((1f / (float)sizeXtile * (float)x), (1f / (float)sizeZtile * (float)z));
+                i++;
+            }
+        }
+
+        //creating triangles(clockwise)
+        int tris = 0;
+        int vert = 0;
+
+        for (int z = 0; z < sizeZtile; z++)
+        {
+            for (int x = 0; x < sizeXtile; x++)
+            {
+                triangles[tris + 0] = vert + 0;
+                triangles[tris + 1] = vert + sizeXtile + 1;
+                triangles[tris + 2] = vert + 1;
+                triangles[tris + 3] = vert + 1;
+                triangles[tris + 4] = vert + sizeXtile + 1;
+                triangles[tris + 5] = vert + sizeXtile + 2;
+                vert++;
+                tris += 6;
+            }
+            vert++;
+        }
+    }
+
     public void ChangeUVs(int xT, int yT)
     {
         for (int i = 0, z = 0; z <= sizeZtile; z++) //vertices go to 1 more than size
@@ -197,7 +273,6 @@ public class Tile : MonoBehaviour
                 }
             }
         }
-        //ApplyTexture(CreateTextureFromCurrentColors());
     }
 
     public void MultiThreadingCreateColors()
@@ -351,7 +426,7 @@ public class Tile : MonoBehaviour
 
     public void MixColors(Tile top, Tile bottom, Tile left, Tile right)
     {
-        if (top.biome.biome != biome.biome)
+        if (top.biomestats.biome != biomestats.biome)
         {
             //top transition
             for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
@@ -377,7 +452,7 @@ public class Tile : MonoBehaviour
             }
         }
 
-        if (bottom.biome.biome != biome.biome)
+        if (bottom.biomestats.biome != biomestats.biome)
         {
             //bottom transition
             for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
@@ -403,7 +478,7 @@ public class Tile : MonoBehaviour
             }
         }
 
-        if (left.biome.biome != biome.biome)
+        if (left.biomestats.biome != biomestats.biome)
         {
             //left transition
             for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to left
@@ -428,7 +503,7 @@ public class Tile : MonoBehaviour
             }
         }
 
-        if (right.biome.biome != biome.biome)
+        if (right.biomestats.biome != biomestats.biome)
         {
             //right transition
             for (int i = 0; i < textureDetailMultiplier * sizeXtile; i++) //transition to right
@@ -453,6 +528,6 @@ public class Tile : MonoBehaviour
             }
         }
 
-        ApplyTexture(CreateTextureFromCurrentColors());
+        SetTexture();
     }
 }

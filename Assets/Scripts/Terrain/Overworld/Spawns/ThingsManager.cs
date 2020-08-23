@@ -17,8 +17,5 @@ public enum Things
 
 public class ThingsManager : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
+
 }

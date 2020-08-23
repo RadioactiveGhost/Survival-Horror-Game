@@ -230,7 +230,7 @@ MonoBehaviour:
   sizeXtile: 50
   sizeZtile: 50
   mapSizeX: 3
-  mapSizeY: 3
+  mapSizeZ: 3
   textureDetailMultiplier: 10
   multiThreading: 1
 --- !u!4 &296817725
@@ -1361,11 +1361,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1751615934292108047, guid: 00a212442d02b144db45e9042f25ed43,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3496200324879949251, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1589,7 +1584,7 @@ GameObject:
   - component: {fileID: 2098233270}
   - component: {fileID: 2098233269}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: PlayerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
