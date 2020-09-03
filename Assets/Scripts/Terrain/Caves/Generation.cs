@@ -401,6 +401,8 @@ public class Generation : MonoBehaviour
         p.name = "Entrance";
         p.transform.position = new Vector3(startPoint.pos.x, startPoint.pos.y + 1, startPoint.pos.z) * scale;
 
+        GameObject.FindGameObjectWithTag("Player").transform.position = p.transform.position;
+
         for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)

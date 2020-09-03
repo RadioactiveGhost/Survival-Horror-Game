@@ -7,7 +7,7 @@ public enum scenes //NAME SENSITIVE
 {
     MainMenu = 0,
     Game = 1,
-    Lose = 2
+    Cave = 2
 };
 
 public class ManagerScenes : MonoBehaviour

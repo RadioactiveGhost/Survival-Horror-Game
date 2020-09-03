@@ -103,6 +103,23 @@ public class TerrainGenerator : MonoBehaviour
         {
             Debug.Log("Is player missing? Maybe untagged?");
         }
+
+        //set up cave
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        GameObject cave = (GameObject)GameObject.Instantiate(Resources.Load("Cave"));
+        cave.name = "Cave";
+
+        Vector3 pos = new Vector3();
+        do
+        {
+            pos.x = UnityEngine.Random.Range(0, mapSizeX * sizeXtile - 1);
+            pos.z = UnityEngine.Random.Range(0, mapSizeZ * sizeZtile - 1);
+        } while (Vector2.Distance(new Vector2(pos.x, pos.z), new Vector2(playerPos.x, playerPos.z)) < sizeXtile);
+
+        pos.y = HeightAt(new Vector2(pos.x, pos.z));
+
+        cave.transform.position = pos;
     }
 
     void LoadEverything(SaveData data)

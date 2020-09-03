@@ -5,10 +5,12 @@ public class Player : MonoBehaviour
     public float jumpForce, moveForce, maxVelocity;
     float myheight, positionY, positionX, positionZ, currentYVel;
     bool jumping, moving;
-    //[HideInInspector]
+    [HideInInspector]
     public bool grounded, movementAllowed;
     Rigidbody rb;
     public TerrainGenerator tG;
+    [HideInInspector]
+    public bool HasGrapplingHook;
 
     //Stats
     Common common;
@@ -30,6 +32,9 @@ public class Player : MonoBehaviour
         common = new Common(health, strength, armor);
 
         rb = GetComponent<Rigidbody>();
+
+        //DEBUG
+        HasGrapplingHook = true;
     }
 
     private void FixedUpdate() //Physics stuff
