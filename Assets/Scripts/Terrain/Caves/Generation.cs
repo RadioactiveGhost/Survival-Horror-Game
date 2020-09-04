@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Block
@@ -400,6 +399,11 @@ public class Generation : MonoBehaviour
         GameObject p = GameObject.Instantiate((GameObject)Resources.Load("Caves/" + BlockType.top_down.ToString()));
         p.name = "Entrance";
         p.transform.position = new Vector3(startPoint.pos.x, startPoint.pos.y + 1, startPoint.pos.z) * scale;
+        SphereCollider sc = p.AddComponent<SphereCollider>();
+        sc.isTrigger = true;
+        sc.radius = 0.2f;
+        sc.center = new Vector3(sc.center.x, sc.center.y, 0.3f);
+        p.AddComponent<Exit>();
 
         GameObject.FindGameObjectWithTag("Player").transform.position = p.transform.position;
 

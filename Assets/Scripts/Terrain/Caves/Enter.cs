@@ -6,6 +6,7 @@ public class Enter : MonoBehaviour
     {
         if (other.tag == "Player" && other.GetComponent<Player>().HasGrapplingHook)
         {
+            CustomGameManager.SaveGame();
             ManagerScenes.LoadScene(scenes.Cave);
         }
     }

@@ -105,6 +105,11 @@ public class TerrainGenerator : MonoBehaviour
         }
 
         //set up cave
+        SetUpCave();
+    }
+
+    void SetUpCave()
+    {
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         GameObject cave = (GameObject)GameObject.Instantiate(Resources.Load("Cave"));
@@ -161,6 +166,8 @@ public class TerrainGenerator : MonoBehaviour
         {
             Debug.Log("Is player missing? Maybe untagged?");
         }
+
+        SetUpCave();
     }
 
     //void changeUVs()
