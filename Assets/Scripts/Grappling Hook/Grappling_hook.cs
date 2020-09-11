@@ -62,6 +62,8 @@ public class Grappling_hook : MonoBehaviour
             helperVec = hit.point;
             DisableGravity();
             player.GetComponent<Player>().movementAllowed = false;
+
+            SoundManager.Play("Grappling hook 1");
         }
     }
 

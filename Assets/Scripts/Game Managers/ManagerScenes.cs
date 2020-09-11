@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum scenes //NAME SENSITIVE
@@ -15,6 +13,7 @@ public class ManagerScenes : MonoBehaviour
 
     public static void LoadScene(scenes s)
     {
+        SoundManager.StopAll();
         //Debug.Log("Loading " + s.ToString());
         SceneManager.LoadScene(s.ToString());
     }
