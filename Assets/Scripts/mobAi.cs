@@ -18,6 +18,8 @@ public class mobAi : MonoBehaviour
     public Transform follower;
     private float rngRest;
     private GameObject player;
+    private  AudioClip growl;
+    private AudioSource audioPlayer;
 
     public float timeLeft = 7, attackTimeLeft;
 
@@ -67,6 +69,8 @@ public class mobAi : MonoBehaviour
         agent.speed = speed;
 
         waitTime = Random.Range(minWaitTime, maxWaitTime);
+        audioPlayer = GetComponent<AudioSource>();
+        growl = Resources.Load<AudioClip>("Sounds/Monster_Growl 1");
     }
 
     // Update is called once per frame
@@ -108,6 +112,7 @@ public class mobAi : MonoBehaviour
                     case Type.movimentSensor:
                         if (CheckPlayerMotion())
                         {
+                           
                             timeLeft = 7;
                             action = Action.chasing;
                             isMoving = false;
@@ -115,6 +120,7 @@ public class mobAi : MonoBehaviour
                         }
                         else
                         {
+                            audioPlayer.PlayOneShot(growl);
                             isMoving = false;
                             action = Action.immobilized;
                             //timer com reset - > creepyLook

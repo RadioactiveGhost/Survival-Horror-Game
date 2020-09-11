@@ -20,7 +20,11 @@ public class Base : MonoBehaviour
         if(dist <= distToEnter)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
                 SceneManager.LoadScene("Base1");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }
