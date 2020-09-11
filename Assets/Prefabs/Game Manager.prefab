@@ -46,7 +46,145 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5830c1d97db0e2748aebf86b1f43e884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - clip: {fileID: 8300000, guid: 6598a5abe1b6927448e9a319b2fcc425, type: 3}
+    name: Cave soundtrack
+    loop: 1
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 8a7bf5ce2baeec9488681b36e4797221, type: 3}
+    name: Monster appear
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ebe8a1c6864ccc547acc3fcb1fa7c876, type: 3}
+    name: Clawing 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a96f286dae6fd4045a3cf97c19b79a9d, type: 3}
+    name: Clawing 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 446a7b7174addfe4e8ff976ad15c5de9, type: 3}
+    name: Clawing 3
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 024e79001350f534a902d9d2a767d7e5, type: 3}
+    name: Door open
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5da2a80ad6ad2534b8259a0c3d552ca9, type: 3}
+    name: Drinking
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 3c76c25b20ccf804f8e70fe88cfe210d, type: 3}
+    name: Eating
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: de103c8791e964645b922edfe1fcb2d3, type: 3}
+    name: Flesh noise 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 383d85ed50df16046921c08d7260ab57, type: 3}
+    name: Flesh noise 2
+    loop: 1
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 09b521da236772e40b6135dd593d1f1f, type: 3}
+    name: Magical item
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 4cf3435d7044fdd41b6ae3d567548a7f, type: 3}
+    name: Grappling hook 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 01412011deaa24043b9b1b8162349825, type: 3}
+    name: Grappling hook 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 28643e91be175f6448b345b12aa66607, type: 3}
+    name: Hammer
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f66d1263981132a4e8b29545dd86dc87, type: 3}
+    name: High pitch
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5bbddb5007e524141a9064f5a6c91372, type: 3}
+    name: Light fire 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2d2b232a307b1a94b9833deb9c85a5fc, type: 3}
+    name: Light fire 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: be606acb45cbf4e48886f58738a8437d, type: 3}
+    name: Monster Croak
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7df47cec5641c674d98aa5266fd35b8a, type: 3}
+    name: Monster growl
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 44049c5aba2dfeb4e93aaa7cf427b56e, type: 3}
+    name: Monster pant
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 87e0b13105aae6546a933dbf87bce2f7, type: 3}
+    name: Key item
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d460ed770a4faa34eb48bffeab0ceb01, type: 3}
+    name: Water Empty
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cdc2545734fa2f4428063946e70df229, type: 3}
+    name: Water fill
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
   onceFootsteps: 1
 --- !u!114 &290811895177566317
 MonoBehaviour:
