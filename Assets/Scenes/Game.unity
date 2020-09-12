@@ -934,7 +934,7 @@ PrefabInstance:
     - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: recipes.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
@@ -994,6 +994,26 @@ PrefabInstance:
     - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: recipes.Array.data[6].ingredients.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredients.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredients.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
@@ -1201,6 +1221,98 @@ PrefabInstance:
         type: 3}
       propertyPath: recipes.Array.data[6].ingredientNames.Array.data[2].number
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].name
+      value: Metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
+        type: 3}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[0].name
+      value: Metal Ore
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[0].number
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[1].name
+      value: Resin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[1].number
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[2].name
+      value: Ivory
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[7].ingredientNames.Array.data[2].number
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].name
+      value: Grappling Hook
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
+        type: 3}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[0].name
+      value: Metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[0].number
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[1].name
+      value: Leather
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[1].number
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[2].name
+      value: Metal Ore
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
+        type: 3}
+      propertyPath: recipes.Array.data[8].ingredientNames.Array.data[2].number
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5499034487172727774, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
