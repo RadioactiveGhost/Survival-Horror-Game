@@ -39,11 +39,12 @@ public class PickUpManager : MonoBehaviour
         if (Physics.Raycast(cameraRef.transform.position, cameraRef.transform.forward, out hit, pickUpMaxDist, mask))
         {
             //Debug.Log(hit.transform.root.gameObject.tag);
-            if (hit.transform.root.gameObject.tag == "PickUp")
+            if (hit.transform.tag == "PickUp")
             {
                 pointerImage.sprite = pickUpSprite;
-                return hit.transform.root.gameObject;
+                return hit.transform.gameObject;
             }
+            Debug.Log("Hit " + hit.transform.name);
         }
         pointerImage.sprite = defaultSprite;
         return null;
