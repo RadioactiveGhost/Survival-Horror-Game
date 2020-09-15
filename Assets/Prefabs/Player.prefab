@@ -170,7 +170,6 @@ GameObject:
   - component: {fileID: 6023181841114185089}
   - component: {fileID: 1991564837351100223}
   - component: {fileID: 3882679199717479684}
-  - component: {fileID: 3226853695702715135}
   - component: {fileID: 852382190}
   m_Layer: 0
   m_Name: Player
@@ -311,19 +310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfsight: 110
---- !u!135 &3226853695702715135
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023181841114185098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 6.34
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &852382190
 Light:
   m_ObjectHideFlags: 0
@@ -455,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 1580731685952152120, guid: aede4ea5df6ef6746834122142ff201e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1580731685952152122, guid: aede4ea5df6ef6746834122142ff201e,
         type: 3}

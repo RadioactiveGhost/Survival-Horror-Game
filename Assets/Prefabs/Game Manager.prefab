@@ -50,7 +50,7 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 6598a5abe1b6927448e9a319b2fcc425, type: 3}
     name: Cave soundtrack
     loop: 1
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 8a7bf5ce2baeec9488681b36e4797221, type: 3}
@@ -183,6 +183,18 @@ MonoBehaviour:
     name: Water fill
     loop: 0
     volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 6e81a3e8914d4f948a5ec930c5fde0a5, type: 3}
+    name: Cave soundtrack 2
+    loop: 1
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 861f017d6ef96f647881231f3f9c0f3a, type: 3}
+    name: Cave soundtrack 3
+    loop: 1
+    volume: 0.1
     pitch: 1
     source: {fileID: 0}
   onceFootsteps: 1

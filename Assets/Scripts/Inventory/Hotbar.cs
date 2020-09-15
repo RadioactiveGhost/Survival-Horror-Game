@@ -128,9 +128,4 @@ public class Hotbar : MonoBehaviour
     {
         return slots[selected].GetItemName();
     }
-
-    public string GetItemSelected()
-    {
-        return slots[selected].GetItemName();
-    }
 }

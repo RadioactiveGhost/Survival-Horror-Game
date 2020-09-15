@@ -18,7 +18,7 @@ public class Pickable : MonoBehaviour
         }
         else
         {
-            Debug.Log("Isn't using required tool");
+            Debug.Log("Isn't using required tool " + requiredTool.name);
             return null;
         }
     }

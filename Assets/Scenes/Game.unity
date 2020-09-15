@@ -324,11 +324,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager_Inventory
       objectReference: {fileID: 0}
-    - target: {fileID: 8455563875290138233, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8455563875290138238, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
         type: 3}
       propertyPath: InventoryMenu
@@ -748,12 +743,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1373515283}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1227479964 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8455563875290138233, guid: 71d95f76b214f9c4ba2a813a0e6ce7cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 418645373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1245244830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,10 +758,6 @@ PrefabInstance:
       propertyPath: pointerGameObject
       value: 
       objectReference: {fileID: 1373515287}
-    - target: {fileID: 1344400999, guid: cf2ddf52043ef2c42bf863b5542cf63f, type: 3}
-      propertyPath: InventoryGameObject
-      value: 
-      objectReference: {fileID: 1227479964}
     - target: {fileID: 4369239526858327742, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: CraftingList
@@ -853,364 +838,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[0].sprite
-      value: 
-      objectReference: {fileID: 6761164967045977113, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: -61507124638633176, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[2].sprite
-      value: 
-      objectReference: {fileID: 5508725064705088119, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[4].sprite
-      value: 
-      objectReference: {fileID: 6099581493293703690, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[5].sprite
-      value: 
-      objectReference: {fileID: -5428206428529569624, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[6].sprite
-      value: 
-      objectReference: {fileID: -7833671090200325546, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[7].sprite
-      value: 
-      objectReference: {fileID: 5860025163644826426, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[8].sprite
-      value: 
-      objectReference: {fileID: -7583409310137716746, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[9].sprite
-      value: 
-      objectReference: {fileID: 980155311395259703, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[11].sprite
-      value: 
-      objectReference: {fileID: -732356172534689064, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[13].sprite
-      value: 
-      objectReference: {fileID: 8132948862792318974, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[14].sprite
-      value: 
-      objectReference: {fileID: 2614870373251885436, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727772, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: items.Array.data[17].sprite
-      value: 
-      objectReference: {fileID: -2693009140137883590, guid: b64d305ec18e4de4783b5a19ff9b8285,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredientNames.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredientNames.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredientNames.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].ingredientNames.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].ingredientNames.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredients.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].name
-      value: Axe
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredientNames.Array.data[0].name
-      value: Metal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredientNames.Array.data[0].number
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredientNames.Array.data[1].name
-      value: Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[1].ingredientNames.Array.data[1].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].name
-      value: Knife
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredientNames.Array.data[0].name
-      value: Metal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredientNames.Array.data[0].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredientNames.Array.data[1].name
-      value: Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[2].ingredientNames.Array.data[1].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].name
-      value: Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].amount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredientNames.Array.data[0].name
-      value: Wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredientNames.Array.data[0].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredientNames.Array.data[1].name
-      value: Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[3].ingredientNames.Array.data[1].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].name
-      value: Leather
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].ingredientNames.Array.data[0].name
-      value: Hide
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[4].ingredientNames.Array.data[0].number
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].name
-      value: Water Skin
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].ingredientNames.Array.data[0].name
-      value: Leather
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[5].ingredientNames.Array.data[0].number
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].name
-      value: Monster Repellant
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f,
-        type: 3}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[0].name
-      value: Magic Crystal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[0].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[1].name
-      value: Resin
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[1].number
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[2].name
-      value: Ivory
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727773, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: recipes.Array.data[6].ingredientNames.Array.data[2].number
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5499034487172727774, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: m_Name
       value: Manager_Resource
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499034487172727774, guid: cf2ddf52043ef2c42bf863b5542cf63f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf2ddf52043ef2c42bf863b5542cf63f, type: 3}
@@ -1757,3 +1388,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 170961b63d5e1da4fb4866c386c6bd0c, type: 3}
+--- !u!1001 &8885439624680511626
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 290811895177566319, guid: dead9cc5211058145bb18bbc50eca537,
+        type: 3}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dead9cc5211058145bb18bbc50eca537, type: 3}

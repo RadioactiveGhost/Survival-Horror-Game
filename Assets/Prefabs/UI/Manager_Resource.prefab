@@ -49,49 +49,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - name: Wood
-    sprite: {fileID: 0}
+    sprite: {fileID: 6761164967045977113, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Stone
-    sprite: {fileID: 21300000, guid: ecb3d3dc9a257444c954f9d4e891b04d, type: 3}
+    sprite: {fileID: -61507124638633176, guid: b64d305ec18e4de4783b5a19ff9b8285, type: 3}
     ingredient: 1
   - name: Metal
-    sprite: {fileID: 21300000, guid: ae365d1c304340343b169e644f473abd, type: 3}
+    sprite: {fileID: 5508725064705088119, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Metal Ore
     sprite: {fileID: 0}
     ingredient: 1
   - name: Resin
-    sprite: {fileID: 0}
+    sprite: {fileID: 6099581493293703690, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Hide
-    sprite: {fileID: 0}
+    sprite: {fileID: -5428206428529569624, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Ivory
-    sprite: {fileID: 0}
+    sprite: {fileID: -7833671090200325546, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Magic Crystal
-    sprite: {fileID: 0}
+    sprite: {fileID: 5860025163644826426, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Meat
-    sprite: {fileID: 0}
+    sprite: {fileID: -7583409310137716746, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 1
   - name: Pickaxe
-    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    sprite: {fileID: 980155311395259703, guid: b64d305ec18e4de4783b5a19ff9b8285, type: 3}
     ingredient: 0
   - name: Grappling Hook
     sprite: {fileID: 0}
     ingredient: 0
   - name: Axe
-    sprite: {fileID: 0}
+    sprite: {fileID: -732356172534689064, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 0
   - name: Leather
     sprite: {fileID: 0}
     ingredient: 1
   - name: Knife
-    sprite: {fileID: 0}
+    sprite: {fileID: 8132948862792318974, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 0
   - name: Water Skin
-    sprite: {fileID: 0}
+    sprite: {fileID: 2614870373251885436, guid: b64d305ec18e4de4783b5a19ff9b8285,
+      type: 3}
     ingredient: 0
   - name: Magic Glove
     sprite: {fileID: 0}
@@ -100,7 +110,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
     ingredient: 0
   - name: Stick
-    sprite: {fileID: 7959848889526033474, guid: e7287bc065a1634499dc6f6240595845,
+    sprite: {fileID: -2693009140137883590, guid: b64d305ec18e4de4783b5a19ff9b8285,
       type: 3}
     ingredient: 1
   - name: None
@@ -126,6 +136,152 @@ MonoBehaviour:
     - name: Metal
       number: 2
     - name: Stick
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Axe
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Metal
+      number: 2
+    - name: Stick
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Knife
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Metal
+      number: 1
+    - name: Stick
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Stick
+    amount: 4
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Wood
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Leather
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Hide
+      number: 2
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Water Skin
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Leather
+      number: 3
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Monster Repellant
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Magic Crystal
+      number: 1
+    - name: Resin
+      number: 1
+    - name: Ivory
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Metal
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Metal Ore
+      number: 2
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+  - name: Grappling Hook
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Metal
+      number: 2
+    - name: Leather
       number: 1
     ingredients:
     - item:

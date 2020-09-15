@@ -128,16 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3226853695702715135, guid: 170961b63d5e1da4fb4866c386c6bd0c,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5203300592986624849, guid: 170961b63d5e1da4fb4866c386c6bd0c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6023181841114185094, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -257,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb11b0c366c6fa44a5c8c15bb6deb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 5
 --- !u!1001 &1993189210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,11 +255,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 290811895177566306, guid: dead9cc5211058145bb18bbc50eca537,
-        type: 3}
-      propertyPath: sounds.Array.data[0].volume
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 290811895177566307, guid: dead9cc5211058145bb18bbc50eca537,
         type: 3}
       propertyPath: m_LocalPosition.x

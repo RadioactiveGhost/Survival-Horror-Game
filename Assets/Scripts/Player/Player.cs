@@ -13,8 +13,10 @@ public class Player : MonoBehaviour
     public bool HasGrapplingHook;
 
     //Stats
-    Common common;
+    bool dead;
     public int hunger, thirst, health, armor, strength;
+    [HideInInspector]
+    public int maxHealth;
     public float hungerTimer, thirstTimer;
     float currentHungerTimer, currentThirstTimer;
 
@@ -22,14 +24,15 @@ public class Player : MonoBehaviour
     {
         movementAllowed = true;
         grounded = true;
+        dead = false;
         myheight = transform.localScale.y * gameObject.GetComponent<CapsuleCollider>().height;
     }
 
     void Start()
     {
+        maxHealth = health;
         currentHungerTimer = Time.time;
         currentThirstTimer = Time.time;
-        common = new Common(health, strength, armor);
 
         rb = GetComponent<Rigidbody>();
 
@@ -51,7 +54,7 @@ public class Player : MonoBehaviour
     {
         ManageThirstHunger();
 
-        if(common.dead)
+        if(dead)
         {
             Die();
         }
@@ -68,7 +71,7 @@ public class Player : MonoBehaviour
             if (hunger <= 0)
             {
                 hunger = 0;
-                common.TakeTrueDamage(1, gameObject, false);
+                health = Common.TakeTrueDamage(1, health);
             }
         }
 
@@ -81,7 +84,7 @@ public class Player : MonoBehaviour
             if (thirst <= 0)
             {
                 thirst = 0;
-                common.TakeTrueDamage(1, gameObject, false);
+                health = Common.TakeTrueDamage(1, health);
             }
         }
     }
