@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class BaseMenu : MonoBehaviour
 {
     public Button b_storage, b_bed, b_crafting, b_closeC, b_closeS, b_door;
-    public GameObject daySprite, nightSprite, lighternightSprite, craftingMenu, storageMenu;
+    public GameObject daySprite, nightSprite, lighternightSprite, craftingMenu, storageMenu, base1, pointer;
     public bool day;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pointer = GameObject.FindGameObjectWithTag("Pointer");
+        base1 = GameObject.FindGameObjectWithTag("Base 1");
     }
 
     // Update is called once per frame
@@ -39,7 +39,12 @@ public class BaseMenu : MonoBehaviour
 
     private void Leave()
     {
-        SceneManager.LoadScene("Game");
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        base1.GetComponent<Base>().insideBase = false;
+        Time.timeScale = 1;
+        pointer.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     private void CloseCraftin()

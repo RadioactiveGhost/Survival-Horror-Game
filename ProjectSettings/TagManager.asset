@@ -13,6 +13,9 @@ TagManager:
   - InventoryManager
   - Enemy
   - PickUp
+  - BaseMenu
+  - Pointer
+  - Base 1
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4940474502370584027}
   m_Layer: 0
   m_Name: Base 1
-  m_TagString: PickUp
+  m_TagString: Base 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,3 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   distToEnter: 5
+  baseMenu: {fileID: 0}
+  pointer: {fileID: 0}
+  insideBase: 0
