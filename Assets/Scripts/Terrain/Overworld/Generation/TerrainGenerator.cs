@@ -26,8 +26,8 @@ public class TerrainGenerator : MonoBehaviour
     //public int uvX, uvY;
 
     //DEBUGGING STUFF
-    private DateTime startTime;
-    TimeSpan elapsedTime;
+    //private DateTime startTime;
+    //TimeSpan elapsedTime;
 
     public bool multiThreading;
 
@@ -46,7 +46,7 @@ public class TerrainGenerator : MonoBehaviour
     private void Start()
     {
         //setting start timer
-        startTime = System.DateTime.Now;
+        //startTime = System.DateTime.Now;
         //Profiler.BeginSample("Terrain generation");
 
         if (CustomGameManager.saveData == null)
@@ -60,8 +60,8 @@ public class TerrainGenerator : MonoBehaviour
 
         //Debugging time count...
         //Profiler.EndSample();
-        elapsedTime = System.DateTime.Now - startTime;
-        Debug.Log("Time spent generating terrain: " + elapsedTime);
+        //elapsedTime = System.DateTime.Now - startTime;
+        //Debug.Log("Time spent generating terrain: " + elapsedTime);
     }
 
     private void Update()
@@ -78,7 +78,7 @@ public class TerrainGenerator : MonoBehaviour
 
     void GenerateEverything()
     {
-        Debug.Log("Generating...");
+        //Debug.Log("Generating...");
 
         if (textureDetailMultiplier < 1)
         {
@@ -146,7 +146,7 @@ public class TerrainGenerator : MonoBehaviour
 
     void LoadEverything(SaveData data)
     {
-        Debug.Log("Loading...");
+        //Debug.Log("Loading...");
 
         if (textureDetailMultiplier < 1)
         {

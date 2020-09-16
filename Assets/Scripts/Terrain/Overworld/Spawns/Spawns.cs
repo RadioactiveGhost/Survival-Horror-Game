@@ -52,7 +52,11 @@ public class Spawns
 
                     //Choose thing
                     int choice = Random.Range(0, 100);
-                    if (choice < 10)
+                    if (choice < 2)
+                    {
+                        s.thing = Things.MetalNode;
+                    }
+                    else if (choice < 10)
                     {
                         s.thing = Things.Rock;
                     }
@@ -75,7 +79,11 @@ public class Spawns
 
                     //Choose thing
                     int choice = Random.Range(0, 100);
-                    if (choice < 90)
+                    if(choice < 5)
+                    {
+                        s.thing = Things.MetalNode;
+                    }
+                    else if (choice < 90)
                     {
                         s.thing = Things.Rock;
                     }
@@ -136,6 +144,10 @@ public class Spawns
                 else if (s.thing == Things.Rock)
                 {
                     g = GameObject.Instantiate((GameObject)Resources.Load<GameObject>("Rock"));
+                }
+                else if(s.thing == Things.MetalNode)
+                {
+                    g = GameObject.Instantiate((GameObject)Resources.Load<GameObject>("Metal Node"));
                 }
                 else //something went wrong
                 {

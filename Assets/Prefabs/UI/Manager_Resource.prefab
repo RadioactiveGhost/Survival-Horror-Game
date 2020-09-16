@@ -329,12 +329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390d23791fe815e44a20c1a5285f5d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CraftingList: {fileID: 0}
-  craftItemSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   craftable:
     name: 
     amount: 0
@@ -353,7 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6b0593a8fc7114097cf889a6a4769f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 0}
   selected: 0
 --- !u!114 &1344400999
 MonoBehaviour:

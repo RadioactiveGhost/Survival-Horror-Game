@@ -16,6 +16,12 @@ TagManager:
   - BaseMenu
   - Pointer
   - Base 1
+  - Hotbar
+  - InventoryMenu
+  - SlotsParent
+  - RecipeList
+  - CraftSlots
+  - CraftMenu
   layers:
   - Default
   - TransparentFX

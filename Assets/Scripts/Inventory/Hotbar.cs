@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Hotbar : MonoBehaviour
 {
-    public GameObject hotbar;
+    GameObject hotbar;
     [HideInInspector]
     public int selected;
     InvSlot[] slots;
@@ -11,6 +11,7 @@ public class Hotbar : MonoBehaviour
     //ItemCount[] items;
     private void Start()
     {
+        hotbar = GameObject.FindGameObjectWithTag("Hotbar");
         slots = hotbar.GetComponentsInChildren<InvSlot>();
         selected = 0;
         Select(0);

@@ -7,7 +7,6 @@ public class PickUpManager : MonoBehaviour
     Camera cameraRef;
     public float pickUpMaxDist;
     public LayerMask mask;
-    GameObject pointerGameObject;
     public Sprite defaultSprite, pickUpSprite;
     Image pointerImage;
     Hotbar hotbar;
@@ -18,9 +17,8 @@ public class PickUpManager : MonoBehaviour
 
     private void Start()
     {
-        pointerGameObject = GameObject.FindGameObjectWithTag("Pointer");
         cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        pointerImage = pointerGameObject.GetComponent<Image>();
+        pointerImage = GameObject.FindGameObjectWithTag("Pointer").GetComponent<Image>();
         hotbar = gameObject.GetComponent<Hotbar>();
         inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
         CheckPickups = true;
@@ -55,13 +53,17 @@ public class PickUpManager : MonoBehaviour
     {
         if (pickUpPossible)
         {
-            Pickable p = pickUpPossible.GetComponent<Pickable>();
-            string test = hotbar.GetItemSelectedName();
-            List<ItemCount> itemlist = p.AttemptToPickUp(test);
-            if (itemlist != null)
+            Pickable[] pickables = pickUpPossible.GetComponents<Pickable>();
+            for (int i = 0; i < pickables.Length; i++)
             {
-                inventory.AddItemsToInventory(itemlist);
-                Destroy(pickUpPossible);
+                Pickable p = pickables[i];
+                string test = hotbar.GetItemSelectedName();
+                List<ItemCount> itemlist = p.AttemptToPickUp(test);
+                if (itemlist != null)
+                {
+                    inventory.AddItemsToInventory(itemlist);
+                    Destroy(pickUpPossible);
+                }
             }
         }
         else

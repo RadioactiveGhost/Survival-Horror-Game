@@ -12,7 +12,9 @@ public enum Things
 {
     None,
     Tree,
-    Rock
+    Rock,
+    MetalNode,
+    Crystal
 }
 
 public class ThingsManager : MonoBehaviour

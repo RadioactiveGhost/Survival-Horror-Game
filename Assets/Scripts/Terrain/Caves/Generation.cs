@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Block
 {
@@ -115,9 +116,24 @@ public class Generation : MonoBehaviour
 
     Block[,,] map;
     Block startPoint;
+    //LineRenderer lr;
+
+    GameObject caveParent;
+    GameObject resourceParent;
 
     void Start()
     {
+        //Debug
+        //lr = gameObject.AddComponent<LineRenderer>();
+        //lr.startColor = Color.green;
+        //lr.endColor = Color.red;
+        //lr.startWidth = 0.2f;
+        //lr.endWidth = 0.2f;
+        caveParent = new GameObject();
+        caveParent.name = "Cave Parent";
+        resourceParent = new GameObject();
+        resourceParent.name = "Resource Parent";
+
         //Debug.Log("Initializing...");
         Initialize();
         //Debug.Log("Generating Labyrinth...");
@@ -420,6 +436,16 @@ public class Generation : MonoBehaviour
                         GameObject o = GameObject.Instantiate((GameObject)Resources.Load("Caves/" + type.ToString()));
                         o.name = type.ToString();
                         o.transform.position = pos;
+                        o.transform.parent = caveParent.transform;
+                        try
+                        {
+                            StartCoroutine(SetResource(pos));
+                        }
+                        catch
+                        {
+                            Debug.Log("Set resource failed");
+                            continue;
+                        }
                     }
                     catch
                     {
@@ -430,6 +456,67 @@ public class Generation : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    IEnumerator SetResource(Vector3 point)
+    {
+        yield return 0; //wait 1 frame
+
+        Things thing = Things.None;
+        int choice = Random.Range(0, 100);
+        if(choice < 10)
+        {
+            thing = Things.Crystal;
+        }
+        else if(choice < 20)
+        {
+            thing = Things.MetalNode;
+        }
+
+        if (thing != Things.None)
+        {
+            Vector3 dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            dir.Normalize();
+            RaycastHit hit;
+            if(Physics.Raycast(point, dir, out hit, 20.0f))
+            {
+                if(hit.transform.tag == "Ground")
+                {
+                    SpawnResource(hit.point, thing);
+                }
+                else
+                {
+                    Debug.Log(hit.transform.tag);
+                }
+            }
+            else
+            {
+                //lr.SetPosition(0, point);
+                //lr.SetPosition(1, point + dir * 20);
+                //Debug.Log("Raycast failed " + hit.collider.gameObject.name);
+            }
+        }
+    }
+
+    void SpawnResource(Vector3 place, Things t)
+    {
+        //Debug.Log("Spawning at " + place);
+        if(t == Things.Crystal)
+        {
+            GameObject g = (GameObject)GameObject.Instantiate(Resources.Load("Crystal"));
+            g.transform.position = place;
+            g.transform.parent = resourceParent.transform;
+        }
+        else if (t == Things.MetalNode)
+        {
+            GameObject g = (GameObject)GameObject.Instantiate(Resources.Load("Metal Node"));
+            g.transform.position = place;
+            g.transform.parent = resourceParent.transform;
+        }
+        else
+        {
+            Debug.LogError("None");
         }
     }
 }

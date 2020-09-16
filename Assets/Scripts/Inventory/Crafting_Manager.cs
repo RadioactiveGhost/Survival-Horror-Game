@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 public class Crafting_Manager : MonoBehaviour
 {
-    public GameObject CraftingList;
-    public GameObject[] craftItemSlots;
+    GameObject CraftingList;
+    GameObject[] craftItemSlots;
     ItemCount[] itemsOnSlots;
     int selected;
     [HideInInspector]
@@ -16,20 +16,25 @@ public class Crafting_Manager : MonoBehaviour
 
     private void Start()
     {
+        CraftingList = GameObject.FindGameObjectWithTag("RecipeList");
+        CraftingList.SetActive(false);
         inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
 
+        craftItemSlots = GameObject.FindGameObjectsWithTag("CraftSlots");
         foreach (GameObject g in craftItemSlots)
         {
             g.transform.Find("Icon").GetComponent<Image>().enabled = false;
             g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
         }
-
         itemsOnSlots = new ItemCount[craftItemSlots.Length];
+
         craftable = null;
 
         selected = 0;
         Select(0);
         UpdateRecipeList();
+
+        GameObject.FindGameObjectWithTag("CraftMenu").SetActive(false);
     }
 
     public void UpdateRecipeList()
@@ -96,6 +101,7 @@ public class Crafting_Manager : MonoBehaviour
 
     public void Select(int selection)
     {
+        //Debug.Log(selected + " exists? Max length " + craftItemSlots.Length);
         craftItemSlots[selected].GetComponent<Image>().color = Color.white;
         craftItemSlots[selection].GetComponent<Image>().color = Color.grey;
         selected = selection;

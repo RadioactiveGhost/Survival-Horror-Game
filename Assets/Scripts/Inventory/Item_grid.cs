@@ -3,35 +3,43 @@ using UnityEngine;
 
 public class Item_grid : MonoBehaviour
 {
-    public GameObject InventoryMenu;
+    GameObject InventoryMenu;
     NewInventory inventoryScript;
-    public GameObject slotsParent, slotsParent2;
+    GameObject[] slotsparents;
     PickUpManager pickUpManagerScript;
 
-    List<InvSlot> childrenSlots, childrenSlots2;
+    List<InvSlot> [] childrenSlotsList;
 
     void Start()
     {
-        childrenSlots = new List<InvSlot>();
-        childrenSlots2 = new List<InvSlot>();
+        slotsparents = GameObject.FindGameObjectsWithTag("SlotsParent");
+        InventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");
+        childrenSlotsList = new List<InvSlot>[slotsparents.Length];
+        for (int i = 0; i < childrenSlotsList.Length; i++)
+        {
+            childrenSlotsList[i] = new List<InvSlot>();
+        }
         inventoryScript = gameObject.GetComponent<NewInventory>();
         pickUpManagerScript = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<PickUpManager>();
 
-        foreach (Transform child in slotsParent.transform)
+        for (int i = 0; i < slotsparents.Length; i++)
         {
-            if (child.GetComponent<InvSlot>())
+            foreach (Transform child in slotsparents[i].transform)
             {
-                childrenSlots.Add(child.GetComponent<InvSlot>());
+                if (child.GetComponent<InvSlot>())
+                {
+                    childrenSlotsList[i].Add(child.GetComponent<InvSlot>());
+                }
             }
         }
 
-        foreach (Transform child in slotsParent2.transform)
+        for (int i = 0; i < slotsparents.Length; i++)
         {
-            if (child.GetComponent<InvSlot>())
-            {
-                childrenSlots2.Add(child.GetComponent<InvSlot>());
-            }
+            slotsparents[i].SetActive(false);
         }
+
+        InventoryMenu.transform.GetChild(0).transform.gameObject.SetActive(true);
+        InventoryMenu.SetActive(false);
     }
 
     private void Update()
@@ -42,7 +50,7 @@ public class Item_grid : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I))
         {
             InventoryMenu.SetActive(!InventoryMenu.activeSelf);
-            if(InventoryMenu.activeSelf)
+            if (InventoryMenu.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -59,33 +67,23 @@ public class Item_grid : MonoBehaviour
 
     void PopulateOnIndex(int index)
     {
-        //childrenSlots[index].SetImage(inventory.items[index].item.sprite);
-        childrenSlots[index].SetItem(inventoryScript.inventory[index]);
+        childrenSlotsList[0][index].SetItem(inventoryScript.inventory[index]);
     }
 
     void PopulateAll()
     {
-        for (int i = 0; i < childrenSlots.Count; i++)
+        for (int i = 0; i < slotsparents.Length; i++)
         {
-            if (i < inventoryScript.inventory.Count)
+            for (int j = 0; j < childrenSlotsList[i].Count; j++)
             {
-                childrenSlots[i].SetItem(inventoryScript.inventory[i]);
-            }
-            else
-            {
-                childrenSlots[i].EmptyItem();
-            }
-        }
-
-        for (int i = 0; i < childrenSlots2.Count; i++)
-        {
-            if (i < inventoryScript.inventory.Count)
-            {
-                childrenSlots2[i].SetItem(inventoryScript.inventory[i]);
-            }
-            else
-            {
-                childrenSlots2[i].EmptyItem();
+                if (j < inventoryScript.inventory.Count)
+                {
+                    childrenSlotsList[i][j].SetItem(inventoryScript.inventory[j]);
+                }
+                else
+                {
+                    childrenSlotsList[i][j].EmptyItem();
+                }
             }
         }
     }

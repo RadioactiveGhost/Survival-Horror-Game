@@ -59,6 +59,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e3f89ef92cd8d4b8db91d89522b7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryMenu: {fileID: 0}
-  slotsParent: {fileID: 0}
-  slotsParent2: {fileID: 0}
