@@ -754,10 +754,6 @@ PrefabInstance:
       propertyPath: hotbar
       value: 
       objectReference: {fileID: 779373422}
-    - target: {fileID: 1344400999, guid: cf2ddf52043ef2c42bf863b5542cf63f, type: 3}
-      propertyPath: pointerGameObject
-      value: 
-      objectReference: {fileID: 1373515287}
     - target: {fileID: 4369239526858327742, guid: cf2ddf52043ef2c42bf863b5542cf63f,
         type: 3}
       propertyPath: CraftingList
@@ -932,6 +928,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.55078125
       objectReference: {fileID: 0}
+    - target: {fileID: 539013287505384702, guid: 00a212442d02b144db45e9042f25ed43,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 539013287884271710, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -981,6 +982,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -91.35986
+      objectReference: {fileID: 0}
+    - target: {fileID: 539013288727566804, guid: 00a212442d02b144db45e9042f25ed43,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 895639769729452838, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
@@ -1195,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 3847629529263091827, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4044931746856329459, guid: 00a212442d02b144db45e9042f25ed43,
         type: 3}
@@ -1314,12 +1320,6 @@ GameObject:
 --- !u!1 &1373515286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 895639769979849438, guid: 00a212442d02b144db45e9042f25ed43,
-    type: 3}
-  m_PrefabInstance: {fileID: 1373515283}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1373515287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 895639770739826488, guid: 00a212442d02b144db45e9042f25ed43,
     type: 3}
   m_PrefabInstance: {fileID: 1373515283}
   m_PrefabAsset: {fileID: 0}

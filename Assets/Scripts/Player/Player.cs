@@ -89,12 +89,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetPlayerInitialPos(TerrainGenerator terrainScript)
+    public Vector3 SetPlayerInitialPos(TerrainGenerator terrainScript)
     {
         positionX = (terrainScript.mapSizeX * terrainScript.sizeXtile) / 2;
-        positionZ = (terrainScript.mapSizeZ * terrainScript.sizeZtile) / 2;
+        positionZ = (terrainScript.mapSizeZ * terrainScript.sizeZtile) / 2 + 3; //offset to base
         positionY = terrainScript.HeightAt(new Vector2(positionX, positionZ)) + myheight / 2;
         transform.position = new Vector3(positionX, positionY, positionZ);
+        return new Vector3(positionX, positionY, positionZ - 3);
     }
 
     public void Die()

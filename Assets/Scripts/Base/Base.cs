@@ -30,7 +30,6 @@ public class Base : MonoBehaviour
                 insideBase = true;
                 baseMenu.SetActive(true);
                 Time.timeScale = 0;
-
             }
         }
     }

@@ -113,9 +113,15 @@ MonoBehaviour:
     sprite: {fileID: -2693009140137883590, guid: b64d305ec18e4de4783b5a19ff9b8285,
       type: 3}
     ingredient: 1
-  - name: None
+  - name: Meat
+    sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    ingredient: 1
+  - name: Cooked Meat
     sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     ingredient: 0
+  - name: Water
+    sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    ingredient: 1
 --- !u!114 &5499034487172727773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +300,23 @@ MonoBehaviour:
         sprite: {fileID: 0}
         ingredient: 0
       count: 0
+  - name: Cooked Meat
+    amount: 1
+    sprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
+    ingredientNames:
+    - name: Meat
+      number: 1
+    ingredients:
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
+    - item:
+        name: 
+        sprite: {fileID: 0}
+        ingredient: 0
+      count: 0
 --- !u!114 &4369239526858327742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +371,6 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 512
-  pointerGameObject: {fileID: 0}
   defaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   pickUpSprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
   CheckPickups: 0

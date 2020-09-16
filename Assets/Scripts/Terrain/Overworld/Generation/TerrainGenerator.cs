@@ -31,6 +31,8 @@ public class TerrainGenerator : MonoBehaviour
 
     public bool multiThreading;
 
+    GameObject playerBase;
+
     void Awake()
     {
         first = true;
@@ -106,11 +108,14 @@ public class TerrainGenerator : MonoBehaviour
         surface.BuildNavMesh();
         try
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+            playerBase = (GameObject)GameObject.Instantiate(Resources.Load("Base 1"));
+            playerBase.transform.position = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+            float y = HeightAt(new Vector2(playerBase.transform.position.x, playerBase.transform.position.z));
+            playerBase.transform.position = new Vector3(playerBase.transform.position.x, y, playerBase.transform.position.z);
         }
         catch
         {
-            Debug.Log("Is player missing? Maybe untagged?");
+            Debug.Log("Is Player or Base missing? Maybe untagged?");
         }
 
         //set up cave

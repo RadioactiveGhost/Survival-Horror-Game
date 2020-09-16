@@ -7,7 +7,7 @@ public class PickUpManager : MonoBehaviour
     Camera cameraRef;
     public float pickUpMaxDist;
     public LayerMask mask;
-    public GameObject pointerGameObject;
+    GameObject pointerGameObject;
     public Sprite defaultSprite, pickUpSprite;
     Image pointerImage;
     Hotbar hotbar;
@@ -18,6 +18,7 @@ public class PickUpManager : MonoBehaviour
 
     private void Start()
     {
+        pointerGameObject = GameObject.FindGameObjectWithTag("Pointer");
         cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         pointerImage = pointerGameObject.GetComponent<Image>();
         hotbar = gameObject.GetComponent<Hotbar>();
