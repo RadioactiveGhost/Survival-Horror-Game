@@ -7,7 +7,7 @@ public class Spawns
     float maxX, maxZ;
     bool repeat;
 
-    void CreateSpawns(Tile t)
+    void CreateSpawns(Tile t, Vector3 middle)
     {
         maxX = t.transform.position.x + t.sizeXtile;
         maxZ = t.transform.position.z + t.sizeZtile;
@@ -19,6 +19,10 @@ public class Spawns
             place.y = t.HeightAt(new Vector2(place.x, place.z));
             for (int j = 0; j < t.spawns.Count; j++)//If place isn't repeated add that one to list
             {
+                if (middle != null && Vector2.Distance(new Vector2(place.x, place.z), new Vector2(middle.x, middle.z)) < t.sizeXtile / 4)
+                {
+                    repeat = true;
+                }
                 if (t.spawns[j].location == place)
                 {
                     repeat = true;
@@ -111,9 +115,9 @@ public class Spawns
         }
     }
 
-    public void Populate(Tile t)
+    public void Populate(Tile t, Vector3 middle)
     {
-        CreateSpawns(t);
+        CreateSpawns(t, middle);
         Spawnables(t);
         PutThingsInPlace(t);
     }

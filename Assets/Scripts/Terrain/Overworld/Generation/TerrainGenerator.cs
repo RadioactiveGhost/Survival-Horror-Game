@@ -78,6 +78,8 @@ public class TerrainGenerator : MonoBehaviour
 
     void GenerateEverything()
     {
+        Debug.Log("Generating...");
+
         if (textureDetailMultiplier < 1)
         {
             Debug.LogError("TextureDetailMultiplier should be at least 1");
@@ -95,17 +97,7 @@ public class TerrainGenerator : MonoBehaviour
         //elapsedTime = System.DateTime.Now - startTime;
         //Debug.Log("Time spent generating terrain: " + elapsedTime);
 
-        //spawn resources
-        spawnManager = new Spawns();
-        for (int i = 0; i < map.Count; i++)
-        {
-            spawnManager.Populate(map[i].GetComponent<Tile>());
-        }
-
-        CreateDecoys();
-
-        //set player on middle of map
-        surface.BuildNavMesh();
+        //set player and base on middle of map
         try
         {
             playerBase = (GameObject)GameObject.Instantiate(Resources.Load("Base 1"));
@@ -117,6 +109,17 @@ public class TerrainGenerator : MonoBehaviour
         {
             Debug.Log("Is Player or Base missing? Maybe untagged?");
         }
+
+        //spawn resources
+        spawnManager = new Spawns();
+        for (int i = 0; i < map.Count; i++)
+        {
+            spawnManager.Populate(map[i].GetComponent<Tile>(), playerBase.transform.position);
+        }
+
+        CreateDecoys();
+
+        surface.BuildNavMesh();
 
         //set up cave
         SetUpCave();
@@ -143,6 +146,8 @@ public class TerrainGenerator : MonoBehaviour
 
     void LoadEverything(SaveData data)
     {
+        Debug.Log("Loading...");
+
         if (textureDetailMultiplier < 1)
         {
             Debug.LogError("TextureDetailMultiplier should be at least 1");
@@ -161,25 +166,28 @@ public class TerrainGenerator : MonoBehaviour
 
         SetMap(data);
 
-        spawnManager = new Spawns();
-        for (int i = 0; i < map.Count; i++)
-        {
-            spawnManager.Populate(map[i].GetComponent<Tile>());
-        }
-
-        CreateDecoys();
-
-        surface.BuildNavMesh();
-
         //set player on middle of map
         try
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+            playerBase = (GameObject)GameObject.Instantiate(Resources.Load("Base 1"));
+            playerBase.transform.position = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetPlayerInitialPos(this);
+            float y = HeightAt(new Vector2(playerBase.transform.position.x, playerBase.transform.position.z));
+            playerBase.transform.position = new Vector3(playerBase.transform.position.x, y, playerBase.transform.position.z);
         }
         catch
         {
             Debug.Log("Is player missing? Maybe untagged?");
         }
+
+        spawnManager = new Spawns();
+        for (int i = 0; i < map.Count; i++)
+        {
+            spawnManager.Populate(map[i].GetComponent<Tile>(), playerBase.transform.position);
+        }
+
+        CreateDecoys();
+
+        surface.BuildNavMesh();
 
         SetUpCave();
     }
@@ -299,42 +307,6 @@ public class TerrainGenerator : MonoBehaviour
                 map[i].GetComponent<Tile>().UpdateMesh();
             }
             first = false;
-        }
-        else //Just update map, ignores editor OLD, CHANGE
-        {
-            int x = 0, z = 0;
-            for (int i = 0; i < map.Count; i++)
-            {
-                if (z == mapSizeZ)
-                {
-                    Debug.LogError("Something wrong isn't right");
-                }
-
-                Tile t = map[i].GetComponent<Tile>();
-                t.Initialize(); //creates shape
-
-                ConnectInsideEdges(x, z, t); //connects tiles
-
-                if (multiThreading) //creates texture
-                {
-                    t.MultiThreadingCreateColors();
-                }
-                else
-                {
-                    t.CreateColors();
-                }
-
-                x++;
-                if (x == mapSizeX) //went down a row
-                {
-                    x = 0;
-                    z++;
-                }
-            }
-            for (int i = 0; i < map.Count; i++)
-            {
-                map[i].GetComponent<Tile>().UpdateMesh();
-            }
         }
     }
 
