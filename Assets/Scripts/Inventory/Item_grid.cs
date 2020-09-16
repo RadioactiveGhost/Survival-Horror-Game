@@ -47,22 +47,26 @@ public class Item_grid : MonoBehaviour
         //Not efficient CHANGE
         PopulateAll();
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if(CustomGameManager.pauseIsWorking)
         {
-            InventoryMenu.SetActive(!InventoryMenu.activeSelf);
-            if (InventoryMenu.activeSelf)
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                pickUpManagerScript.CheckPickups = false;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                pickUpManagerScript.CheckPickups = true;
+                InventoryMenu.SetActive(!InventoryMenu.activeSelf);
+                if (InventoryMenu.activeSelf)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    pickUpManagerScript.CheckPickups = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    pickUpManagerScript.CheckPickups = true;
+                }
             }
         }
+        
     }
 
     void PopulateOnIndex(int index)

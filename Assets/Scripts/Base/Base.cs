@@ -8,12 +8,17 @@ public class Base : MonoBehaviour
     public float distToEnter;
     public GameObject baseMenu, pointer;
     public bool insideBase = false;
+    private RaycastHit hit;
+    private Camera cameraC;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         baseMenu = GameObject.FindGameObjectWithTag("BaseMenu");
         pointer = GameObject.FindGameObjectWithTag("Pointer");
+        baseMenu.GetComponent<BaseMenu>().base1 = this.gameObject;
+        baseMenu.SetActive(false);
+        cameraC = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -22,14 +27,22 @@ public class Base : MonoBehaviour
         float dist = Vector3.Distance(player.transform.position, this.transform.position);
         if(dist <= distToEnter && !insideBase)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if(Physics.Raycast(cameraC.transform.position, cameraC.transform.forward, out hit ,5f))
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                pointer.SetActive(false);
-                insideBase = true;
-                baseMenu.SetActive(true);
-                Time.timeScale = 0;
+                if(hit.transform.tag == "Base 1")
+                {
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        CustomGameManager.pauseIsWorking = false;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pointer.SetActive(false);
+                        insideBase = true;
+                        baseMenu.SetActive(true);
+                        Time.timeScale = 0;
+                    }
+                }
+               
             }
         }
     }

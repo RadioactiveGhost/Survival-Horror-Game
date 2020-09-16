@@ -3,11 +3,13 @@
 public class CustomGameManager : MonoBehaviour
 {
     public static SaveData saveData;
+    public static bool pauseIsWorking;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        pauseIsWorking = true;
     }
 
     public static void SaveGame()

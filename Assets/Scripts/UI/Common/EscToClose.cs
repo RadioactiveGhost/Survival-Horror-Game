@@ -2,13 +2,23 @@
 
 public class EscToClose : MonoBehaviour
 {
+    public bool pauseMenu;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(CustomGameManager.pauseIsWorking)
         {
-            gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameObject.SetActive(false);
+            }
         }
+        else if(!pauseMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameObject.SetActive(false);
+            }
+        }
+       
     }
 }

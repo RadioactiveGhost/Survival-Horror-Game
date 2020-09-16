@@ -4,14 +4,30 @@ using UnityEngine;
 
 public class EscToOpen : MonoBehaviour
 {
+    public bool pauseMenu;
     public GameObject objectToOpen;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+
+        if(CustomGameManager.pauseIsWorking)
         {
-            if (!objectToOpen.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                objectToOpen.SetActive(true);
+                if (!objectToOpen.activeSelf)
+                {
+                    objectToOpen.SetActive(true);
+                }
+            }
+        }
+        else if(!pauseMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!objectToOpen.activeSelf)
+                {
+                    objectToOpen.SetActive(true);
+                }
             }
         }
     }

@@ -12,8 +12,7 @@ public class BaseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pointer = GameObject.FindGameObjectWithTag("Pointer");
-        base1 = GameObject.FindGameObjectWithTag("Base 1");
+
     }
 
     // Update is called once per frame
@@ -33,8 +32,8 @@ public class BaseMenu : MonoBehaviour
         b_storage.onClick.AddListener(OpenStorage);
         b_bed.onClick.AddListener(LongRest);
         b_crafting.onClick.AddListener(OpenCraftin);
-        b_closeC.onClick.AddListener(CloseCraftin);
-        b_closeS.onClick.AddListener(CloseStorage);
+        //b_closeC.onClick.AddListener(CloseCraftin);
+        //b_closeS.onClick.AddListener(CloseStorage);
     }
 
     private void Leave()
@@ -45,6 +44,7 @@ public class BaseMenu : MonoBehaviour
         Time.timeScale = 1;
         pointer.SetActive(true);
         this.gameObject.SetActive(false);
+        CustomGameManager.pauseIsWorking = true;
     }
 
     private void CloseCraftin()
