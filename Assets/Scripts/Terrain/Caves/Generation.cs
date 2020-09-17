@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class Block
 {
+    
     public List<Vector3Int> childBlocks;
     public Vector3Int parent;
     public bool top;
@@ -111,6 +113,7 @@ public enum BlockType
 
 public class Generation : MonoBehaviour
 {
+    public NavMeshSurface surface;
     public int scale;
     public const int size = 5;
 
@@ -412,6 +415,7 @@ public class Generation : MonoBehaviour
 
     void SetUpLabyrinth()
     {
+        surface.BuildNavMesh();
         GameObject p = GameObject.Instantiate((GameObject)Resources.Load("Caves/" + BlockType.top_down.ToString()));
         p.name = "Entrance";
         p.transform.position = new Vector3(startPoint.pos.x, startPoint.pos.y + 1, startPoint.pos.z) * scale;
@@ -519,4 +523,5 @@ public class Generation : MonoBehaviour
             Debug.LogError("None");
         }
     }
+
 }
