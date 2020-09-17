@@ -19,6 +19,13 @@ public class TabManager : MonoBehaviour
     {
         Activate(TAs[0]);
 
+        StartCoroutine(DelayOneFrame());
+    }
+
+    IEnumerator DelayOneFrame()
+    {
+        yield return 0;
+
         for (int i = 1; i < TAs.Count; i++)
         {
             Deactivate(TAs[i]);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class eyeMoviment : MonoBehaviour
 {
     private Vector3 target;
-    private bool resetEyeRot = false;
+    //private bool resetEyeRot = false;
     private Quaternion initialRotation;
     private float rotationResetSpeed = 20f; 
     public enum Eye { right, left};

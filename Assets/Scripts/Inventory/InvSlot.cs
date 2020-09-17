@@ -72,7 +72,10 @@ public class InvSlot : MonoBehaviour
                 break;
 
             case Function.CraftingInventory:
-                craftingManager.SetItemManuallyOnCurrentIndex(iC);
+                if (iC != null)
+                {
+                    craftingManager.SetItemManuallyOnCurrentIndex(iC);
+                }
                 break;
 
             case Function.Hotbar:

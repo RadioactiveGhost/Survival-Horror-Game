@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Item_grid : MonoBehaviour
 {
@@ -32,6 +33,13 @@ public class Item_grid : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(NextFrameDelay());
+    }
+
+    IEnumerator NextFrameDelay()
+    {
+        yield return 0;
 
         for (int i = 0; i < slotsparents.Length; i++)
         {

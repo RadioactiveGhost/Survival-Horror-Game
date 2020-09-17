@@ -120,6 +120,7 @@ public class NewInventory : MonoBehaviour
     //UNTESTED
     public bool HasItem(item item, int count)
     {
+        //Debug.Log(item.name + " " + count);
         int helper;
         foreach (ItemCount itemC in inventory)
         {
@@ -127,10 +128,11 @@ public class NewInventory : MonoBehaviour
             if (itemC.item == item)
             {
                 helper -= count;
-                if (helper <= 0)
+                if (helper < 0)
                 {
-                    count = 0 - itemC.count;
-                    helper = 0;
+                    count = itemC.count - helper;
+                    //count = 0 - itemC.count;
+                    //helper = 0;
                     continue;
                 }
                 else

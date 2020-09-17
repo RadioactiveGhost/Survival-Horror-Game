@@ -17,15 +17,9 @@ public class Crafting_Manager : MonoBehaviour
     private void Start()
     {
         CraftingList = GameObject.FindGameObjectWithTag("RecipeList");
-        CraftingList.SetActive(false);
         inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
 
         craftItemSlots = GameObject.FindGameObjectsWithTag("CraftSlots");
-        foreach (GameObject g in craftItemSlots)
-        {
-            g.transform.Find("Icon").GetComponent<Image>().enabled = false;
-            g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
-        }
         itemsOnSlots = new ItemCount[craftItemSlots.Length];
 
         craftable = null;
@@ -33,6 +27,19 @@ public class Crafting_Manager : MonoBehaviour
         selected = 0;
         Select(0);
         UpdateRecipeList();
+
+        foreach (GameObject g in craftItemSlots)
+        {
+            g.transform.Find("Icon").GetComponent<Image>().enabled = false;
+            g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
+        }
+
+        StartCoroutine(NextFrameDisable());
+    }
+
+    IEnumerator NextFrameDisable()
+    {
+        yield return 0;
 
         GameObject.FindGameObjectWithTag("CraftMenu").SetActive(false);
     }
@@ -111,7 +118,14 @@ public class Crafting_Manager : MonoBehaviour
     {
         //Debug.Log("Item " + itemCount.item.name + " on " + index);
         craftItemSlots[index].transform.Find("Icon").GetComponent<Image>().enabled = true;
-        craftItemSlots[index].transform.Find("Icon").GetComponent<Image>().sprite = itemCount.item.sprite;
+        try
+        {
+            craftItemSlots[index].transform.Find("Icon").GetComponent<Image>().sprite = itemCount.item.sprite;
+        }
+        catch
+        {
+            Debug.LogError("Sprite missing for " + itemCount.item.name);
+        }
         craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = true;
         craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = itemCount.count.ToString();
         itemsOnSlots[index] = itemCount;
@@ -119,6 +133,37 @@ public class Crafting_Manager : MonoBehaviour
         if (index != craftItemSlots.Length - 1) //no need to recipe search on last slot
         {
             PossibleRecipes();
+        }
+    }
+
+    public void SetSlot(int index, ItemCount itemCount, bool able)
+    {
+        //Debug.Log("Item " + itemCount.item.name + " on " + index);
+        craftItemSlots[index].transform.Find("Icon").GetComponent<Image>().enabled = true;
+        try
+        {
+            craftItemSlots[index].transform.Find("Icon").GetComponent<Image>().sprite = itemCount.item.sprite;
+        }
+        catch
+        {
+            Debug.LogError("Sprite missing for " + itemCount.item.name);
+        }
+        craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = true;
+        craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = itemCount.count.ToString();
+        itemsOnSlots[index] = itemCount;
+
+        if (index != craftItemSlots.Length - 1) //no need to recipe search on last slot
+        {
+            PossibleRecipes();
+        }
+
+        if(able)
+        {
+            craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().color = Color.white;
+        }
+        else
+        {
+            craftItemSlots[index].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().color = Color.red;
         }
     }
 
@@ -136,13 +181,19 @@ public class Crafting_Manager : MonoBehaviour
 
     public void SetRecipeOnCraftSlots(recipe r)
     {
+        bool recipepossible = true;
         int i = 0;
-        for (i = 0; i < r.ingredients.Count; i++)
+        for (; i < r.ingredients.Count; i++)
         {
             //Debug.Log("Slot " + i + " with " + r.ingredients[i].item.name);
             if (inventory.HasItem(r.ingredients[i].item, r.ingredients[i].count))
             {
-                SetSlot(i, inventory.GetItem(r.ingredients[i].item));
+                SetSlot(i, inventory.GetItem(r.ingredients[i].item), true);
+            }
+            else
+            {
+                SetSlot(i, r.ingredients[i], false);
+                recipepossible = false;
             }
         }
         for (; i < craftItemSlots.Length; i++)
@@ -152,12 +203,11 @@ public class Crafting_Manager : MonoBehaviour
         }
 
         //set last slot with recipe
-        //Debug.Log("Slot " + (craftItemSlots.Length - 1) + " with " + r.name);
-        SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount));
-        PossibleRecipeTest(r);
+        //SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount));
+        PossibleRecipeTest(r, recipepossible);
     }
 
-    public void PossibleRecipeTest(recipe r)
+    public void PossibleRecipeTest(recipe r) //NOT WORKING
     {
         int passes, count;
 
@@ -185,56 +235,82 @@ public class Crafting_Manager : MonoBehaviour
         //See if it passes
         if (passes >= r.ingredients.Count)
         {
-            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount));
+            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount), true);
             craftable = r;
         }
         else
         {
-            craftItemSlots[craftItemSlots.Length - 1].transform.Find("Icon").GetComponent<Image>().enabled = false;
-            craftItemSlots[craftItemSlots.Length - 1].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
+            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount), false);
+            //craftItemSlots[craftItemSlots.Length - 1].transform.Find("Icon").GetComponent<Image>().enabled = false;
+            //craftItemSlots[craftItemSlots.Length - 1].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
+            craftable = null;
+        }
+    }
+
+    public void PossibleRecipeTest(recipe r, bool possible)
+    {
+        //See if it passes
+        if (possible)
+        {
+            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount), true);
+            craftable = r;
+        }
+        else
+        {
+            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount), false);
+            //craftItemSlots[craftItemSlots.Length - 1].transform.Find("Icon").GetComponent<Image>().enabled = false;
+            //craftItemSlots[craftItemSlots.Length - 1].transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
             craftable = null;
         }
     }
 
     public void PossibleRecipes()
     {
-        int passes, count;
+        bool possible = false;
+        recipe r = new recipe();
+        //int passes, count;
 
         for (int i = 0; i < Recipes.recipeInstance.Count; i++)
         {
-            passes = 0;
+            //passes = 0;
             for (int k = 0; k < Recipes.recipeInstance[i].ingredients.Count; k++)
             {
-                count = 0;
+                //count = 0;
                 for (int j = 0; j < itemsOnSlots.Length; j++)
                 {
-                    if (itemsOnSlots[j] != null)
+                    if (itemsOnSlots[j] != null && itemsOnSlots[j].item == Recipes.recipeInstance[i].ingredients[k].item && itemsOnSlots[j].count >= Recipes.recipeInstance[i].ingredients[k].count)
                     {
-                        if (itemsOnSlots[j].item == Recipes.recipeInstance[i].ingredients[k].item)
+                        if (k == Recipes.recipeInstance[i].ingredients.Count - 1)
                         {
-                            count += itemsOnSlots[j].count;
+                            r = Recipes.recipeInstance[i];
+                            possible = true;
+                            break;
                         }
+                        continue;
                     }
+                    break;
                 }
-                if (count >= Recipes.recipeInstance[i].ingredients[k].count)
+                if (possible)
                 {
-                    //Debug.Log("Enough " + Recipes.recipeInstance[i].ingredients[k].item.name + " (" + count + "/" + Recipes.recipeInstance[i].ingredients[k].count + ")" + "for " + Recipes.recipeInstance[i].name);
-                    passes++;
+                    break;
                 }
             }
-
-
-            //See if it passes
-            if (passes >= Recipes.recipeInstance[i].ingredients.Count)
+            if (possible)
             {
-                SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(Recipes.recipeInstance[i].name), Recipes.recipeInstance[i].amount));
-                craftable = Recipes.recipeInstance[i];
+                break;
             }
-            else
-            {
-                EmptySlot(craftItemSlots.Length - 1);
-                craftable = null;
-            }
+        }
+
+        //See if it passes
+        if (possible)
+        {
+            SetSlot(craftItemSlots.Length - 1, new ItemCount(Items.FindItemByString(r.name), r.amount));
+            craftable = r;
+        }
+        else
+        {
+            EmptySlot(craftItemSlots.Length - 1);
+            craftable = null;
         }
     }
 
