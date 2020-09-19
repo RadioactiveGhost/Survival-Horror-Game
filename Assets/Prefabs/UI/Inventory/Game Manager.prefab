@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5499034487172727774
+--- !u!1 &4339872001070385760
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5499034487172727771}
-  - component: {fileID: 5499034487172727772}
-  - component: {fileID: 5499034487172727773}
-  - component: {fileID: 4369239526858327742}
-  - component: {fileID: 1344400998}
-  - component: {fileID: 1344400999}
+  - component: {fileID: 7171923570627296013}
+  - component: {fileID: 4701189147217104146}
+  - component: {fileID: 5243872167688574514}
   m_Layer: 0
-  m_Name: Manager_Resource
+  m_Name: Resources
   m_TagString: ResourceManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5499034487172727771
+--- !u!4 &7171923570627296013
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 4339872001070385760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 101.2474, y: 58.60975, z: -103.58212}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 5162196879820987949}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5499034487172727772
+--- !u!114 &4701189147217104146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 4339872001070385760}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0381ded1d90fb33429de5c888943b385, type: 3}
@@ -122,13 +119,13 @@ MonoBehaviour:
   - name: Water
     sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     ingredient: 1
---- !u!114 &5499034487172727773
+--- !u!114 &5243872167688574514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 4339872001070385760}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed22898037682ef47b6067ca2a16b1df, type: 3}
@@ -317,53 +314,285 @@ MonoBehaviour:
         sprite: {fileID: 0}
         ingredient: 0
       count: 0
---- !u!114 &4369239526858327742
+--- !u!1 &5162196879820987937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5162196879820987949}
+  - component: {fileID: 5162196879820987948}
+  - component: {fileID: 5162196879820987939}
+  - component: {fileID: 5162196879820987938}
+  - component: {fileID: 5162196879820987950}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: SoundManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5162196879820987949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162196879820987937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2699413813597136381}
+  - {fileID: 7171923570627296013}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5162196879820987948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 5162196879820987937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390d23791fe815e44a20c1a5285f5d0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5830c1d97db0e2748aebf86b1f43e884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftable:
-    name: 
-    amount: 0
-    sprite: {fileID: 0}
-    ingredientNames: []
-    ingredients: []
---- !u!114 &1344400998
+  sounds:
+  - clip: {fileID: 8300000, guid: 6598a5abe1b6927448e9a319b2fcc425, type: 3}
+    name: Cave soundtrack
+    loop: 1
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 8a7bf5ce2baeec9488681b36e4797221, type: 3}
+    name: Monster appear
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: ebe8a1c6864ccc547acc3fcb1fa7c876, type: 3}
+    name: Clawing 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a96f286dae6fd4045a3cf97c19b79a9d, type: 3}
+    name: Clawing 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 446a7b7174addfe4e8ff976ad15c5de9, type: 3}
+    name: Clawing 3
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 024e79001350f534a902d9d2a767d7e5, type: 3}
+    name: Door open
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5da2a80ad6ad2534b8259a0c3d552ca9, type: 3}
+    name: Drinking
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 3c76c25b20ccf804f8e70fe88cfe210d, type: 3}
+    name: Eating
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: de103c8791e964645b922edfe1fcb2d3, type: 3}
+    name: Flesh noise 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 383d85ed50df16046921c08d7260ab57, type: 3}
+    name: Flesh noise 2
+    loop: 1
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 09b521da236772e40b6135dd593d1f1f, type: 3}
+    name: Magical item
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 4cf3435d7044fdd41b6ae3d567548a7f, type: 3}
+    name: Grappling hook 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 01412011deaa24043b9b1b8162349825, type: 3}
+    name: Grappling hook 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 28643e91be175f6448b345b12aa66607, type: 3}
+    name: Hammer
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f66d1263981132a4e8b29545dd86dc87, type: 3}
+    name: High pitch
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5bbddb5007e524141a9064f5a6c91372, type: 3}
+    name: Light fire 1
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2d2b232a307b1a94b9833deb9c85a5fc, type: 3}
+    name: Light fire 2
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: be606acb45cbf4e48886f58738a8437d, type: 3}
+    name: Monster Croak
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7df47cec5641c674d98aa5266fd35b8a, type: 3}
+    name: Monster growl
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 44049c5aba2dfeb4e93aaa7cf427b56e, type: 3}
+    name: Monster pant
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 87e0b13105aae6546a933dbf87bce2f7, type: 3}
+    name: Key item
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d460ed770a4faa34eb48bffeab0ceb01, type: 3}
+    name: Water Empty
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cdc2545734fa2f4428063946e70df229, type: 3}
+    name: Water fill
+    loop: 0
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 6e81a3e8914d4f948a5ec930c5fde0a5, type: 3}
+    name: Cave soundtrack 2
+    loop: 1
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 861f017d6ef96f647881231f3f9c0f3a, type: 3}
+    name: Cave soundtrack 3
+    loop: 1
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+  onceFootsteps: 1
+--- !u!114 &5162196879820987939
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 5162196879820987937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6b0593a8fc7114097cf889a6a4769f, type: 3}
+  m_Script: {fileID: 11500000, guid: a2346b37964aa3e4d8267ed67848cf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: 0
---- !u!114 &1344400999
+--- !u!114 &5162196879820987938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499034487172727774}
+  m_GameObject: {fileID: 5162196879820987937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ff1f44e1d1f3049bc4baa5c6a2ea46, type: 3}
+  m_Script: {fileID: 11500000, guid: 6875ed61a0a54704296ddbcbb4e686e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpMaxDist: 1
-  mask:
-    serializedVersion: 2
-    m_Bits: 512
-  defaultSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  pickUpSprite: {fileID: 21300000, guid: 28d2c2677149d45e290e8fa042b1b80f, type: 3}
-  CheckPickups: 0
+--- !u!114 &5162196879820987950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162196879820987937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4c0204933b5cc4ab3ffad80917f7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5579458366696880644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2699413813597136381}
+  - component: {fileID: 671322422186378075}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: InventoryManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2699413813597136381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579458366696880644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5162196879820987949}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &671322422186378075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579458366696880644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dc4e7d2dec0c344bf352860ac3b16e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBagSlots: 10
+  maxInSlot: 10
+  inventory: []

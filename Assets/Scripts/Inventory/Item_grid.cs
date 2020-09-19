@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Item_grid : MonoBehaviour
 {
@@ -13,28 +14,31 @@ public class Item_grid : MonoBehaviour
 
     void Start()
     {
-        slotsparents = GameObject.FindGameObjectsWithTag("SlotsParent");
-        InventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");
-        childrenSlotsList = new List<InvSlot>[slotsparents.Length];
-        for (int i = 0; i < childrenSlotsList.Length; i++)
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
         {
-            childrenSlotsList[i] = new List<InvSlot>();
-        }
-        inventoryScript = gameObject.GetComponent<NewInventory>();
-        pickUpManagerScript = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<PickUpManager>();
-
-        for (int i = 0; i < slotsparents.Length; i++)
-        {
-            foreach (Transform child in slotsparents[i].transform)
+            slotsparents = GameObject.FindGameObjectsWithTag("SlotsParent");
+            InventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");
+            childrenSlotsList = new List<InvSlot>[slotsparents.Length];
+            for (int i = 0; i < childrenSlotsList.Length; i++)
             {
-                if (child.GetComponent<InvSlot>())
+                childrenSlotsList[i] = new List<InvSlot>();
+            }
+            inventoryScript = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
+            pickUpManagerScript = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<PickUpManager>();
+
+            for (int i = 0; i < slotsparents.Length; i++)
+            {
+                foreach (Transform child in slotsparents[i].transform)
                 {
-                    childrenSlotsList[i].Add(child.GetComponent<InvSlot>());
+                    if (child.GetComponent<InvSlot>())
+                    {
+                        childrenSlotsList[i].Add(child.GetComponent<InvSlot>());
+                    }
                 }
             }
-        }
 
-        StartCoroutine(NextFrameDelay());
+            StartCoroutine(NextFrameDelay());
+        }
     }
 
     IEnumerator NextFrameDelay()
@@ -52,29 +56,31 @@ public class Item_grid : MonoBehaviour
 
     private void Update()
     {
-        //Not efficient CHANGE
-        PopulateAll();
-
-        if(CustomGameManager.pauseIsWorking)
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            //Not efficient CHANGE
+            PopulateAll();
+
+            if (CustomGameManager.pauseIsWorking)
             {
-                InventoryMenu.SetActive(!InventoryMenu.activeSelf);
-                if (InventoryMenu.activeSelf)
+                if (Input.GetKeyDown(KeyCode.I))
                 {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    pickUpManagerScript.CheckPickups = false;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    pickUpManagerScript.CheckPickups = true;
+                    InventoryMenu.SetActive(!InventoryMenu.activeSelf);
+                    if (InventoryMenu.activeSelf)
+                    {
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pickUpManagerScript.CheckPickups = false;
+                    }
+                    else
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        pickUpManagerScript.CheckPickups = true;
+                    }
                 }
             }
         }
-        
     }
 
     void PopulateOnIndex(int index)

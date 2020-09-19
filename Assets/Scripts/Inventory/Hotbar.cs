@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hotbar : MonoBehaviour
 {
@@ -11,51 +12,56 @@ public class Hotbar : MonoBehaviour
     //ItemCount[] items;
     private void Start()
     {
-        hotbar = GameObject.FindGameObjectWithTag("Hotbar");
-        slots = hotbar.GetComponentsInChildren<InvSlot>();
-        selected = 0;
-        Select(0);
-        //items = new ItemCount[slots.Length];
-        UpdateBar();
-        pickUpManager = transform.root.GetComponentInChildren<PickUpManager>();
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        {
+            hotbar = GameObject.FindGameObjectWithTag("Hotbar");
+            slots = hotbar.GetComponentsInChildren<InvSlot>();
+            selected = 0;
+            Select(0);
+            //items = new ItemCount[slots.Length];
+            UpdateBar();
+            pickUpManager = transform.root.GetComponentInChildren<PickUpManager>();
+        }
     }
 
     private void Update()
     {
-        //CHANGE
-        UpdateBar();
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        {
+            //CHANGE
+            UpdateBar();
 
-        //Select item on hotbar
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Select(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Select(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Select(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Select(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Select(4);
-        }
+            //Select item on hotbar
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Select(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Select(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Select(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                Select(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Select(4);
+            }
 
-        //PickUp/Use Item
-        if(Input.GetMouseButtonDown(0))
-        {
-            pickUpManager.PickUpResource();
+            //PickUp/Use Item
+            if (Input.GetMouseButtonDown(0))
+            {
+                pickUpManager.PickUpResource();
 
-            //Change
-            //Debug.Log("Use: " + GetItemSelectedName());
+                //Change
+                //Debug.Log("Use: " + GetItemSelectedName());
+            }
         }
-
     }
 
     void Select(int selection)

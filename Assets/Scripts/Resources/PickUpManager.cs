@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PickUpManager : MonoBehaviour
 {
@@ -17,11 +18,18 @@ public class PickUpManager : MonoBehaviour
 
     private void Start()
     {
-        cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        pointerImage = GameObject.FindGameObjectWithTag("Pointer").GetComponent<Image>();
-        hotbar = gameObject.GetComponent<Hotbar>();
-        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
-        CheckPickups = true;
+        if(SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        {
+            CheckPickups = true;
+            cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            pointerImage = GameObject.FindGameObjectWithTag("Pointer").GetComponent<Image>();
+            hotbar = gameObject.GetComponent<Hotbar>();
+            inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
+        }
+        else
+        {
+            CheckPickups = false;
+        }
     }
 
     private void Update()

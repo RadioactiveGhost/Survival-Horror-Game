@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Crafting_Manager : MonoBehaviour
 {
@@ -16,25 +17,28 @@ public class Crafting_Manager : MonoBehaviour
 
     private void Start()
     {
-        CraftingList = GameObject.FindGameObjectWithTag("RecipeList");
-        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
-
-        craftItemSlots = GameObject.FindGameObjectsWithTag("CraftSlots");
-        itemsOnSlots = new ItemCount[craftItemSlots.Length];
-
-        craftable = null;
-
-        selected = 0;
-        Select(0);
-        UpdateRecipeList();
-
-        foreach (GameObject g in craftItemSlots)
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
         {
-            g.transform.Find("Icon").GetComponent<Image>().enabled = false;
-            g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
-        }
+            CraftingList = GameObject.FindGameObjectWithTag("RecipeList");
+            inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();
 
-        StartCoroutine(NextFrameDisable());
+            craftItemSlots = GameObject.FindGameObjectsWithTag("CraftSlots");
+            itemsOnSlots = new ItemCount[craftItemSlots.Length];
+
+            craftable = null;
+
+            selected = 0;
+            Select(0);
+            UpdateRecipeList();
+
+            foreach (GameObject g in craftItemSlots)
+            {
+                g.transform.Find("Icon").GetComponent<Image>().enabled = false;
+                g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
+            }
+
+            StartCoroutine(NextFrameDisable());
+        }
     }
 
     IEnumerator NextFrameDisable()
