@@ -119,7 +119,8 @@ public class Player : MonoBehaviour
     public void Die()
     {
         //Only stops things for now
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        ManagerScenes.LoadMainMenu();
     }
 
     //void TerrainCustomMovement(TerrainGenerator terrainScript)
