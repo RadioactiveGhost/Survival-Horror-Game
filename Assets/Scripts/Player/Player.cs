@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class Player : MonoBehaviour
     //Stats
     bool dead;
     public int hunger, thirst, health, armor, strength;
+    public GameObject healthBar, thirstBar, hungerBar;
     [HideInInspector]
     public int maxHealth;
     public float hungerTimer, thirstTimer;
     float currentHungerTimer, currentThirstTimer;
+    private Image healthImage, thirstImage, hungerImage;
 
     private void Awake()
     {
@@ -35,6 +38,10 @@ public class Player : MonoBehaviour
         currentThirstTimer = Time.time;
 
         rb = GetComponent<Rigidbody>();
+
+        healthImage = healthBar.GetComponent<Image>();
+        thirstImage = thirstBar.GetComponent<Image>();
+        hungerImage = hungerBar.GetComponent<Image>();
 
         //DEBUG
         HasGrapplingHook = true;
@@ -53,6 +60,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         ManageThirstHunger();
+
+        healthImage.fillAmount = health;
+        thirstImage.fillAmount = thirst;
+        hungerImage.fillAmount = hunger;
 
         if(dead)
         {

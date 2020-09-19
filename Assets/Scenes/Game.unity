@@ -1639,6 +1639,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd6df5d106317640bc31306e6a1af7d, type: 3}
+--- !u!1 &5723097125353516910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6278717076171560574, guid: 8cd6df5d106317640bc31306e6a1af7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5723097125353516909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5723097125353516911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6278717076066749604, guid: 8cd6df5d106317640bc31306e6a1af7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5723097125353516909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5723097125353516912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6278717075882569298, guid: 8cd6df5d106317640bc31306e6a1af7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5723097125353516909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5837213883446032361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1709,21 @@ PrefabInstance:
       propertyPath: moveForce
       value: 2000
       objectReference: {fileID: 0}
+    - target: {fileID: 6023181841114185089, guid: 170961b63d5e1da4fb4866c386c6bd0c,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 5723097125353516912}
+    - target: {fileID: 6023181841114185089, guid: 170961b63d5e1da4fb4866c386c6bd0c,
+        type: 3}
+      propertyPath: thirstBar
+      value: 
+      objectReference: {fileID: 5723097125353516911}
+    - target: {fileID: 6023181841114185089, guid: 170961b63d5e1da4fb4866c386c6bd0c,
+        type: 3}
+      propertyPath: hungerBar
+      value: 
+      objectReference: {fileID: 5723097125353516910}
     - target: {fileID: 6023181841114185093, guid: 170961b63d5e1da4fb4866c386c6bd0c,
         type: 3}
       propertyPath: m_Enabled

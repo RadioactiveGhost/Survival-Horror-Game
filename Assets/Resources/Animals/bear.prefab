@@ -148,8 +148,8 @@ MonoBehaviour:
   action: 2
   health: 150
   timeLeft: 10
-  attackDamage: 40
-  armor: 10
+  attackDamage: 0
+  armor: 0
   isMother: 0
 --- !u!135 &7762041859106121861
 SphereCollider:
