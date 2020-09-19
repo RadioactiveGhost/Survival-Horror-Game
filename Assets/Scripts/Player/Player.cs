@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     //Stats
     bool dead;
     public int hunger, thirst, health, armor, strength;
-    public GameObject healthBar, thirstBar, hungerBar;
+    public Image healthBar, thirstBar, hungerBar;
     [HideInInspector]
     public int maxHealth;
     public float hungerTimer, thirstTimer;
@@ -39,9 +39,9 @@ public class Player : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        healthImage = healthBar.GetComponent<Image>();
+        /*healthImage = healthBar.GetComponent<Image>();
         thirstImage = thirstBar.GetComponent<Image>();
-        hungerImage = hungerBar.GetComponent<Image>();
+        hungerImage = hungerBar.GetComponent<Image>();*/
 
         //DEBUG
         HasGrapplingHook = true;
@@ -61,9 +61,9 @@ public class Player : MonoBehaviour
     {
         ManageThirstHunger();
 
-        healthImage.fillAmount = health;
-        thirstImage.fillAmount = thirst;
-        hungerImage.fillAmount = hunger;
+        healthBar.fillAmount = (float)health/100;
+        thirstBar.fillAmount = (float)thirst/100;
+        hungerBar.fillAmount = (float)hunger/100;
 
         if(dead)
         {
