@@ -124,6 +124,9 @@ public class Generation : MonoBehaviour
     GameObject caveParent;
     GameObject resourceParent;
 
+    [HideInInspector]
+    public List<Vector3> cavePoints;
+
     void Start()
     {
         //Debug
@@ -136,6 +139,7 @@ public class Generation : MonoBehaviour
         caveParent.name = "Cave Parent";
         resourceParent = new GameObject();
         resourceParent.name = "Resource Parent";
+        cavePoints = new List<Vector3>();
 
         //Debug.Log("Initializing...");
         Initialize();
@@ -250,6 +254,7 @@ public class Generation : MonoBehaviour
             //Debug.Log("On " + currentCoords);
             //CHANGE
             Vector3Int newCoords = ChooseAndMovePath(currentCoords);
+            cavePoints.Add(currentCoords);
 
             if (newCoords != new Vector3Int(-1, -1, -1))
             {

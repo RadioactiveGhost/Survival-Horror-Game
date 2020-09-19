@@ -43,7 +43,7 @@ public class PickUpManager : MonoBehaviour
                 pointerImage.sprite = pickUpSprite;
                 return hit.transform.gameObject;
             }
-            Debug.Log("Hit " + hit.transform.name);
+            //Debug.Log("Hit " + hit.transform.name);
         }
         pointerImage.sprite = defaultSprite;
         return null;

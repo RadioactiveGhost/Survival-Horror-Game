@@ -47,7 +47,7 @@ public class Hotbar : MonoBehaviour
             Select(4);
         }
 
-        //Use Item
+        //PickUp/Use Item
         if(Input.GetMouseButtonDown(0))
         {
             pickUpManager.PickUpResource();
