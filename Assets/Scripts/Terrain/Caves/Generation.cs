@@ -113,7 +113,7 @@ public enum BlockType
 
 public class Generation : MonoBehaviour
 {
-    public NavMeshSurface surface;
+    //public NavMeshSurface surface;
     public int scale;
     public const int size = 5;
 
@@ -420,7 +420,7 @@ public class Generation : MonoBehaviour
 
     void SetUpLabyrinth()
     {
-        surface.BuildNavMesh();
+      //   surface.BuildNavMesh();
         GameObject p = GameObject.Instantiate((GameObject)Resources.Load("Caves/" + BlockType.top_down.ToString()));
         p.name = "Entrance";
         p.transform.position = new Vector3(startPoint.pos.x, startPoint.pos.y + 1, startPoint.pos.z) * scale;
