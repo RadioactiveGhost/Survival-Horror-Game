@@ -2393,11 +2393,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4828269070463414366, guid: 8cd6df5d106317640bc31306e6a1af7d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4828269070617348927, guid: 8cd6df5d106317640bc31306e6a1af7d,
         type: 3}
       propertyPath: m_AnchorMin.y

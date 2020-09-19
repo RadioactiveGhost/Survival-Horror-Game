@@ -56,7 +56,7 @@ public class Item_grid : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             //Not efficient CHANGE
             PopulateAll();

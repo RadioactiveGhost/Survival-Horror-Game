@@ -21,8 +21,8 @@ public class InvSlot : MonoBehaviour
 
     private void Start()
     {
-        craftingManager = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<Crafting_Manager>();
-        hotbar = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<Hotbar>();
+        craftingManager = GameObject.FindGameObjectWithTag("CraftingLocal").GetComponent<Crafting_Manager>();
+        hotbar = GameObject.FindGameObjectWithTag("CraftingLocal").GetComponent<Hotbar>();
     }
 
     void SetImage(Sprite sprite)
