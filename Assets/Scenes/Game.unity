@@ -494,9 +494,9 @@ MonoBehaviour:
   deers: 1
   bears: 1
   bunnies: 1
-  minNumber: 2
-  maxNumber: 6
-  spawnRange: 30
+  minNumber: 7
+  maxNumber: 14
+  spawnRange: 50
   distForSpawn: 10
 --- !u!4 &1009640025
 Transform:
@@ -529,11 +529,11 @@ MonoBehaviour:
   lifeLeach: 1
   packHunter: 1
   darkCrawler: 0
-  minNumber: 1
-  maxNumber: 4
-  spawnRange: 30
+  minNumber: 3
+  maxNumber: 7
+  spawnRange: 50
   distForSpawn: 13
-  numbOfMonsters: 20
+  numbOfMonsters: 40
   mobList: []
   terrain: {fileID: 296817723}
   player: {fileID: 1185857415}

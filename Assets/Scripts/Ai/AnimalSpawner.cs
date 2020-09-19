@@ -28,7 +28,7 @@ public class AnimalSpawner : MonoBehaviour
     {
         
         //Debug.Log(animalList.Count);
-        if(animalList.Count < 30)
+        if(animalList.Count < 70)
         {
             animalsSpawnFlag = true;
         }
