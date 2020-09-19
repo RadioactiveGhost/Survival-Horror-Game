@@ -14,6 +14,7 @@ public class Crafting_Manager : MonoBehaviour
     [HideInInspector]
     public recipe craftable;
     NewInventory inventory;
+    GameObject grapplingHook;
 
     private void Start()
     {
@@ -36,6 +37,8 @@ public class Crafting_Manager : MonoBehaviour
                 g.transform.Find("Icon").GetComponent<Image>().enabled = false;
                 g.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().enabled = false;
             }
+
+            grapplingHook = GameObject.FindGameObjectWithTag("GrapplingHook");
 
             StartCoroutine(NextFrameDisable());
         }
@@ -329,6 +332,11 @@ public class Crafting_Manager : MonoBehaviour
                     //Debug.Log(craftable.name);
                     //Debug.Log("Trying to remove " + " " + craftable.ingredients[i].count + " " +  craftable.ingredients[i].item.name);
                     inventory.RemoveItem(craftable.ingredients[i].item, craftable.ingredients[i].count);
+                    if(craftable.name == "Grappling Hook")
+                    {
+                        CustomGameManager.hasGrapplingHook = true;
+                        grapplingHook.SetActive(true);
+                    }
                 }
             }
             else

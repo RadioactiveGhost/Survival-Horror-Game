@@ -4,12 +4,13 @@ public class CustomGameManager : MonoBehaviour
 {
     public static SaveData saveData;
     public static bool pauseIsWorking;
-
+    public static bool hasGrapplingHook;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         pauseIsWorking = true;
+        hasGrapplingHook = false;
     }
 
     public static void SaveGame()
