@@ -8,11 +8,13 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MobBeaviour : MonoBehaviour
 {
-   public Vector3 targetPos;
-   public bool isMoving = false; //public for debugging purposes
-   // public bool isChasing = false; //public for debugging purposes
+
+    public GameObject pickup;
+    public Vector3 targetPos;
+    public bool isMoving = false; //public for debugging purposes
+    // public bool isChasing = false; //public for debugging purposes
     public bool isSecondary = false; //wolf pack member or boar child etc
-  //  public bool isFleeing = false;
+    //  public bool isFleeing = false;
     //public bool isAgressive = false;
     public float maxRange;
     public float minRange;
@@ -46,7 +48,12 @@ public class MobBeaviour : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+
+        if (thisanimal == Animal.bear || thisanimal == Animal.deer || thisanimal == Animal.wolf)
+            animator = GetComponent<Animator>();
+        
+      
+        
 
         sphereCollider.radius = this.GetComponent<MobBeaviour>().lookradius * 2;
        
@@ -55,11 +62,16 @@ public class MobBeaviour : MonoBehaviour
         agent.speed = speed;
         
         waitTime = Random.Range(minWaitTime, maxWaitTime);
-
+        pickup.SetActive(false);
     }
 
     void Update()
     {
+        if (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+        }
+
         if(health <= 0)
         {
             action = Action.dead;
@@ -95,6 +107,9 @@ public class MobBeaviour : MonoBehaviour
                     //laydead
                     if(thisanimal == Animal.bear || thisanimal == Animal.deer || thisanimal == Animal.wolf)
                     animator.SetBool("isWalking", false);
+
+                    GetComponent<Collider>().enabled = false;
+                    pickup.SetActive(true);
                 }
                 break;
             case Action.chasing:
@@ -199,6 +214,7 @@ public class MobBeaviour : MonoBehaviour
     {
         if (thisanimal == Animal.bear || thisanimal == Animal.deer || thisanimal == Animal.wolf)
             animator.SetBool("isWalking", true);
+
         if (isSecondary) //ir atras da mae ou do leader de pack etc
         {
             agent.destination = follower.position;
@@ -231,18 +247,18 @@ public class MobBeaviour : MonoBehaviour
     }
     public void Chase(Vector3 target)
     {
-       
+
         StopCoroutine(Move());
         //isMoving = false;
         float distance = Vector3.Distance(target, transform.position);
 
-            agent.SetDestination(target);
-            if (distance <= agent.stoppingDistance)
+        agent.SetDestination(target);
+        if (distance <= agent.stoppingDistance)
+        {
+
+            if (timeLeft <= 0)
             {
-              timeLeft -= Time.deltaTime;
-              if (timeLeft < 0)
-              {
-                 
+
                 if (targetSaver.CompareTag("Animal"))
                     targetSaver.GetComponent<MobBeaviour>().health -= (attackDamage - targetSaver.GetComponent<MobBeaviour>().armor);
                 else if (targetSaver.CompareTag("Player"))
@@ -250,11 +266,12 @@ public class MobBeaviour : MonoBehaviour
                     targetSaver.GetComponent<Player>().health -= (attackDamage - targetSaver.GetComponent<Player>().armor);
                 }
                 timeLeft = 1;
+
             }
-           
-            }
-            FaceTarget(target);
-            agent.speed = speed * 2f;
+
+        }
+        FaceTarget(target);
+        agent.speed = speed * 2f;
 
     }
     public void Flee(Vector3 target)

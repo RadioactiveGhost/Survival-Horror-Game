@@ -157,6 +157,74 @@ Transform:
   m_Father: {fileID: 2817066258372797968}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2101466024786636128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4301023007345768100}
+  - component: {fileID: 8726370479449007961}
+  - component: {fileID: 5181356665535638369}
+  m_Layer: 9
+  m_Name: pickup
+  m_TagString: PickUp
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4301023007345768100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101466024786636128}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 55.100002, y: 7.0499997, z: 44.35}
+  m_LocalScale: {x: 1.3388, y: 1.3388, z: 2.2660499}
+  m_Children: []
+  m_Father: {fileID: 5278557234096187628}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8726370479449007961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101466024786636128}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.48, y: 2.85, z: 4.25}
+  m_Center: {x: 0, y: 1.55, z: 0.53}
+--- !u!114 &5181356665535638369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101466024786636128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4b087f556186f4899b1fc786153e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPickUp:
+  - item:
+      name: Hide
+      sprite: {fileID: -5428206428529569624, guid: b64d305ec18e4de4783b5a19ff9b8285,
+        type: 3}
+      ingredient: 0
+    count: 5
+  requiredTool:
+    name: 
+    sprite: {fileID: 0}
+    ingredient: 0
 --- !u!1 &2181705945483976582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,9 +1520,10 @@ GameObject:
   - component: {fileID: 110601314294537166}
   - component: {fileID: 2695423947912364851}
   - component: {fileID: 8129472486056569880}
+  - component: {fileID: 1464737742706537413}
   m_Layer: 0
   m_Name: bear
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,6 +1549,7 @@ Transform:
   - {fileID: 5409405931225739721}
   - {fileID: 2059498187868244387}
   - {fileID: 8811714044480296514}
+  - {fileID: 4301023007345768100}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1565,6 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c058104a0d21044ab70ef0f68962f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickup: {fileID: 2101466024786636128}
   targetPos: {x: 0, y: 0, z: 0}
   isMoving: 0
   isSecondary: 0
@@ -1584,9 +1655,22 @@ MonoBehaviour:
   health: 150
   timeLeft: 10
   attackDamage: 20
-  armor: 10
+  armor: 2
   animator: {fileID: 0}
   isMother: 0
+--- !u!135 &1464737742706537413
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158749402977393407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9196579028108205555
 GameObject:
   m_ObjectHideFlags: 0

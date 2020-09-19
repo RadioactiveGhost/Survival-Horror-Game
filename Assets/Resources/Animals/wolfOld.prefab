@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4839048571097467912}
   - component: {fileID: 4839048571097467913}
   m_Layer: 0
-  m_Name: wolf
+  m_Name: wolfOld
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c058104a0d21044ab70ef0f68962f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickup: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   isMoving: 0
   isSecondary: 0
@@ -150,6 +151,7 @@ MonoBehaviour:
   timeLeft: 10
   attackDamage: 25
   armor: 0
+  animator: {fileID: 0}
   isMother: 0
 --- !u!135 &4839048571097467912
 SphereCollider:
@@ -162,7 +164,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6.5
+  m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4839048571097467913
 Rigidbody:

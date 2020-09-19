@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7194233396291326962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4476903835713817809}
+  - component: {fileID: 9127577211607833337}
+  - component: {fileID: 1873810472101143527}
+  m_Layer: 9
+  m_Name: pickup
+  m_TagString: PickUp
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4476903835713817809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194233396291326962}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.457154, y: 4.7131886, z: -20.741169}
+  m_LocalScale: {x: 1, y: 1, z: 1.0000111}
+  m_Children: []
+  m_Father: {fileID: 7864810950530507858}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &9127577211607833337
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194233396291326962}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1873810472101143527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194233396291326962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4b087f556186f4899b1fc786153e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPickUp:
+  - item:
+      name: Meat
+      sprite: {fileID: -7583409310137716746, guid: b64d305ec18e4de4783b5a19ff9b8285,
+        type: 3}
+      ingredient: 0
+    count: 1
+  requiredTool:
+    name: 
+    sprite: {fileID: 0}
+    ingredient: 0
 --- !u!1 &7864810950530507850
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,7 +101,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.22, y: 0.148, z: 18.27}
   m_LocalScale: {x: 0.2677593, y: 0.2677593, z: 0.453205}
-  m_Children: []
+  m_Children:
+  - {fileID: 4476903835713817809}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c058104a0d21044ab70ef0f68962f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickup: {fileID: 7194233396291326962}
   targetPos: {x: 0, y: 0, z: 0}
   isMoving: 0
   isSecondary: 0
@@ -150,6 +220,7 @@ MonoBehaviour:
   timeLeft: 10
   attackDamage: 0
   armor: 0
+  animator: {fileID: 0}
   isMother: 0
 --- !u!135 &7864810950530507852
 SphereCollider:
