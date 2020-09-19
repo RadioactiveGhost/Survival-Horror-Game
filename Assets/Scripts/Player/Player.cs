@@ -61,9 +61,16 @@ public class Player : MonoBehaviour
     {
         ManageThirstHunger();
 
-        healthBar.fillAmount = (float)health/100;
-        thirstBar.fillAmount = (float)thirst/100;
-        hungerBar.fillAmount = (float)hunger/100;
+        try
+        {
+            healthBar.fillAmount = (float)health / 100;
+            thirstBar.fillAmount = (float)thirst / 100;
+            hungerBar.fillAmount = (float)hunger / 100;
+        }
+        catch
+        {
+            Debug.LogError("Missing images on editor?");
+        }
 
         if(dead)
         {

@@ -12,7 +12,7 @@ public class Hotbar : MonoBehaviour
     //ItemCount[] items;
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             hotbar = GameObject.FindGameObjectWithTag("Hotbar");
             slots = hotbar.GetComponentsInChildren<InvSlot>();
@@ -26,7 +26,7 @@ public class Hotbar : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             //CHANGE
             UpdateBar();

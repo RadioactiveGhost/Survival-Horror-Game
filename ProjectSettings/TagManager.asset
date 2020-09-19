@@ -23,6 +23,7 @@ TagManager:
   - CraftSlots
   - CraftMenu
   - GrapplingHook
+  - CraftingLocal
   layers:
   - Default
   - TransparentFX

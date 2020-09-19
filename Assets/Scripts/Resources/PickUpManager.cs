@@ -18,7 +18,7 @@ public class PickUpManager : MonoBehaviour
 
     private void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if(SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             CheckPickups = true;
             cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();

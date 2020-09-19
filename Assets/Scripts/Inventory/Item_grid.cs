@@ -14,7 +14,7 @@ public class Item_grid : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             slotsparents = GameObject.FindGameObjectsWithTag("SlotsParent");
             InventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");

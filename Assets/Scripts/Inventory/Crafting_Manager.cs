@@ -18,7 +18,7 @@ public class Crafting_Manager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Cave" || SceneManager.GetActiveScene().name == "Game" || SceneManager.GetActiveScene().name == "Inventory_Test_Scene")
         {
             CraftingList = GameObject.FindGameObjectWithTag("RecipeList");
             inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<NewInventory>();

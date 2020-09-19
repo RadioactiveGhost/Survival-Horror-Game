@@ -10,7 +10,7 @@ public class CraftSlot : MonoBehaviour
 
     private void Start()
     {
-        craftingManager = GameObject.FindGameObjectWithTag("ResourceManager").GetComponent<Crafting_Manager>();
+        craftingManager = GameObject.FindGameObjectWithTag("CraftingLocal").GetComponent<Crafting_Manager>();
     }
 
     public void OnButtonClick()
